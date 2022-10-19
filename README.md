@@ -1,24 +1,23 @@
-# README
+# Inhumane Cards (Cards Against Humanity Online)
+[Pretend You're Xyzzy](https://pyx-1.pretendyoure.xyz/zy/) (online cards against humanity), but not garbage.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About:
+Made by [F53](https://f53.dev) for Software Dev School Final Project
 
-Things you may want to cover:
+Backend: Ruby on Rails
 
-* Ruby version
+Frontend: React.js
 
-* System dependencies
+## TODO:
+Backend:
+- [ ] Minimum Viable Database
+  - [ ] Seed Card Database from [JSON Against Humanity](https://crhallberg.com/cah/)
+- [ ] Backend game logic clock
+<iframe width="400" height="275" src='https://dbdiagram.io/embed/63506e9047094101959cbd7f'> </iframe>
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Frontend:
+- [ ] Home Page
+- [ ] Log In / Sign Up
+- [ ] Game Find
+- [ ] Create Game
+- [ ] Game
