@@ -7,7 +7,7 @@ begin
   card_file = File.read('./cah-cards-full.json')
 rescue Errno::ENOENT
   puts '❌ ./cah-cards-full.json not found!'
-  puts 'Download it from https://crhallberg.com/cah/'
+  puts 'Download it from https://crhallberg.com/cah/ '
 else
   cards_json = JSON.parse(card_file)
 

@@ -1,0 +1,57 @@
+/* Assign to parents for changing direction */
+.row { display: flex; flex-direction: row; }
+.col { display: flex; flex-direction: column; }
+/* Assign to children of row/col to center */
+.row > .centered { align-self: center; margin: auto 0px; }
+.col > .centered { align-self: center; margin: 0px auto; }
+/* Assign to empty child dive to aesthetically fill space */
+.spacer { flex:1; }
+
+body {
+  margin: 0;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: aqua;
+  width: fit-content;
+  height: fit-content;
+}
+
+h1, h2, h3, h4, h5, p, div, button {
+  margin: 0;
+  color: white;
+  mix-blend-mode: difference;
+}
+button {
+  font-weight: 700;
+  background-color: transparent;
+  font-size: 1.5rem;
+  scale: 0.9;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+}
+button:hover {
+  scale: 0.95
+}
+button:active {
+  scale: 1;
+}
+
+header {
+  margin: 2rem;
+  max-width: 60rem;
+}
+header .logo {
+  font-size: 3rem;
+}
+
+form.login {
+  min-width: 16rem;
+}

@@ -1,7 +1,10 @@
 class User < ApplicationRecord
   has_secure_password
 
-  belongs_to :game
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
+
+  belongs_to :game, optional: true
+
   # makes hand an array somehow
   # https://joecastronovo.medium.com/how-to-add-an-array-column-to-sqlite3-table-662037d49b64
   serialize :hand

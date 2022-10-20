@@ -1,8 +1,8 @@
 class Game < ApplicationRecord
   has_many :users
-  belongs_to :lobby_leader, class_name: 'User', foreign_key: 'lobby_leader_id'
-  belongs_to :round_leader, class_name: 'User', foreign_key: 'round_leader_id'
-  belongs_to :black_card
+  belongs_to :lobby_leader, class_name: 'User', foreign_key: 'lobby_leader_id', optional: true
+  belongs_to :round_leader, class_name: 'User', foreign_key: 'round_leader_id', optional: true
+  belongs_to :black_card, optional: true
 
   def non_round_leader_users
     users.reject(&:round_leader)
