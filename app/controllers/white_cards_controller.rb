@@ -1,0 +1,2 @@
+class WhiteCardsController < ApplicationController
+end

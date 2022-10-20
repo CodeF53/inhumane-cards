@@ -1,0 +1,2 @@
+class BlackCardsController < ApplicationController
+end
