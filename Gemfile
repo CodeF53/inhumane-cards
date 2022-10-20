@@ -18,6 +18,12 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # secure login stuff
 gem 'bcrypt'
 
+# loading card DB from https://crhallberg.com/cah/ cah-cards-full.json
+gem 'json'
+
+# progress bar for loading card DB, because it takes long enough you want one
+gem 'ruby-progressbar'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem "rack-cors"
 
