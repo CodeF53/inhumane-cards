@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # lobby search/creation:
-  resources :games, only: [:index]
-
   # User Account related stuff
   post '/signup', to: 'users#create'
   post '/login', to: 'sessions#create'
@@ -15,8 +12,10 @@ Rails.application.routes.draw do
   patch '/leave/', to: 'users#leave_game'
   patch '/choose_card/:card_index', to: 'users#choose_card'
   patch '/pick_card/:card_index', to: 'users#pick_card'
-
-  # TODO: Start game route
+  # lobby search/creation:
+  resources :games, only: %i[index create]
+  # Lobby leader commands:
+  patch '/start_game', to: 'game#start'
   # TODO: Kick player route
 
   get '/game_state', to: 'game#show'

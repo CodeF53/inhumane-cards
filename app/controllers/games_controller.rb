@@ -15,12 +15,35 @@ class GamesController < ApplicationController
   # GET /game_state
   def show
     authorize
-    return render json: { errors: ['Not in a game'] }, status: :conflict if @current_user.game.nil?
+    verify_in_game
 
-    render json: Game.find(params[:id])
+    render json: current_game
+  end
+
+  # PATCH /start_game
+  def start
+    authorize
+    verify_in_game
+
+    return render json: { errors: ['Not the round leader!'] }, status: :forbidden unless @current_user.round_leader?
+
+    return render json: { errors: ['Game is running'] }, status: :conflict unless current_game.game_phase == 'lobby' || current_game.game_phase == 'over'
+
+    # start game logic loop
+    change(game_phase: 'choose')
+    current_game.select_round_leader
+    current_game.select_black_card
   end
 
   private
+
+  def current_game
+    @current_user.game
+  end
+
+  def verify_in_game
+    return render json: { errors: ['Not in a game'] }, status: :conflict if current_game.nil?
+  end
 
   # Only allow a list of trusted parameters through.
   def game_params
