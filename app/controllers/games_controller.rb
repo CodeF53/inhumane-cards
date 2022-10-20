@@ -4,16 +4,20 @@ class GamesController < ApplicationController
     render json: Game.all
   end
 
-  # GET /games/1
-  def show
-    render json: Game.find(params[:id])
-  end
-
   # POST /games
   def create
-    game = Game.create!(game_params)
+    authorize
+    game = Game.create!(game_params, user: @current_user)
 
     render json: game, status: :created
+  end
+
+  # GET /game_state
+  def show
+    authorize
+    return render json: { errors: ['Not in a game'] }, status: :conflict if @current_user.game.nil?
+
+    render json: Game.find(params[:id])
   end
 
   private
@@ -21,7 +25,6 @@ class GamesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def game_params
     params.require(:game).permit(
-      :lobby_leader_id,
       :winning_score,
       :max_choose_phase_time,
       :max_pick_phase_time,
