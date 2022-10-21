@@ -13,8 +13,6 @@
 ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
   create_table "black_cards", force: :cascade do |t|
     t.string "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "games", force: :cascade do |t|
@@ -22,10 +20,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
     t.integer "card_czar_id"
     t.string "game_phase"
     t.integer "black_card_id"
-    t.integer "winning_score", default: 8
+    t.integer "winning_score"
     t.string "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "player_limit"
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,14 +33,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
     t.text "hand"
     t.integer "submitted_hand_index"
     t.string "picked_card_index"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "white_cards", force: :cascade do |t|
     t.string "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end

@@ -4,8 +4,8 @@ class UsersController < ApplicationController
     session[:user_id] = user.id
     render json: user, status: :created
   end
-
-  def show
+  
+  def me
     authorize
     render json: @current_user
   end
@@ -21,23 +21,20 @@ class UsersController < ApplicationController
     return render json: { errors: ['Game full'] }, status: :gone if found_game.users.length == :player_limit
 
     @current_user.update(game: found_game)
-
     @current_user.set_game_vars
 
-    # TODO: figure out correct response to give here
+    render json: {}, status: :accepted
   end
 
   def leave_game
-    authorize
     confirm_in_game
 
     @current_user.update(game_id: nil)
 
-    # TODO: figure out correct response to give here
+    render json: {}, status: :accepted
   end
 
   def submit_card
-    authorize
     confirm_in_game
     verify_phase('submit')
 
@@ -47,11 +44,10 @@ class UsersController < ApplicationController
 
     @current_user.update(submitted_hand_index: params[:card_index])
 
-    # TODO: figure out correct response to give here
+    render json: {}, status: :accepted
   end
 
   def pick_card
-    authorize
     confirm_in_game
     verify_phase('pick')
 
@@ -60,8 +56,9 @@ class UsersController < ApplicationController
     return render json: { errors: ['Not the card czar!'] }, status: :forbidden unless @current_user.card_czar?
 
     update(picked_card_index: params[:card_index])
+    # TODO: run something that checks if we should go to next phase
 
-    # TODO: figure out correct response to give here
+    render json: {}, status: :accepted
   end
 
   private

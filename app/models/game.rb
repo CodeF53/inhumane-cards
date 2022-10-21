@@ -21,7 +21,7 @@ class Game < ApplicationRecord
   end
 
   def select_black_card
-    change(black_card: BlackCard.select)
+    change(black_card: BlackCard.all.sample)
   end
 
   def replace_used_cards
@@ -35,10 +35,6 @@ end
 
 =begin
 game clock
-  switch game_phase
-  'lobby'
-    wait a bit
-    game clock
   'submit'
     game_phase = 'pick' if non_card_czar_users.all?(&:submitted_card?)
 
