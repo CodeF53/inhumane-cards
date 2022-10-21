@@ -14,24 +14,20 @@ class User < ApplicationRecord
 
   # TODO: belongs_to hand_cards, class_name: 'WhiteCard', foreign_keys: 'hand'
 
-  def not_chosen_card?
-    chosen_hand_index.nil?
+  def submitted_card?
+    submitted_hand_index.nil?.!
   end
 
-  def chosen_card?
-    not_chosen_card.!
+  def submitted_card
+    hand[submitted_hand_index]
   end
 
-  def chosen_card
-    hand[chosen_hand_index]
+  def card_czar?
+    game.card_czar == self
   end
 
-  def round_leader?
-    game.round_leader == self
-  end
-
-  def lobby_leader?
-    game.lobby_leader == self
+  def lobby_owner?
+    game.lobby_owner == self
   end
 
   def increment_game_score
@@ -39,6 +35,6 @@ class User < ApplicationRecord
   end
 
   def set_game_vars
-    update(game_score: 0, hand: WhiteCard.sample(game.hand_size))
+    update(game_score: 0, hand: WhiteCard.sample(10))
   end
 end

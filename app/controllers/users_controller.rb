@@ -34,16 +34,16 @@ class UsersController < ApplicationController
     # TODO: figure out correct response to give here
   end
 
-  def choose_card
+  def submit_card
     authorize
     confirm_in_game
-    verify_phase('choose')
+    verify_phase('submit')
 
-    return render json: { errors: ['Card already chosen'] }, status: :conflict unless @current_user.not_chosen_card?
+    return render json: { errors: ['Card already submitted'] }, status: :conflict if @current_user.submitted_card?
 
-    return render json: { errors: ['Currently the round leader!'] }, status: :forbidden if @current_user.round_leader?
+    return render json: { errors: ['Currently the card czar!'] }, status: :forbidden if @current_user.card_czar?
 
-    @current_user.update(chosen_hand_index: params[:card_index])
+    @current_user.update(submitted_hand_index: params[:card_index])
 
     # TODO: figure out correct response to give here
   end
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
 
     return render json: { errors: ['Card already chosen'] }, status: :conflict unless picked_card_index.nil?
 
-    return render json: { errors: ['Not the round leader!'] }, status: :forbidden unless @current_user.round_leader?
+    return render json: { errors: ['Not the card czar!'] }, status: :forbidden unless @current_user.card_czar?
 
     update(picked_card_index: params[:card_index])
 

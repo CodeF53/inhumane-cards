@@ -10,7 +10,7 @@ class GamesController < ApplicationController
   def create
     authorize
     game = Game.create!(game_params)
-    game.update(lobby_leader: @current_user)
+    game.update(lobby_owner: @current_user)
 
     # hacky, should probably run user#join_game
     @current_user.update(game: game)
@@ -32,13 +32,13 @@ class GamesController < ApplicationController
     authorize
     verify_in_game
 
-    return render json: { errors: ['Not the round leader!'] }, status: :forbidden unless @current_user.round_leader?
+    return render json: { errors: ['Not the card czar!'] }, status: :forbidden unless @current_user.card_czar?
 
     return render json: { errors: ['Game is running'] }, status: :conflict unless current_game.game_phase == 'lobby' || current_game.game_phase == 'over'
 
     # start game logic loop
-    change(game_phase: 'choose')
-    current_game.select_round_leader
+    change(game_phase: 'submit')
+    current_game.select_card_czar
     current_game.select_black_card
   end
 
@@ -56,10 +56,6 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit(
       :winning_score,
-      :max_choose_phase_time,
-      :max_pick_phase_time,
-      :result_phase_time,
-      :hand_size,
       :password
     )
   end
