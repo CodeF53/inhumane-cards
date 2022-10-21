@@ -18,6 +18,8 @@ class UsersController < ApplicationController
       return render json: { errors: ['Invalid game password'] }, status: :unauthorized
     end
 
+    return render json: { errors: ['Game full'] }, status: :gone if found_game.users.length == :player_limit
+
     @current_user.update(game: found_game)
 
     @current_user.set_game_vars

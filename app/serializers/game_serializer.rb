@@ -1,5 +1,5 @@
 class GameSerializer < ActiveModel::Serializer
-  attributes :id, :host, :password_protected, :num_players
+  attributes :id, :host, :password_protected, :num_players, :player_limit
 
   def host
     object.lobby_owner.username

@@ -8,6 +8,7 @@ export function CreateLobby({user}) {
 
   const [formObject, setFormObject] = useState({
     "winning_score": 8,
+    "player_limit": 10,
     "password": ""
   })
   const updateFormObject = ({target:{name, value}})=>setFormObject(formObject=>({...formObject, [name]: value}))
@@ -32,6 +33,7 @@ export function CreateLobby({user}) {
     <form onSubmit={handleSubmit} className="create_game centered col" id="log-form">
       <h1>Create Lobby</h1>
       <LabeledInput label="Winning Score" name="winning_score" type="number" value={formObject.winning_score} onChange={updateFormObject} step="1" min="3" max="100"/>
+      <LabeledInput label="Player Limit"  name="player_limit"  type="number" value={formObject.player_limit}  onChange={updateFormObject} step="1" min="3" max="10"/>
       <LabeledInput label="Lobby Password (Optional)" name="password" type="password" value={formObject.password} onChange={updateFormObject}/>
       <button className="centered" type="submit">Submit</button>
     </form>
