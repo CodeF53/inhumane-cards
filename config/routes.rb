@@ -10,11 +10,11 @@ Rails.application.routes.draw do
   # Game Requests
   patch '/join/:game_id', to: 'users#join_game'
   patch '/leave/', to: 'users#leave_game'
-  patch '/choose_card/:card_index', to: 'users#choose_card'
+  patch '/submit_card/:card_index', to: 'users#submit_card'
   patch '/pick_card/:card_index', to: 'users#pick_card'
   # lobby search/creation:
   resources :games, only: %i[index create]
-  # Lobby leader commands:
+  # lobby owner commands:
   patch '/start_game', to: 'game#start'
   # TODO: Kick player route
 

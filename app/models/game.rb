@@ -1,23 +1,23 @@
 class Game < ApplicationRecord
   has_many :users
-  belongs_to :lobby_leader, class_name: 'User', foreign_key: 'lobby_leader_id', optional: true
-  belongs_to :round_leader, class_name: 'User', foreign_key: 'round_leader_id', optional: true
+  belongs_to :lobby_owner, class_name: 'User', foreign_key: 'lobby_owner_id', optional: true
+  belongs_to :card_czar, class_name: 'User', foreign_key: 'card_czar_id', optional: true
   belongs_to :black_card, optional: true
 
-  def non_round_leader_users
-    users.reject(&:round_leader)
+  def non_card_czar_users
+    users.reject(&:card_czar)
   end
 
-  def chosen_round_cards
-    non_round_leader_users.map(&:chosen_card)
+  def submitted_round_cards
+    non_card_czar_users.map(&:submitted_card)
   end
 
-  def select_round_leader
-    # when game is started, leader is selected randomly
-    return change(round_leader: user.select) if round_leader.nil?
+  def select_card_czar
+    # when game is started, card czar is selected randomly
+    return change(card_czar: user.select) if card_czar.nil?
 
     # otherwise, get the next player in a loop
-    change(round_leader: users[(users.index(round_leader) + 1) % users.length])
+    change(card_czar: users[(users.index(card_czar) + 1) % users.length])
   end
 
   def select_black_card
@@ -25,9 +25,9 @@ class Game < ApplicationRecord
   end
 
   def replace_used_cards
-    non_round_leader_users.each do |user|
+    non_card_czar_users.each do |user|
       cards = user.cards
-      cards[user.chosen_hand_index] = WhiteCard.select
+      cards[user.submitted_hand_index] = WhiteCard.select
       user.change(cards: cards)
     end
   end
@@ -39,48 +39,35 @@ game clock
   'lobby'
     wait a bit
     game clock
-  'choose'
-    game_phase = 'pick' if non_round_leader_users.all?(&:chosen_card?)
-
-    # only force next game phase if:
-    # - waited longer than max_choose_phase_time
-    # - make sure there is enough submitted cards (atleast 2)
-    if waited longer than max_choose_phase_time && non_round_leader_users.select(&:chosen_card) >= 2
-      game_phase = 'pick'
-      # ?: maybe game option kick_afk_players
-    end
+  'submit'
+    game_phase = 'pick' if non_card_czar_users.all?(&:submitted_card?)
 
     wait a bit
     game clock
   'pick'
-    game_phase = 'result' unless round_leader.picked_card_index.nil?
-
-    # if waited longer than max_pick_phase_time
-    #   TODO: figure out what the hell to do if this happens
-    #   game_phase = 'result'
-    # end
+    game_phase = 'result' unless card_czar.picked_card_index.nil?
 
     wait a bit
     game clock
   'result'
     # get and store round winning card/player
-    @round_winning_card = chosen_round_cards[round_leader.picked_card_index]
-    @round_winner = non_round_leader_users.find_by(chosen_card: round_winning_card)
+    @round_winning_card = submitted_round_cards[card_czar.picked_card_index]
+    @round_winner = non_card_czar_users.find_by(submitted_card: round_winning_card)
 
     # increment score of round winning player
     @round_winner.increment_game_score
 
-    wait result_phase_time
+    wait 15 seconds
 
     replace_used_cards
-    select_round_leader
+    select_card_czar
     select_black_card
 
     if @round_winner.game_score == winning_score
       change(game_phase: 'over')
       @game_winner = @round_winner
     else
-      change(game_phase: 'choose')
+      change(game_phase: 'submit')
     end
 end
 =end

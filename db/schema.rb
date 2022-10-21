@@ -18,15 +18,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.integer "lobby_leader_id"
-    t.integer "round_leader_id"
+    t.integer "lobby_owner_id"
+    t.integer "card_czar_id"
     t.string "game_phase"
     t.integer "black_card_id"
     t.integer "winning_score", default: 8
-    t.integer "max_choose_phase_time", default: 180
-    t.integer "max_pick_phase_time", default: 360
-    t.integer "result_phase_time", default: 45
-    t.integer "hand_size", default: 10
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -38,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
     t.integer "game_id"
     t.integer "game_score"
     t.text "hand"
-    t.integer "chosen_hand_index"
+    t.integer "submitted_hand_index"
     t.string "picked_card_index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
