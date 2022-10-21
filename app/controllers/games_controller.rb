@@ -11,7 +11,10 @@ class GamesController < ApplicationController
     authorize
     game = Game.create!(game_params)
     game.update(lobby_leader: @current_user)
+
+    # hacky, should probably run user#join_game
     @current_user.update(game: game)
+    @current_user.set_game_vars
 
     render json: game, status: :created
   end

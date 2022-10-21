@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { CreateLobby } from "../pages/CreateLobby";
+import { Game } from "../pages/Game";
 import { Home } from "../pages/Home";
 import { Lobbies } from "../pages/Lobbies";
 import { LoginSignup } from "../pages/LoginSignup";
@@ -20,7 +21,7 @@ export function App() {
     <Routes>
       <Route path="/" element={<Home/>} />
 
-      <Route path="/game" element={<div />}/>
+      <Route path="/game/:id" element={<Game />}/>
 
       <Route path="/lobbies"      element={<Lobbies user={user} />} />
       <Route path="/create_lobby" element={<CreateLobby user={user} />} />

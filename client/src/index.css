@@ -2,8 +2,8 @@
 .row { display: flex; flex-direction: row; }
 .col { display: flex; flex-direction: column; }
 /* Assign to children of row/col to center */
-.row > .centered { align-self: center; margin: auto 0px; }
-.col > .centered { align-self: center; margin: 0px auto; }
+.row.centerChildren > *, .row > .centered { align-self: center; margin: auto 0px; }
+.col.centerChildren > *, .col > .centered { align-self: center; margin: 0px auto; }
 /* Assign to empty child dive to aesthetically fill space */
 .spacer { flex:1; }
 
@@ -45,7 +45,8 @@ button:active {
 }
 
 header {
-  margin: 2rem;
+  margin: 2rem auto;
+  padding: 0 2rem;
   max-width: 60rem;
 }
 header .logo {
@@ -58,4 +59,8 @@ form {
 
 .labeled_input > label {
   margin-right: 1rem;
+}
+
+.gameLobby {
+  gap: 1rem;
 }
