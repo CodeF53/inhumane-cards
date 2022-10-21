@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { CreateLobby } from "../pages/CreateLobby";
 import { Home } from "../pages/Home";
+import { Lobbies } from "../pages/Lobbies";
 import { LoginSignup } from "../pages/LoginSignup";
 import { Header } from "./Header";
 
@@ -16,8 +18,12 @@ export function App() {
     <Header user={user} setUser={setUser} />
 
     <Routes>
-      <Route path="/"       element={<Home/>} />
-      <Route path="/game"/>
+      <Route path="/" element={<Home/>} />
+
+      <Route path="/game" element={<div />}/>
+
+      <Route path="/lobbies"      element={<Lobbies user={user} />} />
+      <Route path="/create_lobby" element={<CreateLobby user={user} />} />
 
       <Route path="/login"  element={<LoginSignup isLogin={true}  user={user} setUser={setUser} />} />
       <Route path="/signup" element={<LoginSignup isLogin={false} user={user} setUser={setUser} />} />

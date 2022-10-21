@@ -52,6 +52,10 @@ header .logo {
   font-size: 3rem;
 }
 
-form.login {
+form {
   min-width: 16rem;
+}
+
+.labeled_input > label {
+  margin-right: 1rem;
 }

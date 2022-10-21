@@ -2,7 +2,7 @@ class GameSerializer < ActiveModel::Serializer
   attributes :id, :host, :password_protected, :num_players
 
   def host
-    object.lobby_leader.name
+    object.lobby_leader.username
   end
 
   def password_protected

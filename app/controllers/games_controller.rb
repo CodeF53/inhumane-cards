@@ -1,13 +1,17 @@
 class GamesController < ApplicationController
   # GET /games
   def index
+    return render json: [] if Game.all.empty?
+
     render json: Game.all
   end
 
   # POST /games
   def create
     authorize
-    game = Game.create!(game_params, user: @current_user)
+    game = Game.create!(game_params)
+    game.update(lobby_leader: @current_user)
+    @current_user.update(game: game)
 
     render json: game, status: :created
   end

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 
 export function LoginSignup({ isLogin, user, setUser }) {
   const navigate = useNavigate()
-  // if (user) navigate("/")
+  if (user) navigate("/")
 
   const [username, setUsername]   = useState("")
   const [password, setPassword]   = useState("")
@@ -33,7 +33,7 @@ export function LoginSignup({ isLogin, user, setUser }) {
 
   return (
     <div className="col">
-      <form onSubmit={handleSubmit} className="login centered panel col" id="log-form">
+      <form onSubmit={handleSubmit} className="login centered col" id="log-form">
         <h1>{isLogin? "Log In": "Sign Up"}</h1>
         <input onChange={(e)=>{setUsername(e.target.value)}} value={username} placeholder="username" type="text"/>
         <input onChange={(e)=>{setPassword(e.target.value)}} value={password} placeholder="password" type="password"/>
