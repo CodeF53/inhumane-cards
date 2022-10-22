@@ -20,7 +20,7 @@ export function CreateLobby({user}) {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formObject)
     }).then(r=>{ if (r.ok) { r.json().then(game=>{
-      navigate("/game/"+game.id) // send user to game lobby
+      navigate("/game/") // send user to game lobby
     })} else {
       r.json().then(({errors})=>{
         // setErrorText(errors[0])

@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     return render json: { errors: ['Game full'] }, status: :gone if found_game.users.length == :player_limit
 
     @current_user.update(game: found_game)
+    @current_user.set_game_vars
 
     render json: {}, status: :accepted
 
@@ -86,10 +87,10 @@ class UsersController < ApplicationController
 
   # GET /game_state
   # TODO: hacky alternative to telling clients new info, just have them ask about it CONSTANTLY
-  def show
+  def game_state
     confirm_in_game
 
-    render json: current_game, serializer: GameStateSerializer
+    render json: @game, serializer: GameStateSerializer
   end
 
   private

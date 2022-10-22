@@ -9,7 +9,7 @@ export function GameLobby({ lobby: {id, host, password_protected, num_players, p
 
   function joinGame() {
     fetch(`join/${id}`, { method: "PATCH" }).then(r=>{
-      if (r.ok) { navigate("/game/"+id)}
+      if (r.ok) { navigate("/game/")}
       else { r.json().then(d=>setErrorText(d.errors[0]))}
     })
   }

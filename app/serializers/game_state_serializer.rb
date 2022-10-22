@@ -1,5 +1,11 @@
 class GameStateSerializer < ActiveModel::Serializer
-  attributes :game_phase, :winning_score, :users, :card_czar_id, :game_stuff, :black_card
+  attributes :id, :game_phase, :winning_score, :users, :card_czar_id, :black_card, :game_stuff, :lobby_owner_id
+
+  def users
+    object.users.map do |user|
+      ActiveModelSerializers::SerializableResource.new(user).as_json
+    end
+  end
 
   def game_stuff
     case object.game_phase
@@ -24,6 +30,8 @@ class GameStateSerializer < ActiveModel::Serializer
       {
         winning_user_id: object.winner
       }
+    else
+      'random shit'
     end
   end
 end

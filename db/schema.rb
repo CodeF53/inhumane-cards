@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
   create_table "games", force: :cascade do |t|
     t.integer "lobby_owner_id"
     t.integer "card_czar_id"
-    t.string "game_phase"
+    t.string "game_phase", default: "lobby"
     t.integer "black_card_id"
     t.integer "winning_score"
     t.string "password"

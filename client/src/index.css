@@ -14,6 +14,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.app {
+  height: 100wh;
+}
 
 a {
   text-decoration: none;
@@ -30,7 +33,7 @@ h1, h2, h3, h4, h5, p, div, button {
 button {
   font-weight: 700;
   background-color: transparent;
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
   scale: 0.9;
   border: none;
   cursor: pointer;
@@ -63,4 +66,23 @@ form {
 
 .gameLobby {
   gap: 1rem;
+}
+
+.controlPanel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20rem;
+}
+.lobbyOwner.controlPanel {
+  width:26rem;
+}
+.controlPanel > * {
+  outline: solid red 2px;
+}
+.controlPanel > .users > .user {
+  gap: .25rem;
+}
+.controlPanel > .users > .user > .icon {
+  width: 1rem;
 }
