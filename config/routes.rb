@@ -17,6 +17,5 @@ Rails.application.routes.draw do
   # lobby owner commands:
   patch '/start_game', to: 'users#start'
   # TODO: Kick player route
-  # ! temp route, replace with server telling users the game state directly
   get '/game_state', to: 'users#game_state'
 end

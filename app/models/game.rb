@@ -9,7 +9,6 @@ class Game < ApplicationRecord
     when 'submit'
       update(game_phase: 'pick') if non_card_czar_users.all?(&:submitted_card?)
       # TODO: randomize card order
-      # TODO: tell clients new info
     when 'pick'
       unless card_czar.picked_card_index.nil
         update(game_phase: 'result')
@@ -20,8 +19,6 @@ class Game < ApplicationRecord
       @winning_card_id = submitted_round_cards[card_czar.picked_card_index]
       @winner = non_card_czar_users.find_by(submitted_card_id: @winning_card_id)
       @winner.increment_game_score
-
-      # TODO: tell clients new info
 
       # wait 15 seconds for users to admire winning combo
       sleep(15)
@@ -40,13 +37,11 @@ class Game < ApplicationRecord
         select_card_czar
         select_black_card
       end
-      # TODO: tell clients new info
     else # 'lobby' 'over'
       select_card_czar
       select_black_card
       users.each(&:set_game_vars)
       update(game_phase: 'submit')
-      # TODO: tell clients new info
     end
   end
 

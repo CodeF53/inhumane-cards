@@ -9,7 +9,6 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, lob
   const is_lobby_owner = user.id === lobby_owner_id
 
   // TODO: hook up leave game button
-  // TODO: hook up start game button
   return <div className={`controlPanel ${is_lobby_owner?"lobbyOwner":""} col`}>
     <div className="users col">
       {users.map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} is_lobby_owner={is_lobby_owner}/>)}

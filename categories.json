@@ -1,0 +1,104 @@
+{
+  "Official Base": "/CAH Base Set|CAH: (First|Third|Second|Fourth|Fifth|Sixth) Expansion/",
+
+  "Official Holiday":"/\\d{4} Holiday Pack/",
+
+  "Official Color": "/CAH: (Blue|Green|Red) Box Expansion/",
+
+  "Official PAX": "/.*PAX.*/i",
+
+  "Official Misc": [
+    "/CAH: .*/",
+    "/90s Nostalgia Pack/",
+    "/Absurd Box Expansion/",
+    "/ClickHole Greeting Cards Pack (Target Exclusive)/",
+    "/Dad Pack/",
+    "/Desert Bus For Hope Pack/",
+    "/Fantasy Pack/",
+    "/Fascism Pack/",
+    "/Food Pack/",
+    "/Geek Pack/",
+    "/Gen Con 2018 Midterm Election Pack/",
+    "/House of Cards Pack/",
+    "/Jack White Show Pack/",
+    "/Jew Pack\/Chosen People Pack/",
+    "/Mass Effect Pack/",
+    "/Nerd Bundle: A Few More Cards For You Nerds (Target Exclusive)/",
+    "/Period Pack/",
+    "/Pride Pack/",
+    "/Retail Mini Pack/",
+    "/Retail Product /",
+    "/Sci-Fi Pack/",
+    "/Science Pack/",
+    "/Seasons Greetings Pack/",
+    "/TableTop Pack/",
+    "/Theatre Pack/",
+    "/Theatre Pack - CATS Musical Pack/",
+    "/Weed Pack/",
+    "/World Wide Web Pack/"
+  ],
+
+	"Official Reject": "/Reject Pack.?\\d?/",
+
+	"Official Political": [
+    "/Trump Bug Out Bag\\/Post-Trump Pack/",
+    "/Cards Against Humanity Saves America Pack/",
+    "/Vote For Hillary Pack/",
+    "/Vote For Trump Pack/",
+    "/2016 Election Game/"
+  ],
+
+	"Cads About Maternity": "/Cads About Maternity.*/",
+
+	"Cakes Athirst Hilarity": "/Cakes Athirst Hilarity Volume.*/",
+
+	"Carbs of the Huge Manatee": "/Carbs of the Huge Manatee.*/",
+
+	"Cards and Punishment": "/Cards and Punishment Vol. .*/",
+
+  "Carps & Angsty Manatee": "/Carps & Angsty Manatee - .*/",
+
+	"Cats Abiding Horribly": "/Cats Abiding Horribly.*/",
+
+	"Clones Attack Hilarity": "/Clones Attack Hilarity #\\d/",
+
+	"Cows": "/Cows .*/",
+
+  "Kentucky?": "/Cols .* Kentucky.*/",
+
+	"Cocks Abreast Hostility": "/Cocks Abreast Hostility.*/",
+
+	"Conspiracy Theory": "/Conspiracy Theory.*/",
+
+	"Crabs Adjust Humidity": "/Crabs Adjust Humidity: .*/",
+
+	"Disgruntled Decks": "/Disgruntled Decks: .*/",
+
+	"Humanity Hates": "/Humanity Hates .*/",
+
+	"JadedAid": "/JadedAid: .*/",
+
+	"KinderPerfect": "/KinderPerfect.*/",
+
+	"Kiwis _ Morality": "/Kiwis .* Morality/",
+
+	"Knitters Against Swatches": "/Knitters Against Swatches .* Edition/",
+
+	"Not Parent Approved": "/Not Parent Approved.*/",
+
+	"Personally Incorrect": "/Personally Incorrect.*/",
+
+	"Pigs Against Profanity": "/Pigs Against Profanity: Volume \\d/",
+
+  "That's What She Said Game": "/That\\'s What She Said Game.*/",
+
+	"The Catholic Card Game": "/The Catholic Card Game: .*/",
+
+	"The Worst Card Game": "/The Worst Card Game: .*/",
+
+	"Trumped UpCards": "/Trumped UpCards: .*/",
+
+  "Voter's Choice": "/Voter's Choice: The .* Expansion/",
+
+	"Words Against Morality": "/Words Against Morality: Volume \\d/"
+}

@@ -24,9 +24,6 @@ class UsersController < ApplicationController
     @current_user.set_game_vars
 
     render json: {}, status: :accepted
-
-    # tell other players that user joined
-    # TODO: tell clients new info
   end
 
   def leave_game
@@ -37,9 +34,6 @@ class UsersController < ApplicationController
     render json: {}, status: :accepted
 
     step_game # if game was waiting on user (to submit or pick), we should advance the game
-
-    # tell other players that user left
-    # TODO: tell clients new info
   end
 
   def submit_card
@@ -86,7 +80,6 @@ class UsersController < ApplicationController
   end
 
   # GET /game_state
-  # TODO: hacky alternative to telling clients new info, just have them ask about it CONSTANTLY
   def game_state
     confirm_in_game
 
