@@ -8,9 +8,11 @@ import { LoginSignup } from "../pages/LoginSignup";
 import { Header } from "./Header";
 
 export function App() {
-  // TODO: switch to persistent state for user
-  const [user, setUser] = useState(null)
-  // auto-login
+  // persistent user through local storage
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
+  useEffect(() => { localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+  // auto-login (incase cooke expired or something)
   useEffect(() => {fetch("/me").then((r) => { if (r.ok) {
     r.json().then((user) => setUser(user));
   }});}, []);
