@@ -30,13 +30,13 @@ class Game < ApplicationRecord
       non_card_czar_users.each do |user|
         cards = user.cards
         cards[user.submitted_hand_index] = WhiteCard.all.select
-        user.change(cards: cards)
+        user.update(cards: cards)
       end
 
       if @winner.game_score == winning_score
-        change(game_phase: 'over')
+        update(game_phase: 'over')
       else
-        change(game_phase: 'submit')
+        update(game_phase: 'submit')
         select_card_czar
         select_black_card
       end
@@ -45,13 +45,13 @@ class Game < ApplicationRecord
       select_card_czar
       select_black_card
       users.each(&:set_game_vars)
-      change(game_phase: 'submit')
+      update(game_phase: 'submit')
       # TODO: tell clients new info
     end
   end
 
   def non_card_czar_users
-    users.reject(&:card_czar)
+    users.reject(&:card_czar?)
   end
 
   def submitted_round_cards
@@ -60,13 +60,13 @@ class Game < ApplicationRecord
 
   def select_card_czar
     # when game is started, card czar is selected randomly
-    return change(card_czar: user.select) if card_czar.nil?
+    return update(card_czar: users.sample) if card_czar.nil?
 
     # otherwise, get the next player in a loop
-    change(card_czar: users[(users.index(card_czar) + 1) % users.length])
+    update(card_czar: users[(users.index(card_czar) + 1) % users.length])
   end
 
   def select_black_card
-    change(black_card: BlackCard.all.sample)
+    update(black_card: BlackCard.all.sample)
   end
 end

@@ -78,7 +78,7 @@ class UsersController < ApplicationController
 
     return render json: { errors: ['Not the lobby owner!'] }, status: :forbidden unless @current_user.lobby_owner?
 
-    return render json: { errors: ['Game is already running'] }, status: :conflict unless current_game.game_phase == 'lobby' || current_game.game_phase == 'over'
+    return render json: { errors: ['Game is already running'] }, status: :conflict unless @game.game_phase == 'lobby' || @game.game_phase == 'over'
 
     # TODO: add check if atleast 4 players are in the lobby
 
