@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   # lobby search/creation:
   resources :games, only: %i[index create]
   # lobby owner commands:
-  patch '/start_game', to: 'user#start'
+  patch '/start_game', to: 'users#start'
   # TODO: Kick player route
-
-  get '/game_state', to: 'user#game_state'
+  # ! temp route, replace with server telling users the game state directly
+  get '/game_state', to: 'users#game_state'
 end

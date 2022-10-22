@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def join_game
-    found_game = Game.find(param[:game_id])
+    found_game = Game.find(params[:game_id])
 
     unless found_game.password.nil? || found_game.password != params[:password]
       return render json: { errors: ['Invalid game password'] }, status: :unauthorized

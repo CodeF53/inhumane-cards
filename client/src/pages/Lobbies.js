@@ -9,7 +9,7 @@ export function Lobbies({user}) {
 
   return <div className="col">
     <div className="centered">
-      {lobbies.map(lobby=><GameLobby lobby={lobby}/>)}
+      {lobbies.map(lobby=><GameLobby lobby={lobby} key={lobby.id}/>)}
     </div>
   </div>
 }

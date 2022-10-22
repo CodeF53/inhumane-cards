@@ -15,7 +15,7 @@ export function GameLobby({ lobby: {id, host, password_protected, num_players, p
   }
 
   // only show join button if lobby isn't full and password is inputted (if required)
-  const showJoinButton = num_players > player_limit && (password_protected? password!=="" : true)
+  const showJoinButton = num_players < player_limit && (password_protected? password!=="" : true)
 
   return <div className="row centerChildren gameLobby">
     <span>{host}'s game</span>
@@ -28,7 +28,7 @@ export function GameLobby({ lobby: {id, host, password_protected, num_players, p
 
     <div className="spacer"/>
 
-    {showJoinButton?<button onClick={joinGame} ariaLabel={`join ${host}'s game`}>Join Game</button>:null}
+    {showJoinButton?<button onClick={joinGame} aria-label={`join ${host}'s game`}>Join Game</button>:null}
 
     <span className="errors">{errorText}</span>
   </div>
