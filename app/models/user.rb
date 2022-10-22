@@ -12,14 +12,18 @@ class User < ApplicationRecord
     u.hand = [] if u.hand.nil?
   end
 
-  # TODO: belongs_to hand_cards, class_name: 'WhiteCard', foreign_keys: 'hand'
+  def hand_cards
+    hand.map do |card_id|
+      WhiteCard.find_by(card_id)
+    end
+  end
 
   def submitted_card?
     submitted_hand_index.nil?.!
   end
 
   def submitted_card
-    hand[submitted_hand_index]
+    hand_cards[submitted_hand_index]
   end
 
   def card_czar?

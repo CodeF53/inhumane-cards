@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   # lobby search/creation:
   resources :games, only: %i[index create]
   # lobby owner commands:
-  patch '/start_game', to: 'game#start'
+  patch '/start_game', to: 'user#start'
   # TODO: Kick player route
 
-  get '/game_state', to: 'game#show'
+  get '/game_state', to: 'user#game_state'
 end
