@@ -11,7 +11,7 @@ class GameStateSerializer < ActiveModel::Serializer
     case object.game_phase
     when 'submit'
       # which users have submitted
-      object.non_card_czar_users.select(&:submitted_card?)
+      object.non_card_czar_users.select(&:submitted_card?).map(&:id)
     when 'pick'
       # array of card texts
       { cards: object.submitted_round_cards }
