@@ -12,10 +12,11 @@ export function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
   useEffect(() => { localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
-  // auto-login (incase cooke expired or something)
-  useEffect(() => {fetch("/me").then((r) => { if (r.ok) {
-    r.json().then((user) => setUser(user));
-  }});}, []);
+  // auto-login (incase cookie expired or something)
+  useEffect(() => {fetch("/me").then((r) => {
+    if (r.ok) { r.json().then((user) => setUser(user)); }
+    else { setUser(null) }
+  });}, []);
 
 
   return <div className="app">
