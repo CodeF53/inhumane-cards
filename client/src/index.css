@@ -60,6 +60,7 @@ form {
 }
 
 .labeled_input > label {
+  color: white;
   margin-right: 1rem;
 }
 

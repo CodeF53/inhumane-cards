@@ -11,12 +11,14 @@ export function Game({user}) {
     return () => clearInterval(interval);
   }, []);
 
+
   console.log(gameState)
+  const userIsCardCzar = user.id === gameState.card_czar_id
 
   return <div className="game">
     {["submit", "pick", "result"].includes(gameState.game_phase)? <Fragment>
-      <Pool gameState={gameState} userIsCardCzar={user.id === gameState.card_czar_id}/>
-      <Hand cards={gameState.hand} game_phase={gameState.game_phase} userIsCardCzar={user.id === gameState.card_czar_id}/>
+      <Pool gameState={gameState} userIsCardCzar={userIsCardCzar}/>
+      <Hand cards={gameState.hand} game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} gameState={gameState} user={user}/>
     </Fragment>:null}
     <ControlPanel gameState={gameState} user={user}/>
   </div>

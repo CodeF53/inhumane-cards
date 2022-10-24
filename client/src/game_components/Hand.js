@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react"
 import { cardRotation } from "../math"
 
-export function Hand({cards, game_phase, userIsCardCzar}) {
+export function Hand({cards, game_phase, userIsCardCzar, gameState, user}) {
   const [selectedCard, setSelectedCard_] = useState(-1)
   const [cardSubmitted, setCardSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (game_phase==="submit" && gameState.game_stuff.users_submitted.includes(user.id)) {
+      setCardSubmitted(true)
+    }
+  },[game_phase, gameState, user])
 
   useEffect(() => {
     if (game_phase==="submit") {
@@ -25,7 +31,7 @@ export function Hand({cards, game_phase, userIsCardCzar}) {
     }
   }
 
-  const letUserPick = selectedCard===-1 && !userIsCardCzar && game_phase === "submit"
+  const letUserPick = !cardSubmitted && selectedCard===-1 && !userIsCardCzar && game_phase === "submit"
 
   const cardControls = <div className="cardControls col centerChildren">
     <button className="confirm" onClick={submitCard}>Confirm</button>
