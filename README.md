@@ -17,6 +17,9 @@ Backend:
 - [ ] Randomize Pick/Result phase card order
 - [ ] Automatically kick players that haven't had a `get /game_state` fetch in 30 seconds
 - [ ] Automatically close empty games
+- [ ] Optimize
+- [ ] Optimize
+- [ ] Optimize
 
 <iframe width="400" height="275" src='https://dbdiagram.io/embed/63506e9047094101959cbd7f'> </iframe>
 
@@ -30,8 +33,16 @@ Frontend:
   - [x] Submit
   - [x] Pick
   - [x] Result
+- [ ] Sound Effects
+- [ ] Make shit look good
+  - [ ] Game Controls Menu
+  - [ ] Front Page
+  - [ ] Lobby Select Screen
+  - [ ] Lobby Create Screen
+  - [ ] User Create Screen
 
 General:
+- [ ] Fix submitted/picked_card_index not resetting
 - [ ] Settings
   - [ ] Random card rotation optional
     (2 people have asked for this so far)
