@@ -40,12 +40,17 @@ Frontend:
   - [ ] Lobby Select Screen
   - [ ] Lobby Create Screen
   - [ ] User Create Screen
+- [ ] Everyone is waiting on you
+  - the longer everyone is waiting on a single user, the more text appears that says it on their screen
+  - after 60 seconds of everyone waiting on a single user, sound effects start to play on their side
+- [ ] Waiting on user
 
 General:
 - [ ] Fix submitted/picked_card_index not resetting
 - [ ] Settings
   - [ ] Random card rotation optional
     (2 people have asked for this so far)
+  - [ ] Disable everyone is waiting on you sfx
 - [ ] Automatically put user back in game if they are in one
 - [ ] Leave Game
 - [ ] Kick/Promote
