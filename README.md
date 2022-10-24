@@ -25,7 +25,7 @@ Frontend:
 - [x] Log In / Sign Up
 - [x] Game Find
 - [x] Create Game
-- [ ] Game
+- [x] Game
   - [x] Lobby/Over
   - [x] Submit
   - [x] Pick
