@@ -32,6 +32,9 @@ Frontend:
   - [x] Result
 
 General:
+- [ ] Settings
+  - [ ] Random card rotation optional
+    (2 people have asked for this so far)
 - [ ] Automatically put user back in game if they are in one
 - [ ] Leave Game
 - [ ] Kick/Promote
@@ -40,8 +43,6 @@ General:
   - [ ] add pack to card seeding
   - [ ] add category to card seeding
     - [x] categories.json (this shit took me 2 hours aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
-- [ ] Settings
-  - [ ] Random card rotation optional
 
 ## Is this legal?
 Cards Against Humanity® is distributed under a [Creative Commons BY-NC-SA 4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
