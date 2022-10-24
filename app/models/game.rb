@@ -4,33 +4,35 @@ class Game < ApplicationRecord
   belongs_to :card_czar, class_name: 'User', foreign_key: 'card_czar_id', optional: true
   belongs_to :black_card, optional: true
 
+  # ! cursed, no better way I could think of to get the user for the game_state_serializer
+  attr_accessor :current_user
+
   def step_game
     case game_phase
     when 'submit'
       update(game_phase: 'pick') if non_card_czar_users.all?(&:submitted_card?)
       # TODO: randomize card order
     when 'pick'
-      unless card_czar.picked_card_index.nil
+      unless card_czar.picked_card_index.nil?
         update(game_phase: 'result')
         step_game
       end
     when 'result'
       # increment score of round winning player
-      @winning_card_id = submitted_round_cards[card_czar.picked_card_index]
-      @winner = non_card_czar_users.find_by(submitted_card_id: @winning_card_id)
-      @winner.increment_game_score
+      winning_user.increment_game_score
 
       # wait 15 seconds for users to admire winning combo
-      sleep(15)
+      sleep(5)
 
       # replace used cards
       non_card_czar_users.each do |user|
-        cards = user.cards
-        cards[user.submitted_hand_index] = WhiteCard.all.select
-        user.update(cards: cards)
+        hand = user.hand
+        hand[user.submitted_hand_index] = WhiteCard.all.sample.id
+        user.update(hand: hand, submitted_hand_index: nil)
       end
+      card_czar.update(picked_card_index: nil)
 
-      if @winner.game_score == winning_score
+      if winning_user.game_score >= winning_score
         update(game_phase: 'over')
       else
         update(game_phase: 'submit')
@@ -63,5 +65,13 @@ class Game < ApplicationRecord
 
   def select_black_card
     update(black_card: BlackCard.all.sample)
+  end
+
+  def winning_card_id
+    submitted_round_cards[card_czar.picked_card_index.to_i].id
+  end
+
+  def winning_user
+    non_card_czar_users.select { |user| user.submitted_card.id == winning_card_id }[0]
   end
 end

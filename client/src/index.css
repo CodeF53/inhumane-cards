@@ -25,10 +25,9 @@ a {
   height: fit-content;
 }
 
-h1, h2, h3, h4, h5, p, div, button {
+h1, h2, h3, h4, h5, p, button, span {
   margin: 0;
   color: white;
-  mix-blend-mode: difference;
 }
 button {
   font-weight: 700;
@@ -68,14 +67,26 @@ form {
   gap: 1rem;
 }
 
+/* game stuff */
+.game {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1c1c1c;
+  overflow: hidden;
+}
+
+/* control panel */
 .controlPanel {
   position: absolute;
   top: 0;
   right: 0;
-  width: 20rem;
+  width: 14rem;
 }
 .lobbyOwner.controlPanel {
-  width:26rem;
+  width:20rem;
 }
 .controlPanel > * {
   outline: solid red 2px;
@@ -85,4 +96,108 @@ form {
 }
 .controlPanel > .users > .user > .icon {
   width: 1rem;
+}
+
+.card {
+  background-color: white;
+  color: black;
+  mix-blend-mode: normal;
+  box-shadow: 0 0.1rem 0.5rem 0.1rem rgba(0, 0, 0, 0.237);
+  /* cards have a 5:7 ratio */
+  width: 7.5rem;
+  height: 10.5rem;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+.card.blackCard{
+  background-color: black;
+  color: white;
+}
+
+/* hand shit */
+.hand {
+  position: absolute;
+  bottom: 0px;
+  width: 100vw;
+  overflow: visible;
+}
+.handCard {
+  position: relative;
+
+  font-size: 1rem;
+
+  margin-top: auto;
+  margin-left: -2rem;
+  margin-right: -3rem;
+  margin-bottom: -4rem;
+
+  transition: all .5s ease-in-out;
+}
+/* hover coolness */
+.hand.letUserPick.submitPhase > .handCard:hover, .hand.cardSelected.submitPhase > .handCard.selected {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  margin-bottom: 1rem;
+  transform: scale(1.25) !important;
+}
+
+/* buttons above the cards */
+.cardControls {
+  position: absolute;
+  left: -100%;
+  right: -100%;
+  width: 300%;
+}
+.handCard > .cardControls {
+  top: -6rem;
+}
+.cardControls > button { font-size: 2rem; }
+.cardControls > button.confirm { background-color: green; }
+.cardControls > button.cancel { background-color: red; }
+/* shrink away submitted card */
+.hand.cardSubmitted > .card.handCard.selected {
+  margin-bottom: -10rem;
+  transform: scale(0) !important;
+  width: 0;
+  height: 0;
+  margin-left: -2rem;
+  margin-right: -3rem;
+}
+/* instantly hide controls */
+.hand.cardSubmitted > .handCard.selected > .cardControls {
+  display: none;
+}
+
+/*  */
+.blackCard {
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.zoomIn { animation: zoom-in .5s; }
+@keyframes zoom-in {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+.flipIn { animation: flip-in .5s; }
+@keyframes flip-in {
+  0% { transform: rotateY(180deg) }
+  100% { transform: rotateY(0deg) }
+}
+
+.pool > .submitted > .card {
+  transition: all .5s ease-in-out;
+}
+.pool > .submitted > .card > .submitter {
+  position: absolute;
+  bottom: -1.5rem;
+  color: white;
+}
+.pool > .submitted > .card.winningCard {
+  box-shadow: 0 0.1rem 0.5rem 0.1rem gold;
+}
+
+/**/
+.submitted > .card > .cardControls {
+  bottom: -6rem;
 }

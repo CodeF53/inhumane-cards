@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   def hand_cards
     hand.map do |card_id|
-      WhiteCard.find_by(card_id)
+      WhiteCard.find(card_id)
     end
   end
 
@@ -23,7 +23,7 @@ class User < ApplicationRecord
   end
 
   def submitted_card
-    hand_cards[submitted_hand_index]
+    hand_cards[submitted_hand_index.to_i]
   end
 
   def card_czar?

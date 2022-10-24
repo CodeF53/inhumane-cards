@@ -1,8 +1,7 @@
-import { Fragment } from "react"
-
 export function ControlPanel({ gameState: { users, card_czar_id, game_phase, lobby_owner_id, game_stuff }, user }) {
   var winning_user_id
   if (game_stuff) {
+    // eslint-disable-next-line
     var { winning_user_id } = game_stuff
   }
 

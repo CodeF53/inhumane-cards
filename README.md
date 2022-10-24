@@ -26,19 +26,22 @@ Frontend:
 - [x] Game Find
 - [x] Create Game
 - [ ] Game
-  - [ ] Leave
   - [x] Lobby/Over
-  - [ ] Submit
-  - [ ] Pick
-  - [ ] Result
+  - [x] Submit
+  - [x] Pick
+  - [x] Result
 
 General:
+- [ ] Automatically put user back in game if they are in one
+- [ ] Leave Game
 - [ ] Kick/Promote
 - [ ] Support for cards with `card.pick` > 1
 - [ ] Allow picking cart packs
   - [ ] add pack to card seeding
   - [ ] add category to card seeding
     - [x] categories.json (this shit took me 2 hours aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+- [ ] Settings
+  - [ ] Random card rotation optional
 
 ## Is this legal?
 Cards Against Humanity® is distributed under a [Creative Commons BY-NC-SA 4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).

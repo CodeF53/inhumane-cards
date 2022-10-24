@@ -33,6 +33,7 @@ class UsersController < ApplicationController
 
     render json: {}, status: :accepted
 
+    sleep(0.1)
     step_game # if game was waiting on user (to submit or pick), we should advance the game
   end
 
@@ -40,12 +41,14 @@ class UsersController < ApplicationController
     confirm_in_game
     verify_phase('submit')
 
-    return render json: { errors: ['Card already submitted'] }, status: :conflict if @current_user.submitted_card?
+    # TODO: fix resetting submitted card, then uncomment this
+    # return render json: { errors: ['Card already submitted'] }, status: :conflict if @current_user.submitted_card?
 
     return render json: { errors: ['Currently the card czar!'] }, status: :forbidden if @current_user.card_czar?
 
     @current_user.update(submitted_hand_index: params[:card_index])
 
+    sleep(0.1)
     @game.step_game
 
     render json: {}, status: :accepted
@@ -55,12 +58,14 @@ class UsersController < ApplicationController
     confirm_in_game
     verify_phase('pick')
 
-    return render json: { errors: ['Card already chosen'] }, status: :conflict unless picked_card_index.nil?
+    # TODO: fix resetting picked card, then uncomment this
+    # return render json: { errors: ['Card already picked'] }, status: :conflict unless @current_user.picked_card_index.nil?
 
     return render json: { errors: ['Not the card czar!'] }, status: :forbidden unless @current_user.card_czar?
 
-    update(picked_card_index: params[:card_index])
+    @current_user.update(picked_card_index: params[:card_index])
 
+    sleep(0.1)
     @game.step_game
 
     render json: {}, status: :accepted
@@ -76,12 +81,15 @@ class UsersController < ApplicationController
 
     # TODO: add check if atleast 4 players are in the lobby
 
+    sleep(0.1)
     @game.step_game
   end
 
   # GET /game_state
   def game_state
     confirm_in_game
+
+    @game.current_user = @current_user
 
     render json: @game, serializer: GameStateSerializer
   end

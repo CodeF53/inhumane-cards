@@ -1,5 +1,9 @@
 class GameStateSerializer < ActiveModel::Serializer
-  attributes :id, :game_phase, :winning_score, :users, :card_czar_id, :black_card, :game_stuff, :lobby_owner_id
+  attributes :id, :game_phase, :winning_score, :users, :card_czar_id, :black_card, :game_stuff, :lobby_owner_id, :hand
+
+  def hand
+    object.current_user.hand_cards.map(&:text)
+  end
 
   def users
     object.users.map do |user|
@@ -11,7 +15,9 @@ class GameStateSerializer < ActiveModel::Serializer
     case object.game_phase
     when 'submit'
       # which users have submitted
-      object.non_card_czar_users.select(&:submitted_card?).map(&:id)
+      {
+        users_submitted: object.non_card_czar_users.select(&:submitted_card?).map(&:id)
+      }
     when 'pick'
       # array of card texts
       { cards: object.submitted_round_cards }
@@ -24,11 +30,11 @@ class GameStateSerializer < ActiveModel::Serializer
         # winning card id
         winning_card_id: object.winning_card_id,
         # winning user id
-        winning_user_id: object.winner.id
+        winning_user_id: object.winning_user.id
       }
     when 'over'
       {
-        winning_user_id: object.winner
+        winning_user_id: object.winning_user.id
       }
     else
       'random shit'
