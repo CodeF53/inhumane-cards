@@ -13,10 +13,7 @@ class Game < ApplicationRecord
       update(game_phase: 'pick') if non_card_czar_users.all?(&:submitted_card?)
       # TODO: randomize card order
     when 'pick'
-      unless card_czar.picked_card_index.nil?
-        update(game_phase: 'result')
-        step_game
-      end
+      puts "aa"
     when 'result'
       # increment score of round winning player
       winning_user.increment_game_score
@@ -28,9 +25,11 @@ class Game < ApplicationRecord
       non_card_czar_users.each do |user|
         hand = user.hand
         hand[user.submitted_hand_index] = WhiteCard.all.sample.id
-        user.update(hand: hand, submitted_hand_index: nil)
+        user.update(hand: hand)
       end
-      card_czar.update(picked_card_index: nil)
+
+      # reset the submitted shits
+      users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil) }
 
       if winning_user.game_score >= winning_score
         update(game_phase: 'over')

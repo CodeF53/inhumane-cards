@@ -39,6 +39,14 @@ class User < ApplicationRecord
   end
 
   def set_game_vars
-    update(game_score: 0, hand: WhiteCard.all.sample(10).map(&:id))
+    update(
+      game_score: 0,
+      hand: WhiteCard.all.sample(10).map(&:id)
+    )
+
+    update(
+      submitted_hand_index: nil,
+      picked_card_index: nil
+    )
   end
 end

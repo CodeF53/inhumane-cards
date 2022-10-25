@@ -3,7 +3,6 @@ import { ControlPanel } from "../game_components/ControlPanel";
 import { Hand } from "../game_components/Hand";
 import { Pool } from "../game_components/Pool";
 
-// oh god writing this is going to be pain.
 export function Game({user}) {
   const [gameState, setGameState] = useState({game_phase:"", users:[], hand:[], black_card:{text:""}})
   useEffect(() => {
@@ -11,9 +10,9 @@ export function Game({user}) {
     return () => clearInterval(interval);
   }, []);
 
-
-  console.log(gameState)
+  // console.log(gameState)
   const userIsCardCzar = user.id === gameState.card_czar_id
+  const isUsersTurn = (userIsCardCzar && gameState.game_phase === "pick") || (!userIsCardCzar && gameState.game_phase === "submit")
 
   return <div className="game">
     {["submit", "pick", "result"].includes(gameState.game_phase)? <Fragment>
@@ -21,5 +20,6 @@ export function Game({user}) {
       <Hand cards={gameState.hand} game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} gameState={gameState} user={user}/>
     </Fragment>:null}
     <ControlPanel gameState={gameState} user={user}/>
+    {isUsersTurn?<div className="statusThing"><h1>Your Turn</h1><h2>{userIsCardCzar?"Pick the best card combination":"Submit a card"}</h2></div>:null}
   </div>
 }

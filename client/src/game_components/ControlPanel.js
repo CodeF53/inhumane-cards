@@ -13,6 +13,7 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, lob
       {users.map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} is_lobby_owner={is_lobby_owner}/>)}
     </div>
     <div className="shit row">
+      <div className="spacer"/>
       <button>leave game</button>
       {is_lobby_owner && (game_phase==="lobby"||game_phase==="over")?
         <button onClick={()=>{fetch("/start_game", {method:"PATCH"})}}>start game</button>:null

@@ -90,13 +90,19 @@ form {
   width:20rem;
 }
 .controlPanel > * {
-  outline: solid red 2px;
+  /* outline: solid pink 2px; */
 }
 .controlPanel > .users > .user {
   gap: .25rem;
 }
 .controlPanel > .users > .user > .icon {
   width: 1rem;
+}
+.controlPanel button {
+  font-size: 1rem;
+}
+.controlPanel .icon {
+  color: white;
 }
 
 .card {
@@ -144,6 +150,7 @@ form {
 
 /* buttons above the cards */
 .cardControls {
+  z-index: 1000;
   position: absolute;
   left: -100%;
   right: -100%;
@@ -201,4 +208,11 @@ form {
 /**/
 .submitted > .card > .cardControls {
   bottom: -6rem;
+}
+
+.statusThing {
+  position: fixed;
+  text-align: center;
+  left: 2rem;
+  top:2rem;
 }
