@@ -7,13 +7,32 @@ class Game < ApplicationRecord
   # ! cursed, no better way I could think of to get the user for the game_state_serializer
   attr_accessor :current_user
 
+  # ! only should be ran once
+  def start_clock
+    Thread.new do
+      loop do
+        sleep 30
+
+        # TODO: kick users who are no longer online
+
+        # destroy self if empty
+        return destroy if users.empty?
+      end
+    end
+  end
+
   def step_game
     case game_phase
     when 'submit'
       update(game_phase: 'pick') if non_card_czar_users.all?(&:submitted_card?)
       # TODO: randomize card order
     when 'pick'
-      puts "aa"
+      # return to submit phase if card czar left
+      unless card_czar.exists?
+        update(game_phase: 'submit')
+        select_card_czar
+        select_black_card
+      end
     when 'result'
       # increment score of round winning player
       winning_user.increment_game_score

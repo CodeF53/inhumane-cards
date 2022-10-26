@@ -1,12 +1,18 @@
 import { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ControlPanel } from "../game_components/ControlPanel";
 import { Hand } from "../game_components/Hand";
 import { Pool } from "../game_components/Pool";
 
 export function Game({user}) {
   const [gameState, setGameState] = useState({game_phase:"", users:[], hand:[], black_card:{text:""}})
+  const navigate = useNavigate()
+
   useEffect(() => {
-    const interval = setInterval(() => { fetch("/game_state").then(r=>r.json()).then(d=>setGameState(d)) }, 500);
+    const interval = setInterval(() => { fetch("/game_state").then(r=>{
+      if(r.ok) { r.json().then(d=>setGameState(d)) }
+      else { navigate("/") }
+    })}, 500);
     return () => clearInterval(interval);
   }, []);
 

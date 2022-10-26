@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { cardRotation } from "../math";
+import { cardRotation } from "../util";
 
 export function Pool({gameState, userIsCardCzar}) {
   const blackCardText = gameState.black_card.text

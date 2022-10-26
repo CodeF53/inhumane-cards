@@ -54,6 +54,9 @@ header {
 header .logo {
   font-size: 3rem;
 }
+header button {
+  font-size: 1rem;
+}
 
 form {
   min-width: 16rem;
@@ -66,6 +69,9 @@ form {
 
 .gameLobby {
   gap: 1rem;
+}
+.gameLobby button {
+  font-size: 1rem;
 }
 
 /* game stuff */

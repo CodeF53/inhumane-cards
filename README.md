@@ -13,13 +13,12 @@ Backend:
 - [x] Minimum Viable Database
   - [x] Seed Card Database from [JSON Against Humanity](https://crhallberg.com/cah/)
 - [x] Backend game logic clock
-- [ ] Don't let game start with < 4 players
+- [x] Don't let game start with < 3 players
 - [ ] Randomize Pick/Result phase card order
-- [ ] Automatically kick players that haven't had a `get /game_state` fetch in 30 seconds
+- [ ] Fix wrong person getting points
+- [x] Automatically kick players that haven't had a `get /game_state` fetch in 30 seconds
 - [ ] Automatically close empty games
-- [ ] Optimize
-- [ ] Optimize
-- [ ] Optimize
+- [ ] Switch to ActionCable and turbo for GameState
 
 <iframe width="400" height="275" src='https://dbdiagram.io/embed/63506e9047094101959cbd7f'> </iframe>
 
@@ -46,13 +45,13 @@ Frontend:
 - [ ] Waiting on user
 
 General:
-- [ ] Fix submitted/picked_card_index not resetting
+- [x] Fix submitted/picked_card_index not resetting
 - [ ] Settings
   - [ ] Random card rotation optional
     (2 people have asked for this so far)
   - [ ] Disable everyone is waiting on you sfx
 - [ ] Automatically put user back in game if they are in one
-- [ ] Leave Game
+- [x] Leave Game
 - [ ] Kick/Promote
 - [ ] Support for cards with `card.pick` > 1
 - [ ] Allow picking cart packs

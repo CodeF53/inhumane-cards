@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     render json: {}, status: :accepted
 
     sleep(0.1)
-    step_game # if game was waiting on user (to submit or pick), we should advance the game
+    @game.step_game # if game was waiting on user (to submit or pick), we should advance the game
   end
 
   def submit_card
@@ -58,7 +58,6 @@ class UsersController < ApplicationController
     confirm_in_game
     verify_phase('pick')
 
-    # TODO: fix resetting picked card, then uncomment this
     return render json: { errors: ['Card already picked'] }, status: :conflict unless @current_user.picked_card_index.nil?
 
     return render json: { errors: ['Not the card czar!'] }, status: :forbidden unless @current_user.card_czar?
@@ -78,7 +77,7 @@ class UsersController < ApplicationController
 
     return render json: { errors: ['Game is already running'] }, status: :conflict unless @game.game_phase == 'lobby' || @game.game_phase == 'over'
 
-    # TODO: add check if atleast 4 players are in the lobby
+    return render json: { errors: ['Not enough players'] }, status: :conflict unless @game.users >= 3
 
     sleep(0.1)
     @game.step_game

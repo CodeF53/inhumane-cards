@@ -1,4 +1,7 @@
+import { fetchPatch } from "../util"
+
 export function ControlPanel({ gameState: { users, card_czar_id, game_phase, lobby_owner_id, game_stuff }, user }) {
+
   var winning_user_id
   if (game_stuff) {
     // eslint-disable-next-line
@@ -14,9 +17,9 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, lob
     </div>
     <div className="shit row">
       <div className="spacer"/>
-      <button>leave game</button>
+      <button onClick={e=>{fetchPatch("/leave")}}>leave game</button>
       {is_lobby_owner && (game_phase==="lobby"||game_phase==="over")?
-        <button onClick={()=>{fetch("/start_game", {method:"PATCH"})}}>start game</button>:null
+        <button onClick={()=>{fetchPatch("/start_game")}}>start game</button>:null
       }
     </div>
   </div>

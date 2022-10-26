@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { cardRotation } from "../math"
+import { cardRotation } from "../util"
 
 export function Hand({cards, game_phase, userIsCardCzar, gameState, user}) {
   const [selectedCard, setSelectedCard_] = useState(-1)

@@ -22,7 +22,7 @@ export function GameLobby({ lobby: {id, host, password_protected, num_players, p
     <span>{num_players}/{player_limit} players</span>
 
     {password_protected?<div className="col">
-      Password Protected
+      <span>Password Protected</span>
       <input type="password" placeholder="password" ariaLabel={`password to join ${host}'s game`} value={password} onChange={(e)=>setPassword(e.target.value)}/>
     </div>:""}
 
