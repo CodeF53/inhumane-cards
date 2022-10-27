@@ -22,6 +22,8 @@ class UsersController < ApplicationController
 
     @current_user.update(game: found_game)
     @current_user.set_game_vars
+    sleep(0.1)
+    found_game.update_state_cache
 
     render json: {}, status: :accepted
   end
@@ -77,7 +79,7 @@ class UsersController < ApplicationController
 
     return render json: { errors: ['Game is already running'] }, status: :conflict unless @game.game_phase == 'lobby' || @game.game_phase == 'over'
 
-    return render json: { errors: ['Not enough players'] }, status: :conflict unless @game.users >= 3
+    return render json: { errors: ['Not enough players'] }, status: :conflict unless @game.users.length >= 3
 
     sleep(0.1)
     @game.step_game
@@ -89,7 +91,12 @@ class UsersController < ApplicationController
 
     @game.current_user = @current_user
 
-    render json: @game, serializer: GameStateSerializer
+    render json: @game.state_cache
+  end
+
+  # GET /hand
+  def hand
+    render json: @current_user.hand_cards.map(&:text).to_json
   end
 
   private

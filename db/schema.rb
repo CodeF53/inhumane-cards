@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
     t.integer "winning_score"
     t.string "password"
     t.integer "player_limit"
+    t.string "state_cache"
   end
 
   create_table "users", force: :cascade do |t|

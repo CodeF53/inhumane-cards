@@ -8,6 +8,7 @@ class CreateGames < ActiveRecord::Migration[7.0]
       t.integer :winning_score
       t.string :password
       t.integer :player_limit
+      t.string :state_cache
     end
   end
 end

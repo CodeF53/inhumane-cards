@@ -92,15 +92,14 @@ form {
   right: 0;
   width: 14rem;
 }
-.lobbyOwner.controlPanel {
-  width:20rem;
-}
 .controlPanel > * {
   /* outline: solid pink 2px; */
 }
 .controlPanel > .users > .user {
   gap: .25rem;
 }
+.controlPanel > .users.kick > .user > span.username { color: red; }
+.controlPanel > .users.promote > .user > span.username { color: gold; }
 .controlPanel > .users > .user > .icon {
   width: 1rem;
 }
@@ -119,6 +118,7 @@ form {
   /* cards have a 5:7 ratio */
   width: 7.5rem;
   height: 10.5rem;
+  font-size: .85rem;
   border-radius: 1rem;
   padding: 0.5rem;
 }
@@ -135,12 +135,11 @@ form {
   overflow: visible;
 }
 .handCard {
+  flex-shrink:0;
   position: relative;
 
-  font-size: 1rem;
-
   margin-top: auto;
-  margin-left: -2rem;
+  margin-left: -3rem;
   margin-right: -3rem;
   margin-bottom: -4rem;
 
@@ -217,8 +216,9 @@ form {
 }
 
 .statusThing {
+  font-size: 2rem;
   position: fixed;
   text-align: center;
-  left: 2rem;
-  top:2rem;
+  bottom: 10rem;
+  width: 100%;
 }

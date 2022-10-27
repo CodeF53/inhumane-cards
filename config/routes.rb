@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   patch '/leave/', to: 'users#leave_game'
   patch '/submit_card/:card_index', to: 'users#submit_card'
   patch '/pick_card/:card_index', to: 'users#pick_card'
+  get '/hand/', to: 'users#hand'
   # lobby search/creation:
   resources :games, only: %i[index create]
   # lobby owner commands:

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { cardRotation } from "../util"
 
-export function Hand({cards, game_phase, userIsCardCzar, gameState, user}) {
+export function Hand({game_phase, userIsCardCzar, gameState, user}) {
+  const [cards, setCards] = useState([])
   const [selectedCard, setSelectedCard_] = useState(-1)
   const [cardSubmitted, setCardSubmitted] = useState(false)
 
@@ -13,8 +14,11 @@ export function Hand({cards, game_phase, userIsCardCzar, gameState, user}) {
 
   useEffect(() => {
     if (game_phase==="submit") {
-      setSelectedCard_(-1)
-      setCardSubmitted(false)
+      fetch("/hand").then(r=>r.json()).then(d=>{
+        setCards(d)
+        setSelectedCard_(-1)
+        setCardSubmitted(false)
+      })
     }
   }, [game_phase])
 

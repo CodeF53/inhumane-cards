@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ControlPanel } from "../game_components/ControlPanel";
 import { Hand } from "../game_components/Hand";
 import { Pool } from "../game_components/Pool";
+import { StatusThing } from "../game_components/StatusThing";
 
 export function Game({user}) {
   const [gameState, setGameState] = useState({game_phase:"", users:[], hand:[], black_card:{text:""}})
@@ -12,20 +13,20 @@ export function Game({user}) {
     const interval = setInterval(() => { fetch("/game_state").then(r=>{
       if(r.ok) { r.json().then(d=>setGameState(d)) }
       else { navigate("/") }
-    })}, 500);
+    })}, 1000);
     return () => clearInterval(interval);
   }, []);
 
   // console.log(gameState)
   const userIsCardCzar = user.id === gameState.card_czar_id
-  const isUsersTurn = (userIsCardCzar && gameState.game_phase === "pick") || (!userIsCardCzar && gameState.game_phase === "submit")
+  const is_lobby_owner = user.id === gameState.lobby_owner_id
 
   return <div className="game">
+    <StatusThing userIsCardCzar={userIsCardCzar} user_id={user.id} is_lobby_owner = {is_lobby_owner} gameState={gameState}/>
     {["submit", "pick", "result"].includes(gameState.game_phase)? <Fragment>
       <Pool gameState={gameState} userIsCardCzar={userIsCardCzar}/>
-      <Hand cards={gameState.hand} game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} gameState={gameState} user={user}/>
+      <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} gameState={gameState} user={user}/>
     </Fragment>:null}
-    <ControlPanel gameState={gameState} user={user}/>
-    {isUsersTurn?<div className="statusThing"><h1>Your Turn</h1><h2>{userIsCardCzar?"Pick the best card combination":"Submit a card"}</h2></div>:null}
+    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner}/>
   </div>
 }

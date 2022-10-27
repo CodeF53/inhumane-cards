@@ -32,13 +32,17 @@ class Game < ApplicationRecord
         update(game_phase: 'submit')
         select_card_czar
         select_black_card
+        # reset the submitted shits
+        users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil) }
       end
     when 'result'
       # increment score of round winning player
       winning_user.increment_game_score
 
+      update_state_cache
+
       # wait 15 seconds for users to admire winning combo
-      sleep(5)
+      sleep(15)
 
       # replace used cards
       non_card_czar_users.each do |user|
@@ -62,6 +66,15 @@ class Game < ApplicationRecord
       select_black_card
       users.each(&:set_game_vars)
       update(game_phase: 'submit')
+    end
+
+    update_state_cache
+  end
+
+  def update_state_cache
+    Thread.new do
+      sleep 0.5
+      return update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json)
     end
   end
 
