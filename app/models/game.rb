@@ -74,7 +74,7 @@ class Game < ApplicationRecord
   def update_state_cache
     Thread.new do
       sleep 0.5
-      return update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json)
+      update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json)
     end
   end
 

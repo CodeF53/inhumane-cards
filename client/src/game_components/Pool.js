@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cardRotation } from "../util";
 
 export function Pool({gameState, userIsCardCzar}) {
@@ -17,6 +17,12 @@ export function Pool({gameState, userIsCardCzar}) {
       setSelectedCard_(i)
     }
   }
+
+  useEffect(() => {
+    if (gameState.game_phase!=="pick") {
+      setSelectedCard_(-1)
+    }
+  }, [gameState])
 
   const letUserPick = userIsCardCzar && gameState.game_phase === "pick"
 
