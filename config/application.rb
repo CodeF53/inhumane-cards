@@ -43,7 +43,7 @@ module InhumaneCards
     # Use SameSite=Strict for all cookies to help protect against CSRF
     config.action_dispatch.cookies_same_site_protection = :strict
 
-    # Let shit access shit?
+    # Let stuff access stuff?
     config.active_record.yaml_column_permitted_classes = [:WhiteCard]
   end
 end

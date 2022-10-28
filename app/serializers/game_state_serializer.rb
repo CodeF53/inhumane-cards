@@ -33,7 +33,7 @@ class GameStateSerializer < ActiveModel::Serializer
         winning_user_id: object.winning_user.id
       }
     else
-      'random shit'
+      nil
     end
   end
 end

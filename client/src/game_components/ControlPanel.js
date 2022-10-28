@@ -16,7 +16,7 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, gam
     <div className={`users col ${mode}`}>
       {users.map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} is_lobby_owner={is_lobby_owner}/>)}
     </div>
-    <div className="shit row">
+    <div className="row">
       <div className="spacer"/>
 
       {is_lobby_owner && <Fragment>

@@ -32,7 +32,7 @@ class Game < ApplicationRecord
         update(game_phase: 'submit')
         select_card_czar
         select_black_card
-        # reset the submitted shits
+        # reset the submitted/picked cards
         users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil) }
       end
     when 'result'
@@ -51,7 +51,7 @@ class Game < ApplicationRecord
         user.update(hand: hand)
       end
 
-      # reset the submitted shits
+      # reset the submitted/picked cards
       users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil) }
 
       if winning_user.game_score >= winning_score
@@ -62,6 +62,7 @@ class Game < ApplicationRecord
         select_black_card
       end
     else # 'lobby' 'over'
+      # TODO: add check to make sure this isnt triggered by player leaving the game
       select_card_czar
       select_black_card
       users.each(&:set_game_vars)
@@ -99,6 +100,7 @@ class Game < ApplicationRecord
   end
 
   def winning_card_id
+    puts card_czar.picked_card_index
     submitted_round_cards[card_czar.picked_card_index.to_i].id
   end
 

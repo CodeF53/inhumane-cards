@@ -33,7 +33,7 @@ Frontend:
   - [x] Pick
   - [x] Result
 - [ ] Sound Effects
-- [ ] Make shit look good
+- [ ] Make stuff look good
   - [ ] Game Controls Menu
   - [ ] Front Page
   - [ ] Lobby Select Screen
@@ -57,7 +57,7 @@ General:
 - [ ] Allow picking cart packs
   - [ ] add pack to card seeding
   - [ ] add category to card seeding
-    - [x] categories.json (this shit took me 2 hours aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+    - [x] categories.json (this took me 2 hours aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
 
 ## Is this legal?
 Cards Against Humanity® is distributed under a [Creative Commons BY-NC-SA 4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
