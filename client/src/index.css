@@ -121,6 +121,8 @@ form {
   font-size: .85rem;
   border-radius: 1rem;
   padding: 0.5rem;
+  overflow-wrap: break-word;
+  transition: all .5s ease-in-out;
 }
 .card.blackCard{
   background-color: black;
@@ -142,11 +144,10 @@ form {
   margin-left: -3rem;
   margin-right: -3rem;
   margin-bottom: -4rem;
-
-  transition: all .5s ease-in-out;
 }
 /* hover coolness */
-.hand.letUserPick.submitPhase > .handCard:hover, .hand.cardSelected.submitPhase > .handCard.selected {
+.hand.letUserPick.submitPhase > .handCard:hover,
+.hand.cardSelected.submitPhase > .handCard.selected {
   margin-left: 2.5rem;
   margin-right: 2.5rem;
   margin-bottom: 1rem;
@@ -173,7 +174,7 @@ form {
   transform: scale(0) !important;
   width: 0;
   height: 0;
-  margin-left: -2rem;
+  margin-left: -3rem;
   margin-right: -3rem;
 }
 /* instantly hide controls */
@@ -186,12 +187,26 @@ form {
   margin: auto;
   margin-top: 1rem;
 }
+/* TODO: clean up so its a tad nicer */
+/* TODO: make static after a card is clicked like in hand */
+.pool > .submitted > .card:hover,
+.pool > .submitted > .card.winningCard {
+  transform: scale(1.25) !important;
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+.pool .blackCard.card:hover {
+  margin-top: 2rem;
+  transform: scale(1.25) !important;
+}
 
 .zoomIn { animation: zoom-in .5s; }
 @keyframes zoom-in {
   0% { transform: scale(0); }
   100% { transform: scale(1); }
 }
+/* TODO: after flipping in the cards snap to their random rotation instantly, make it smooth or something */
+/* TODO: the card shows the front text on the "back" when it should say "cards against humanity"  */
 .flipIn { animation: flip-in .5s; }
 @keyframes flip-in {
   0% { transform: rotateY(180deg) }

@@ -37,9 +37,13 @@ class Game < ApplicationRecord
       end
     when 'result'
       # increment score of round winning player
-      winning_user.increment_game_score
-
-      update_state_cache
+      set_timeout(
+        callback: lambda do
+          winning_user.increment_game_score
+          update_state_cache
+        end,
+        seconds: 0.2
+      )
 
       # wait 15 seconds for users to admire winning combo
       sleep(15)
@@ -73,10 +77,10 @@ class Game < ApplicationRecord
   end
 
   def update_state_cache
-    Thread.new do
-      sleep 0.5
-      update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json)
-    end
+    set_timeout(
+      callback: -> { update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json) },
+      seconds: 0.2
+    )
   end
 
   def non_card_czar_users
@@ -100,7 +104,8 @@ class Game < ApplicationRecord
   end
 
   def winning_card_id
-    puts card_czar.picked_card_index
+    # ! sometimes breaks and says index 0 wins
+    puts "----- #{card_czar.picked_card_index} -----"
     submitted_round_cards[card_czar.picked_card_index.to_i].id
   end
 

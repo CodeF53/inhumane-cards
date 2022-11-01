@@ -100,5 +100,9 @@
 
   "Voter's Choice": "/Voter's Choice: The .* Expansion/",
 
-	"Words Against Morality": "/Words Against Morality: Volume \\d/"
+	"Words Against Morality": "/Words Against Morality: Volume \\d/",
+
+  "Family Friendly Stuff": [
+    
+  ]
 }

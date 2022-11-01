@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
     @current_user.update(game: found_game)
     @current_user.set_game_vars
-    sleep(0.1)
+    # TODO: doesnt make state cache register new player
     found_game.update_state_cache
 
     render json: {}, status: :accepted
@@ -35,7 +35,8 @@ class UsersController < ApplicationController
 
     render json: {}, status: :accepted
 
-    sleep(0.1)
+    # TODO: fix this stepping game out of waiting lobby
+    # TODO: when a card czar leaves a game it should pick a new black card and card czar
     @game.step_game # if game was waiting on user (to submit or pick), we should advance the game
   end
 
