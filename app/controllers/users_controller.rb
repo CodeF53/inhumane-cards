@@ -64,6 +64,7 @@ class UsersController < ApplicationController
 
     # ! the scoring problem starts here, we update it, it sticks, but somehow its not updated inside game
     @current_user.update(picked_card_index: params[:card_index].to_i)
+
     Util.set_timeout(
       callback: lambda do
         pp @current_user
