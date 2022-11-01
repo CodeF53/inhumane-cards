@@ -97,7 +97,7 @@ class UsersController < ApplicationController
 
   # GET /hand
   def hand
-    render json: @current_user.hand_cards.map(&:text).to_json
+    Rails.logger.silence { render json: @current_user.hand_cards.map(&:text).to_json }
   end
 
   private
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
   end
 
   def confirm_in_game
-    @game = @current_user.game
+    Rails.logger.silence { @game = @current_user.game }
     return render json: { errors: ['Not in a game'] }, status: :conflict if @game.nil?
   end
 
