@@ -7,9 +7,17 @@
 /* Assign to empty child dive to aesthetically fill space */
 .spacer { flex:1; }
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  font-weight: 700;
+  src: url("assets/NeueHelveticaBQ-Bold.otf") format("opentype");
+}
+
 body {
   margin: 0;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', 'Open Sans', Helvetica, Arial, sans-serif;
   font-weight: 700;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
