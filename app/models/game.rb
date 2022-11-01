@@ -37,7 +37,7 @@ class Game < ApplicationRecord
       end
     when 'result'
       # increment score of round winning player
-      set_timeout(
+      Util.set_timeout(
         callback: lambda do
           winning_user.increment_game_score
           update_state_cache
@@ -76,10 +76,14 @@ class Game < ApplicationRecord
     update_state_cache
   end
 
-  def update_state_cache
-    set_timeout(
-      callback: -> { update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json) },
-      seconds: 0.2
+  def update_state_cache(delay: 0.2)
+    Util.set_timeout(
+      callback: lambda do
+        puts 'Updating cache:'
+        puts "users - #{users.length}"
+        update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json)
+      end,
+      seconds: delay
     )
   end
 

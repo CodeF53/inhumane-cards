@@ -22,8 +22,7 @@ class UsersController < ApplicationController
 
     @current_user.update(game: found_game)
     @current_user.set_game_vars
-    # TODO: doesnt make state cache register new player
-    found_game.update_state_cache
+    Game.find(params[:game_id]).update_state_cache
 
     render json: {}, status: :accepted
   end

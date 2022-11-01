@@ -45,5 +45,8 @@ module InhumaneCards
 
     # Let stuff access stuff?
     config.active_record.yaml_column_permitted_classes = [:WhiteCard]
+
+    # global util libs to keep stuff dry
+    config.autoload_paths += %W[#{Rails.root}/lib/]
   end
 end
