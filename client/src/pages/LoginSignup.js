@@ -11,10 +11,7 @@ export function LoginSignup({ isLogin, user, setUser }) {
 
   function handleSubmit(event) {
     event.preventDefault()
-
-    if (username.length===0) { setErrorText("Username must be filled"); return; }
-    else if (password.length<6) { setErrorText("Password must be at least 6 characters in length"); return; }
-    else { setErrorText("") }
+    setErrorText("")
 
     fetch(isLogin?"/login":"/signup",{
       method: "POST", headers: { "Content-Type": "application/json" },

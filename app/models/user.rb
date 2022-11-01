@@ -13,9 +13,7 @@ class User < ApplicationRecord
   end
 
   def hand_cards
-    hand.map do |card_id|
-      WhiteCard.find(card_id)
-    end
+    Rails.logger.silence { hand.map { |card_id| WhiteCard.find(card_id) } }
   end
 
   def submitted_card?
