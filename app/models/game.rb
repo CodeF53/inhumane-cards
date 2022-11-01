@@ -28,12 +28,22 @@ class Game < ApplicationRecord
       # TODO: randomize card order
     when 'pick'
       # return to submit phase if card czar left
-      unless card_czar.exists?
+      if card_czar.nil?
         update(game_phase: 'submit')
         select_card_czar
         select_black_card
         # reset the submitted/picked cards
         users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil) }
+        return
+      end
+
+      # errogntsrhls
+      # TODO: FIX ! somehow picked_card_index isn't set here, but is outside of this, despite a set_timeout
+      pp card_czar
+      unless card_czar.picked_card_index.nil?
+        update(game_phase: 'submit')
+        step_game
+        return
       end
     when 'result'
       # increment score of round winning player
@@ -66,7 +76,7 @@ class Game < ApplicationRecord
         select_black_card
       end
     else # 'lobby' 'over'
-      # TODO: add check to make sure this isnt triggered by player leaving the game
+      # TODO: add check to make sure this isn't triggered by player leaving the game
       select_card_czar
       select_black_card
       users.each(&:set_game_vars)
@@ -108,8 +118,6 @@ class Game < ApplicationRecord
   end
 
   def winning_card_id
-    # ! sometimes breaks and says index 0 wins
-    puts "----- #{card_czar.picked_card_index} -----"
     submitted_round_cards[card_czar.picked_card_index.to_i].id
   end
 

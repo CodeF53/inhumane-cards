@@ -62,9 +62,15 @@ class UsersController < ApplicationController
 
     return render json: { errors: ['Not the card czar!'] }, status: :forbidden unless @current_user.card_czar?
 
-    @current_user.update(picked_card_index: params[:card_index])
-    @game.update(game_phase: 'result')
-    @game.step_game
+    # ! the scoring problem starts here, we update it, it sticks, but somehow its not updated inside game
+    @current_user.update(picked_card_index: params[:card_index].to_i)
+    Util.set_timeout(
+      callback: lambda do
+        pp @current_user
+        @game.step_game
+      end,
+      seconds: 0.5
+    )
 
     render json: {}, status: :accepted
   end
