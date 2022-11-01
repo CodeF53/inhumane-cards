@@ -24,14 +24,14 @@ else
       end
     end
 
-    unless set['black'].empty?
-      progressbar = ProgressBar.create(title: "      #{set['black'].length} Black cards", total: set['black'].length)
+    next if set['black'].empty?
 
-      set['black'].each do |card|
-        BlackCard.create(text: card['text']) if card['pick'] == 1
-        # TODO: implement support for cards with card.pick > 1
-        progressbar.increment
-      end
+    progressbar = ProgressBar.create(title: "      #{set['black'].length} Black cards", total: set['black'].length)
+
+    set['black'].each do |card|
+      BlackCard.create(text: card['text']) if card['pick'] == 1
+      # TODO: implement support for cards with card.pick > 1
+      progressbar.increment
     end
   end
 end

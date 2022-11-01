@@ -32,8 +32,6 @@ class GameStateSerializer < ActiveModel::Serializer
       {
         winning_user_id: object.winning_user.id
       }
-    else
-      nil
     end
   end
 end
