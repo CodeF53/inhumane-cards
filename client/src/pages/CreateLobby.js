@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LabeledInput } from "../components/LabeledInput";
 
@@ -28,13 +28,39 @@ export function CreateLobby({user}) {
     }})
   }
 
+  const [categories, setCategories] = useState([])
+  useEffect(() => { fetch("/card_categories").then(r=>r.json())
+    .then(d=>setCategories(d.filter(category=>category.card_packs.length > 0)))}, [])
+
+  const offishCats = categories.filter(category=>category.is_official)
+  const unOffishCats = categories.filter(category=>!category.is_official)
+
+  // TODO Hook up checkboxes
+  // TODO Add dropdowns
   return <div className="col">
     <form onSubmit={handleSubmit} className="create_game centered col panel" id="log-form">
       <h1>Create Lobby</h1>
       <LabeledInput label="Winning Score" name="winning_score" type="number" value={formObject.winning_score} onChange={updateFormObject} step="1" min="3" max="100"/>
       <LabeledInput label="Player Limit"  name="player_limit"  type="number" value={formObject.player_limit}  onChange={updateFormObject} step="1" min="3" max="10"/>
       <LabeledInput label="Lobby Password (Optional)" name="password" type="password" value={formObject.password} onChange={updateFormObject}/>
-      <button className="centered" type="submit">Submit</button>
+
+      <div className="row">
+        <div className="spacer"/>
+        <button className="centered" type="submit">Submit</button>
+      </div>
+
+      <h2>Select Packs:</h2>
+      {<LabeledInput label="Official" type="checkbox" className="packCheckBox section"/>}
+      {offishCats.map(category=><div>
+        {<LabeledInput label={category.title} type="checkbox" className="packCheckBox category"/>}
+        {category.card_packs.map(pack=><LabeledInput label={pack.title} type="checkbox" className="packCheckBox pack"/>)}
+      </div>)}
+
+      {<LabeledInput label="UnOfficial" type="checkbox" className="packCheckBox section"/>}
+      {unOffishCats.map(category=><div>
+        {<LabeledInput label={category.title} type="checkbox" className="packCheckBox category"/>}
+        {category.card_packs.map(pack=><LabeledInput label={pack.title} type="checkbox" className="packCheckBox pack"/>)}
+      </div>)}
     </form>
   </div>
 }

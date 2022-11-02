@@ -3,7 +3,7 @@ form {
   min-width: 16rem;
 
   button {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }
 .gameLobby {
@@ -11,4 +11,20 @@ form {
 }
 .gameLobby button {
   font-size: 1rem;
+}
+
+.packCheckBox {
+  flex-direction: row-reverse;
+  .spacer { order: -1 }
+
+  &.section {
+    font-size: 1.5rem;
+  }
+  &.category {
+    margin-left: 1rem;
+    font-size: 1.25rem;
+  }
+  &.pack {
+    margin-left: 2rem;
+  }
 }
