@@ -66,10 +66,8 @@ class UsersController < ApplicationController
 
     return render json: { errors: ['Not the card czar!'] }, status: :forbidden unless @current_user.card_czar?
 
-    # ! the scoring problem starts here, we update it, it sticks, but somehow its not updated inside game
     @current_user.update(picked_card_index: params[:card_index])
-    
-    pp @current_user
+
     @game.step_game
 
     render json: {}, status: :accepted
