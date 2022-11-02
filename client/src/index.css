@@ -133,6 +133,7 @@ form {
   padding: 0.5rem;
   overflow-wrap: break-word;
   transition: all .5s ease-in-out;
+  flex-shrink:0;
 }
 .card.blackCard{
   background-color: black;
@@ -144,24 +145,48 @@ form {
   position: absolute;
   bottom: 0px;
   width: 100vw;
-  overflow: visible;
+  overflow-y: hidden;
+  height: 25rem;
 }
 .handCard {
-  flex-shrink:0;
   position: relative;
-
-  margin-top: auto;
-  margin-left: -3rem;
-  margin-right: -3rem;
   margin-bottom: -4rem;
+  margin-top: auto;
 }
-/* hover coolness */
-.hand.letUserPick.submitPhase > .handCard:hover,
+.desktop .hand.letUserPick.submitPhase > .handCard:hover,
 .hand.cardSelected.submitPhase > .handCard.selected {
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
   margin-bottom: 1rem;
   transform: scale(1.25) !important;
+}
+/* desktop hand stuff */
+.desktop .handCard {
+  margin-left: -2.5rem;
+  margin-right: -2.5rem;
+}
+.desktop .hand.letUserPick.submitPhase > .handCard:hover,
+.desktop .hand.cardSelected.submitPhase > .handCard.selected {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+/* mobile hand stuff */
+.mobile .hand {
+  overflow-x: scroll;
+}
+.mobile .hand.cardSelected.submitPhase > .handCard.selected {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+/* shrink away submitted card */
+.hand.cardSubmitted > .card.handCard.selected {
+  margin-bottom: -10rem;
+  transform: scale(0) !important;
+  width: 0;
+  height: 0;
+  margin-left: -3rem;
+  margin-right: -3rem;
+}
+.mobile .hand.cardSubmitted > .card.handCard.selected {
+  margin-right: -2.5rem;
 }
 
 /* buttons above the cards */
@@ -178,15 +203,7 @@ form {
 .cardControls > button { font-size: 2rem; }
 .cardControls > button.confirm { background-color: green; }
 .cardControls > button.cancel { background-color: red; }
-/* shrink away submitted card */
-.hand.cardSubmitted > .card.handCard.selected {
-  margin-bottom: -10rem;
-  transform: scale(0) !important;
-  width: 0;
-  height: 0;
-  margin-left: -3rem;
-  margin-right: -3rem;
-}
+
 /* instantly hide controls */
 .hand.cardSubmitted > .handCard.selected > .cardControls {
   display: none;

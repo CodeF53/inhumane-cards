@@ -18,8 +18,17 @@ export function App() {
     else { setUser(null) }
   });}, []);
 
+  // calculate aspect ratio every resize
+  const getAspectRatio = () => window.innerWidth / window.innerHeight
+  const [aspectRatio, setAspectRatio] = useState(getAspectRatio())
+  useEffect(() => {
+    const handleWindowResize = () => setAspectRatio(getAspectRatio())
+    window.addEventListener("resize", handleWindowResize)
+    return () => { window.removeEventListener("resize", handleWindowResize) }
+  }, [])
 
-  return <div className="app">
+  // do Mobile Rendering when aspect ratio is less than 3:4 -> (3:4 -> 3/4 -> 0.75)
+  return <div className={`app ${aspectRatio<0.75?"mobile":"desktop"} ${aspectRatio}`}>
     <Routes>
       <Route path="/game/" element={<Game user={user}/>}/>
 
