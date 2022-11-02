@@ -120,7 +120,7 @@ class Game < ApplicationRecord
   end
 
   def winning_card_id
-    submitted_round_cards[card_czar.picked_card_index.to_i].id
+    submitted_round_cards[card_czar.picked_card_index].id
   end
 
   def winning_user

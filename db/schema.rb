@@ -10,33 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_221_020_000_955) do
-  create_table 'black_cards', force: :cascade do |t|
-    t.string 'text'
+ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
+  create_table "black_cards", force: :cascade do |t|
+    t.string "text"
   end
 
-  create_table 'games', force: :cascade do |t|
-    t.integer 'lobby_owner_id'
-    t.integer 'card_czar_id'
-    t.string 'game_phase', default: 'lobby'
-    t.integer 'black_card_id'
-    t.integer 'winning_score'
-    t.string 'password'
-    t.integer 'player_limit'
-    t.string 'state_cache'
+  create_table "games", force: :cascade do |t|
+    t.integer "winning_score"
+    t.integer "player_limit"
+    t.string "password"
+    t.integer "lobby_owner_id"
+    t.integer "black_card_id"
+    t.integer "card_czar_id"
+    t.string "game_phase", default: "lobby"
+    t.string "state_cache"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'username'
-    t.string 'password_digest'
-    t.integer 'game_id'
-    t.integer 'game_score'
-    t.text 'hand'
-    t.integer 'submitted_hand_index'
-    t.string 'picked_card_index'
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
+    t.integer "game_id"
+    t.integer "game_score"
+    t.integer "submitted_hand_index"
+    t.integer "picked_card_index"
+    t.text "hand"
   end
 
-  create_table 'white_cards', force: :cascade do |t|
-    t.string 'text'
+  create_table "white_cards", force: :cascade do |t|
+    t.string "text"
   end
+
 end

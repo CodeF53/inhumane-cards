@@ -21,7 +21,7 @@ class User < ApplicationRecord
   end
 
   def submitted_card
-    hand_cards[submitted_hand_index.to_i]
+    hand_cards[submitted_hand_index]
   end
 
   def card_czar?
