@@ -2,8 +2,8 @@ import { Fragment, useState } from "react"
 import { fetchPatch } from "../util"
 
 export function ControlPanel({ gameState: { users, card_czar_id, game_phase, game_stuff }, is_lobby_owner }) {
+  const [isHidden, setIsHidden] = useState(false)
   const [mode, setMode] = useState("")
-
 
   var winning_user_id
   if (game_stuff) {
@@ -12,32 +12,38 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, gam
   }
 
   // TODO: hook up leave game button
-  return <div className={`controlPanel ${is_lobby_owner?"lobbyOwner":""} col`}>
-    <div className={`users col ${mode}`}>
-      {users.map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} is_lobby_owner={is_lobby_owner}/>)}
-    </div>
-    <div className="row">
-      <div className="spacer"/>
+  return <div className={`controlPanel ${is_lobby_owner?"lobbyOwner":""} ${isHidden?"hidden":""} row`}>
+    <button className="hide_show_button" onClick={()=>setIsHidden(!isHidden)}>
+      {isHidden?"<":">"}
+    </button>
 
-      {is_lobby_owner && <Fragment>
-        {mode===""? <Fragment>
-          <button onClick={()=>setMode("kick")}>kick</button>
-          <button onClick={()=>setMode("promote")}>promote</button>
-        </Fragment>:
-          <button onClick={()=>setMode("")}>cancel</button>}
+    <div className="col" style={{width: "100%"}}>
+      <div className={`users col ${mode}`}>
+        {users.map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} is_lobby_owner={is_lobby_owner}/>)}
+      </div>
+      <div className="row">
+        <div className="spacer"/>
 
-        {is_lobby_owner && (game_phase==="lobby" || game_phase==="over")?
-          <button onClick={()=>{fetchPatch("/start_game")}}>start game</button>:null
-        }
-      </Fragment>}
+        {is_lobby_owner && <Fragment>
+          {mode===""? <Fragment>
+            <button onClick={()=>setMode("kick")}>kick</button>
+            <button onClick={()=>setMode("promote")}>promote</button>
+          </Fragment>:
+            <button onClick={()=>setMode("")}>cancel</button>}
+
+          {is_lobby_owner && (game_phase==="lobby" || game_phase==="over")?
+            <button onClick={()=>{fetchPatch("/start_game")}}>start game</button>:null
+          }
+        </Fragment>}
 
 
-      <button onClick={e=>{fetchPatch("/leave")}}>leave game</button>
+        <button onClick={e=>{fetchPatch("/leave")}}>leave game</button>
 
-    </div>
-    <div className="row">
-      <div className="spacer"/>
-      {mode!=="" && <h3>click a user to {mode}</h3>}
+      </div>
+      <div className="row">
+        <div className="spacer"/>
+        {mode!=="" && <h3>click a user to {mode}</h3>}
+      </div>
     </div>
   </div>
 }

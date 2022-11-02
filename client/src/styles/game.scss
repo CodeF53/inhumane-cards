@@ -11,24 +11,56 @@
 
 // control panel
 .controlPanel {
+  padding: .5rem;
+  background-color: var(--background-elev1);
+  border-bottom-left-radius: 1rem;
+
   position: absolute;
   top: 0;
   right: 0;
-  width: 14rem;
-}
-.controlPanel > .users > .user {
-  gap: .25rem;
-}
-.controlPanel > .users.kick > .user > span.username { color: red; }
-.controlPanel > .users.promote > .user > span.username { color: gold; }
-.controlPanel > .users > .user > .icon {
-  width: 1rem;
-}
-.controlPanel button {
-  font-size: 1rem;
-}
-.controlPanel .icon {
-  color: white;
+  width: 13rem;
+  box-shadow: 0 0.1rem 0.5rem 0.1rem rgba(0, 0, 0, 0.237);
+
+  button { font-size: 1rem; }
+
+  .users {
+    .user {
+      gap: .25rem;
+      .icon {
+        width: 1rem;
+        color: white;
+      }
+
+      span.username { overflow: hidden; }
+    }
+    &.kick > .user > span.username { color: red; }
+    &.promote > .user > span.username { color: gold; }
+  }
+
+  // hide by "swooshing" in/out
+  &.hidden { translate: 14rem; }
+  transition: translate 1s ease-in-out;
+
+  button.hide_show_button {
+    scale: 1; // don't resize relative to click/hover
+
+    position: absolute;
+    left: -2rem;
+    top: 50%;
+    translate: 0 -75%;
+
+    width: 2rem;
+    height: 3rem;
+    padding: .5rem;
+
+    background-color: var(--background-elev1);
+    &:hover { background-color: var(--background-elev2); }
+    &:active { background-color: var(--background-elev3); }
+
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+    box-shadow: -1rem 0.1rem 0.5rem 0.1rem rgba(0, 0, 0, 0.237);
+  }
 }
 
 .statusThing {

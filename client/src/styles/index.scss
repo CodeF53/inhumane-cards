@@ -1,3 +1,13 @@
+// vars
+* {
+  --background-color: #1c1c1c;
+  --background-elev1: #1d1d1d;
+  --background-elev2: #212121;
+  --background-elev3: #232323;
+  --background-elev4: #262626;
+  --background-elev5: #2c2c2c;
+}
+
 // Assign to parents for changing direction
 .row { display: flex; flex-direction: row; }
 .col { display: flex; flex-direction: column; }
