@@ -90,8 +90,6 @@ class UsersController < ApplicationController
   def game_state
     confirm_in_game
 
-    @game.current_user = @current_user
-
     render json: @game.state_cache
   end
 

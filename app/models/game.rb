@@ -5,7 +5,10 @@ class Game < ApplicationRecord
   belongs_to :black_card, optional: true
 
   # make card pools and discard piles into arrays
-  serialize :black_card_pool, :white_card_pool, :used_white_card_ids, :used_black_card_ids
+  serialize :black_card_pool
+  serialize :white_card_pool
+  serialize :used_white_card_ids
+  serialize :used_black_card_ids
   after_initialize do |u|
     u.black_card_pool = [] if u.black_card_pool.nil?
     u.white_card_pool = [] if u.white_card_pool.nil?
