@@ -32,9 +32,13 @@ class UsersController < ApplicationController
 
     render json: {}, status: :accepted
 
-    # TODO: fix this stepping game out of waiting lobby
-    # TODO: when a card czar leaves a game it should pick a new black card and card czar
-    @game.step_game # if game was waiting on user (to submit or pick), we should advance the game
+    if @game.users.empty?
+      @game.destroy
+    else
+      # TODO: fix this stepping game out of waiting lobby
+      # TODO: when a card czar leaves a game it should pick a new black card and card czar
+      @game.step_game # if game was waiting on user (to submit or pick), we should advance the game
+    end
   end
 
   def submit_card
@@ -64,6 +68,7 @@ class UsersController < ApplicationController
 
     # ! the scoring problem starts here, we update it, it sticks, but somehow its not updated inside game
     @current_user.update(picked_card_index: params[:card_index])
+    
     pp @current_user
     @game.step_game
 

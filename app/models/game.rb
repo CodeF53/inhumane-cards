@@ -7,21 +7,9 @@ class Game < ApplicationRecord
   # ! cursed, no better way I could think of to get the user for the game_state_serializer
   attr_accessor :current_user
 
-  # ! only should be ran once
-  def start_clock
-    Thread.new do
-      loop do
-        sleep 30
-
-        # TODO: kick users who are no longer online
-
-        # destroy self if empty
-        return destroy if users.empty?
-      end
-    end
-  end
-
   def step_game
+    puts "stepping game, phase: #{game_phase}"
+
     case game_phase
     when 'submit'
       update(game_phase: 'pick') if non_card_czar_users.all?(&:submitted_card?)
@@ -29,10 +17,17 @@ class Game < ApplicationRecord
     when 'pick'
       # return to submit phase if card czar left
       if card_czar.nil?
+        puts 'card czar left'
+
+        puts '\t switching back to submit'
         update(game_phase: 'submit')
+
+        puts '\tselecting new black card and czar'
         select_card_czar
         select_black_card
+
         # reset the submitted/picked cards
+        puts '\tresetting submitted/picked cards'
         users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil) }
         return
       end
@@ -91,9 +86,8 @@ class Game < ApplicationRecord
   def update_state_cache(delay: 0.2)
     Util.set_timeout(
       callback: lambda do
-        puts 'Updating cache:'
-        puts "users - #{users.length}"
-        update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json)
+        puts 'Updating game cache'
+        Rails.logger.silence { update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json) }
       end,
       seconds: delay
     )
