@@ -34,6 +34,17 @@
 // layout
 body { margin: 0; }
 
+// Custom component styling
+.panel {
+  background-color: var(--background-elev1);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.237);
+}
+.labeled_input > label {
+  margin-right: 1rem;
+}
+
 // General component styling
 a {
   text-decoration: none;
@@ -56,18 +67,3 @@ button {
 }
 button:hover { scale: 1 }
 button:active { scale: 0.95; }
-
-// Game Creation / Lobby Finding
-// TODO: move to separate file
-form {
-  min-width: 16rem;
-}
-.labeled_input > label {
-  margin-right: 1rem;
-}
-.gameLobby {
-  gap: 1rem;
-}
-.gameLobby button {
-  font-size: 1rem;
-}

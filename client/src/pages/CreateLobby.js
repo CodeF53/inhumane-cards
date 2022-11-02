@@ -29,7 +29,7 @@ export function CreateLobby({user}) {
   }
 
   return <div className="col">
-    <form onSubmit={handleSubmit} className="create_game centered col" id="log-form">
+    <form onSubmit={handleSubmit} className="create_game centered col panel" id="log-form">
       <h1>Create Lobby</h1>
       <LabeledInput label="Winning Score" name="winning_score" type="number" value={formObject.winning_score} onChange={updateFormObject} step="1" min="3" max="100"/>
       <LabeledInput label="Player Limit"  name="player_limit"  type="number" value={formObject.player_limit}  onChange={updateFormObject} step="1" min="3" max="10"/>
