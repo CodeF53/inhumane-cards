@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 5) do
 
   create_table "card_packs", force: :cascade do |t|
     t.string "title"
-    t.integer "card_category_id", null: false
+    t.integer "card_category_id"
     t.index ["card_category_id"], name: "index_card_packs_on_card_category_id"
   end
 

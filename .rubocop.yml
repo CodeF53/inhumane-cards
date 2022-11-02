@@ -26,3 +26,6 @@ AllCops:
   NewCops: enable
 
 require: rubocop-rails
+
+Rails/Output:
+  Enabled: false

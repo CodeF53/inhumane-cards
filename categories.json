@@ -2,74 +2,74 @@
   {
 		"title": "Official Base",
 		"regex": [
-      "/CAH Base Set|CAH: (First|Third|Second|Fourth|Fifth|Sixth) Expansion/"
+      "CAH Base Set|CAH: (First|Third|Second|Fourth|Fifth|Sixth) Expansion"
 		]
 	},
   {
 		"title": "Official Holiday",
 		"regex": [
-      "/\\d{4} Holiday Pack/"
+      "\\d{4} Holiday Pack"
 		]
 	},
   {
 		"title": "Official Color",
 		"regex": [
-      "/CAH: (Blue|Green|Red) Box Expansion/"
+      "CAH: (Blue|Green|Red) Box Expansion"
 		]
 	},
   {
 		"title": "Official PAX",
 		"regex": [
-      "/.*PAX.*/i"
+      ".*PAX.*"
 		]
 	},
   {
 		"title": "Official Misc",
 		"regex": [
-      "/CAH: .*/",
-      "/90s Nostalgia Pack/",
-      "/Absurd Box Expansion/",
-      "/ClickHole Greeting Cards Pack (Target Exclusive)/",
-      "/Dad Pack/",
-      "/Desert Bus For Hope Pack/",
-      "/Fantasy Pack/",
-      "/Fascism Pack/",
-      "/Food Pack/",
-      "/Geek Pack/",
-      "/Gen Con 2018 Midterm Election Pack/",
-      "/House of Cards Pack/",
-      "/Jack White Show Pack/",
-      "/Jew Pack\/Chosen People Pack/",
-      "/Mass Effect Pack/",
-      "/Nerd Bundle: A Few More Cards For You Nerds (Target Exclusive)/",
-      "/Period Pack/",
-      "/Pride Pack/",
-      "/Retail Mini Pack/",
-      "/Retail Product /",
-      "/Sci-Fi Pack/",
-      "/Science Pack/",
-      "/Seasons Greetings Pack/",
-      "/TableTop Pack/",
-      "/Theatre Pack/",
-      "/Theatre Pack - CATS Musical Pack/",
-      "/Weed Pack/",
-      "/World Wide Web Pack/"
+      "CAH: .*",
+      "90s Nostalgia Pack",
+      "Absurd Box Expansion",
+      "ClickHole Greeting Cards Pack (Target Exclusive)",
+      "Dad Pack",
+      "Desert Bus For Hope Pack",
+      "Fantasy Pack",
+      "Fascism Pack",
+      "Food Pack",
+      "Geek Pack",
+      "Gen Con 2018 Midterm Election Pack",
+      "House of Cards Pack",
+      "Jack White Show Pack",
+      "Jew Pack\/Chosen People Pack",
+      "Mass Effect Pack",
+      "Nerd Bundle: A Few More Cards For You Nerds (Target Exclusive)",
+      "Period Pack",
+      "Pride Pack",
+      "Retail Mini Pack",
+      "Retail Product ",
+      "Sci-Fi Pack",
+      "Science Pack",
+      "Seasons Greetings Pack",
+      "TableTop Pack",
+      "Theatre Pack",
+      "Theatre Pack - CATS Musical Pack",
+      "Weed Pack",
+      "World Wide Web Pack"
 		]
 	},
 	{
 		"title": "Official Reject",
 		"regex": [
-      "/Reject Pack.?\\d?/"
+      "Reject Pack.?\\d?"
 		]
 	},
 	{
 		"title": "Official Political",
 		"regex": [
-      "/Trump Bug Out Bag\\/Post-Trump Pack/",
-      "/Cards Against Humanity Saves America Pack/",
-      "/Vote For Hillary Pack/",
-      "/Vote For Trump Pack/",
-      "/2016 Election Game/"
+      "Trump Bug Out Bag\\/Post-Trump Pack",
+      "Cards Against Humanity Saves America Pack",
+      "Vote For Hillary Pack",
+      "Vote For Trump Pack",
+      "2016 Election Game"
 		]
 	},
   {
@@ -80,163 +80,163 @@
 	{
 		"title": "Cads About Maternity",
 		"regex": [
-      "/Cads About Maternity.*/"
+      "Cads About Maternity.*"
 		]
 	},
 	{
 		"title": "Cakes Athirst Hilarity",
 		"regex": [
-      "/Cakes Athirst Hilarity Volume.*/"
+      "Cakes Athirst Hilarity Volume.*"
 		]
 	},
 	{
 		"title": "Carbs of the Huge Manatee",
 		"regex": [
-      "/Carbs of the Huge Manatee.*/"
+      "Carbs of the Huge Manatee.*"
 		]
 	},
 	{
 		"title": "Cards and Punishment",
 		"regex": [
-      "/Cards and Punishment Vol. .*/"
+      "Cards and Punishment Vol. .*"
 		]
 	},
   {
 		"title": "Carps & Angsty Manatee",
 		"regex": [
-      "/Carps & Angsty Manatee - .*/"
+      "Carps & Angsty Manatee - .*"
 		]
 	},
 	{
 		"title": "Cats Abiding Horribly",
 		"regex": [
-      "/Cats Abiding Horribly.*/"
+      "Cats Abiding Horribly.*"
 		]
 	},
 	{
 		"title": "Clones Attack Hilarity",
 		"regex": [
-      "/Clones Attack Hilarity #\\d/"
+      "Clones Attack Hilarity #\\d"
 		]
 	},
 	{
 		"title": "Cows",
 		"regex": [
-      "/Cows .*/"
+      "Cows .*"
 		]
 	},
   {
 		"title": "Kentucky?",
 		"regex": [
-      "/Cols .* Kentucky.*/"
+      "Cols .* Kentucky.*"
 		]
 	},
 	{
 		"title": "Cocks Abreast Hostility",
 		"regex": [
-      "/Cocks Abreast Hostility.*/"
+      "Cocks Abreast Hostility.*"
 		]
 	},
 	{
 		"title": "Conspiracy Theory",
 		"regex": [
-      "/Conspiracy Theory.*/"
+      "Conspiracy Theory.*"
 		]
 	},
 	{
 		"title": "Crabs Adjust Humidity",
 		"regex": [
-      "/Crabs Adjust Humidity: .*/"
+      "Crabs Adjust Humidity: .*"
 		]
 	},
 	{
 		"title": "Disgruntled Decks",
 		"regex": [
-      "/Disgruntled Decks: .*/"
+      "Disgruntled Decks: .*"
 		]
 	},
 	{
 		"title": "Humanity Hates",
 		"regex": [
-      "/Humanity Hates .*/"
+      "Humanity Hates .*"
 		]
 	},
 	{
 		"title": "JadedAid",
 		"regex": [
-      "/JadedAid: .*/"
+      "JadedAid: .*"
 		]
 	},
 	{
 		"title": "KinderPerfect",
 		"regex": [
-      "/KinderPerfect.*/"
+      "KinderPerfect.*"
 		]
 	},
 	{
 		"title": "Kiwis _ Morality",
 		"regex": [
-      "/Kiwis .* Morality/"
+      "Kiwis .* Morality"
 		]
 	},
 	{
 		"title": "Knitters Against Swatches",
 		"regex": [
-      "/Knitters Against Swatches .* Edition/"
+      "Knitters Against Swatches .* Edition"
 		]
 	},
 	{
 		"title": "Not Parent Approved",
 		"regex": [
-      "/Not Parent Approved.*/"
+      "Not Parent Approved.*"
 		]
 	},
 	{
 		"title": "Personally Incorrect",
 		"regex": [
-      "/Personally Incorrect.*/"
+      "Personally Incorrect.*"
 		]
 	},
 	{
 		"title": "Pigs Against Profanity",
 		"regex": [
-      "/Pigs Against Profanity: Volume \\d/"
+      "Pigs Against Profanity: Volume \\d"
 		]
 	},
   {
 		"title": "That's What She Said Game",
 		"regex": [
-      "/That\\'s What She Said Game.*/"
+      "That\\'s What She Said Game.*"
 		]
 	},
 	{
 		"title": "The Catholic Card Game",
 		"regex": [
-      "/The Catholic Card Game: .*/"
+      "The Catholic Card Game: .*"
 		]
 	},
 	{
 		"title": "The Worst Card Game",
 		"regex": [
-      "/The Worst Card Game: .*/"
+      "The Worst Card Game: .*"
 		]
 	},
 	{
 		"title": "Trumped UpCards",
 		"regex": [
-      "/Trumped UpCards: .*/"
+      "Trumped UpCards: .*"
 		]
 	},
   {
 		"title": "Voter's Choice",
 		"regex": [
-      "/Voter's Choice: The .* Expansion/"
+      "Voter's Choice: The .* Expansion"
 		]
 	},
 	{
 		"title": "Words Against Morality",
 		"regex": [
-      "/Words Against Morality: Volume \\d/"
+      "Words Against Morality: Volume \\d"
     ]
 	}
 ]
