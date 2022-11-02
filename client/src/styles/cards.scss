@@ -1,0 +1,144 @@
+.card {
+  background-color: white;
+  color: black;
+  mix-blend-mode: normal;
+  box-shadow: 0 0.1rem 0.5rem 0.1rem rgba(0, 0, 0, 0.237);
+  // cards have a 5:7 ratio
+  width: 7.5rem;
+  height: 10.5rem;
+  font-size: .85rem;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  overflow-wrap: break-word;
+  transition: all .5s ease-in-out;
+  flex-shrink:0;
+}
+.card.blackCard{
+  background-color: black;
+  color: white;
+}
+
+// hand positioning
+.hand {
+  position: absolute;
+  bottom: 0px;
+  width: 100vw;
+  overflow-y: hidden;
+  height: 25rem;
+}
+// dip cards down a bit
+.handCard {
+  position: relative;
+  margin-bottom: -4rem;
+  margin-top: auto;
+}
+// selected/hovered cards pop up and expand
+.hand.letUserPick.submitPhase > .handCard:hover,
+.hand.cardSelected.submitPhase > .handCard.selected {
+  margin-bottom: 1rem;
+  transform: scale(1.25) !important;
+}
+// On desktop
+.desktop {
+  // hand cards group together tightly
+  .handCard {
+    margin-left: -2.5rem;
+    margin-right: -2.5rem;
+  }
+  // selected/hovered hand cards are given room to show all their text
+  .hand.letUserPick.submitPhase > .handCard:hover,
+  .hand.cardSelected.submitPhase > .handCard.selected {
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+  }
+}
+// On Mobile
+.mobile {
+  // you scroll between cards horizontally
+  .hand { overflow-x: scroll; }
+  // selected/hovered hand cards are given room to show all their text
+  .hand.cardSelected.submitPhase > .handCard.selected {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+// Submitted card shrinks away
+.hand.cardSubmitted > .card.handCard.selected {
+  margin-bottom: -10rem;
+  transform: scale(0) !important;
+  width: 0;
+  height: 0;
+  margin-left: -3rem;
+  margin-right: -3rem;
+  // instantly hide controls after card is submitted
+  .cardControls {
+    display: none;
+  }
+}
+// mobile need slightly different margins for shrinking away
+.mobile .hand.cardSubmitted > .card.handCard.selected {
+  margin-right: -2.5rem;
+}
+
+// confirm/cancel buttons
+.cardControls {
+  z-index: 1000;
+  position: absolute;
+  left: -100%;
+  right: -100%;
+  width: 300%;
+  button { font-size: 2rem; }
+  button.confirm { background-color: green; }
+  button.cancel { background-color: red; }
+}
+// position hand card controls above
+.handCard > .cardControls { top: -6rem; }
+// and pool card controls below
+.pool .cardControls { bottom: -6rem; }
+
+.pool {
+  // position black card centered a bit from the top of the screen
+  .blackCard {
+    margin: auto;
+    margin-top: 1rem;
+  }
+  // hovering it should expand it a tad
+  .blackCard.card:hover {
+    margin-top: 2rem;
+    transform: scale(1.25) !important;
+  }
+
+  .submitted {
+    // TODO: clean up so its a tad nicer
+    // TODO: make static after a card is clicked like in hand
+    .card:hover, .card.winningCard {
+      transform: scale(1.25) !important;
+      margin-left: 1.25rem;
+      margin-right: 1.25rem;
+    }
+
+    // display username of submitter beneath pool card
+    .card > .submitter {
+      position: absolute;
+      bottom: -1.5rem;
+      color: white;
+    }
+    // winning card should shine gold
+    .winningCard { box-shadow: 0 0.1rem 0.5rem 0.1rem gold; }
+  }
+}
+
+// animations
+.zoomIn { animation: zoom-in .5s; }
+@keyframes zoom-in {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+// TODO: after flipping in the cards snap to their random rotation instantly, make it smooth or something
+// TODO: the card shows the front text on the "back" when it should say "cards against humanity"
+.flipIn { animation: flip-in .5s; }
+@keyframes flip-in {
+  0% { transform: rotateY(180deg) }
+  100% { transform: rotateY(0deg) }
+}

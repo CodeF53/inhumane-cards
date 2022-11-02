@@ -1,0 +1,63 @@
+// Assign to parents for changing direction
+.row { display: flex; flex-direction: row; }
+.col { display: flex; flex-direction: column; }
+// Assign to children of row/col to center
+.row.centerChildren > *, .row > .centered { align-self: center; margin: auto 0px; }
+.col.centerChildren > *, .col > .centered { align-self: center; margin: 0px auto; }
+// Assign to empty child div to aesthetically fill space
+.spacer { flex:1; }
+
+// font stuff
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+@font-face {
+  font-family: 'Helvetica Neue';
+  font-weight: 700;
+  src: url("../assets/NeueHelveticaBQ-Bold.otf") format("opentype");
+}
+* {
+  font-family: 'Helvetica Neue', 'Open Sans', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// layout
+body { margin: 0; }
+
+// General component styling
+a {
+  text-decoration: none;
+  color: aqua;
+  width: fit-content;
+  height: fit-content;
+}
+h1, h2, h3, h4, h5, p, button, span, label {
+  margin: 0;
+  color: white;
+}
+button {
+  font-weight: 700;
+  background-color: transparent;
+  scale: 0.95;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+}
+button:hover { scale: 1 }
+button:active { scale: 0.95; }
+
+// Game Creation / Lobby Finding
+// TODO: move to separate file
+form {
+  min-width: 16rem;
+}
+.labeled_input > label {
+  margin-right: 1rem;
+}
+.gameLobby {
+  gap: 1rem;
+}
+.gameLobby button {
+  font-size: 1rem;
+}

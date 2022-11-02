@@ -1,0 +1,40 @@
+// layout
+.game {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1c1c1c;
+  overflow: hidden;
+}
+
+// control panel
+.controlPanel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 14rem;
+}
+.controlPanel > .users > .user {
+  gap: .25rem;
+}
+.controlPanel > .users.kick > .user > span.username { color: red; }
+.controlPanel > .users.promote > .user > span.username { color: gold; }
+.controlPanel > .users > .user > .icon {
+  width: 1rem;
+}
+.controlPanel button {
+  font-size: 1rem;
+}
+.controlPanel .icon {
+  color: white;
+}
+
+.statusThing {
+  font-size: 2rem;
+  position: fixed;
+  text-align: center;
+  bottom: 10rem;
+  width: 100%;
+}

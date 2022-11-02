@@ -19,16 +19,16 @@ export function App() {
   });}, []);
 
   // calculate aspect ratio every resize
-  const getAspectRatio = () => window.innerWidth / window.innerHeight
-  const [aspectRatio, setAspectRatio] = useState(getAspectRatio())
+  // do Mobile Rendering when aspect ratio is less than 3:4 -> (3:4 -> 3/4 -> 0.75)
+  const getIsMobile = () => (window.innerWidth / window.innerHeight) < 0.75
+  const [isMobile, setIsMobile] = useState(getIsMobile())
   useEffect(() => {
-    const handleWindowResize = () => setAspectRatio(getAspectRatio())
+    const handleWindowResize = () => setIsMobile(getIsMobile())
     window.addEventListener("resize", handleWindowResize)
     return () => { window.removeEventListener("resize", handleWindowResize) }
   }, [])
 
-  // do Mobile Rendering when aspect ratio is less than 3:4 -> (3:4 -> 3/4 -> 0.75)
-  return <div className={`app ${aspectRatio<0.75?"mobile":"desktop"} ${aspectRatio}`}>
+  return <div className={`app ${isMobile?"mobile":"desktop"}`}>
     <Routes>
       <Route path="/game/" element={<Game user={user}/>}/>
 

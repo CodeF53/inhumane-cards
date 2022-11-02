@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import { BrowserRouter } from "react-router-dom";
 import { App } from './components/App';
+
+import './styles/index.scss';
+import './styles/cards.scss';
+import './styles/game.scss';
+import './styles/header.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
