@@ -69,8 +69,10 @@ else
     # Add packs that match cat regex
     cat['regex'].each do |regex|
       CardPack.select { |pack| pack.title.downcase.match(regex.downcase) }.each do |pack|
-        puts "\t#{pack.title}"
-        pack.update(card_category: category)
+        if pack.card_category_id.nil?
+          puts "\t#{pack.title}"
+          pack.update(card_category: category)
+        end
       end
     end
   end
