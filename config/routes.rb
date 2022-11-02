@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   patch '/start_game', to: 'users#start'
   # TODO: Kick player route
   get '/game_state', to: 'users#game_state'
+
+  resources :card_categories, only: [:index]
 end

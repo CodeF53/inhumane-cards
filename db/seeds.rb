@@ -12,6 +12,11 @@ else
   cards_json = JSON.parse(card_file)
 
   cards_json.each do |set|
+    # make the category it belongs to if it doesn't already exist
+
+    # create the card set
+
+    # add cards to the set
     puts "\n⌛ Loading cards from #{set['name']}"
 
     unless set['white'].empty?

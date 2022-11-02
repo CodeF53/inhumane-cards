@@ -4,8 +4,14 @@ class Game < ApplicationRecord
   belongs_to :card_czar, class_name: 'User', foreign_key: 'card_czar_id', optional: true
   belongs_to :black_card, optional: true
 
-  # ! cursed, no better way I could think of to get the user for the game_state_serializer
-  attr_accessor :current_user
+  # make card pools and discard piles into arrays
+  serialize :black_card_pool, :white_card_pool, :used_white_card_ids, :used_black_card_ids
+  after_initialize do |u|
+    u.black_card_pool = [] if u.black_card_pool.nil?
+    u.white_card_pool = [] if u.white_card_pool.nil?
+    u.used_white_card_ids = [] if u.used_white_card_ids.nil?
+    u.used_black_card_ids = [] if u.used_black_card_ids.nil?
+  end
 
   def step_game
     puts "stepping game, phase: #{game_phase}"
