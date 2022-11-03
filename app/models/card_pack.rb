@@ -1,8 +1,8 @@
 class CardPack < ApplicationRecord
   belongs_to :card_category, optional: true
 
-  has_many :white_cards
-  has_many :black_cards
+  has_many :white_cards, dependent: :destroy
+  has_many :black_cards, dependent: :destroy
 
   def white_card_hash
     white_cards.map(&:hash)
