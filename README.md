@@ -48,13 +48,13 @@ General:
 - [x] Fix submitted/picked_card_index not resetting
 - [ ] Settings
   - [ ] Random card rotation optional
-    (2 people have asked for this so far)
+    (3 people have asked for this so far)
   - [ ] Disable everyone is waiting on you sfx
 - [ ] Automatically put user back in game if they are in one
 - [x] Leave Game
 - [ ] Kick/Promote
 - [ ] Support for cards with `card.pick` > 1
-- [ ] Allow picking cart packs
+- [x] Allow picking card packs
   - [x] add pack to card seeding
   - [x] add category to card seeding
     - [x] categories.json (this took me 2 hours aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
