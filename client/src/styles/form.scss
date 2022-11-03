@@ -13,18 +13,28 @@ form {
   font-size: 1rem;
 }
 
-.packCheckBox {
-  flex-direction: row-reverse;
-  .spacer { order: -1 }
-
-  &.section {
-    font-size: 1.5rem;
-  }
-  &.category {
+.create_game {
+  details {
     margin-left: 1rem;
-    font-size: 1.25rem;
+    summary > * { display: inline; }
   }
-  &.pack {
-    margin-left: 2rem;
+
+  .packCheckBox {
+    position: relative;
+
+    flex-direction: row-reverse;
+    .spacer { order: -1 }
+    &.pack { margin-left: 2rem; }
+    &.section { font-size: 1.5rem; }
+    &.category { font-size: 1.25rem; }
+
+    &.section, &.category {
+      input {
+        position: absolute;
+        left: -0.2rem;
+        top: .3rem;
+      }
+      label { margin-left: 1rem; }
+    }
   }
 }

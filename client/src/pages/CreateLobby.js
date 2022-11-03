@@ -36,9 +36,8 @@ export function CreateLobby({user}) {
   const unOffishCats = categories.filter(category=>!category.is_official)
 
   // TODO Hook up checkboxes
-  // TODO Add dropdowns
   return <div className="col">
-    <form onSubmit={handleSubmit} className="create_game centered col panel" id="log-form">
+    <form onSubmit={handleSubmit} className="create_game centered col panel">
       <h1>Create Lobby</h1>
       <LabeledInput label="Winning Score" name="winning_score" type="number" value={formObject.winning_score} onChange={updateFormObject} step="1" min="3" max="100"/>
       <LabeledInput label="Player Limit"  name="player_limit"  type="number" value={formObject.player_limit}  onChange={updateFormObject} step="1" min="3" max="10"/>
@@ -50,17 +49,32 @@ export function CreateLobby({user}) {
       </div>
 
       <h2>Select Packs:</h2>
-      {<LabeledInput label="Official" type="checkbox" className="packCheckBox section"/>}
-      {offishCats.map(category=><div>
-        {<LabeledInput label={category.title} type="checkbox" className="packCheckBox category"/>}
-        {category.card_packs.map(pack=><LabeledInput label={pack.title} type="checkbox" className="packCheckBox pack"/>)}
-      </div>)}
 
-      {<LabeledInput label="UnOfficial" type="checkbox" className="packCheckBox section"/>}
-      {unOffishCats.map(category=><div>
-        {<LabeledInput label={category.title} type="checkbox" className="packCheckBox category"/>}
-        {category.card_packs.map(pack=><LabeledInput label={pack.title} type="checkbox" className="packCheckBox pack"/>)}
-      </div>)}
+      <details>
+        <summary>
+          {<LabeledInput label="Official" type="checkbox" className="packCheckBox section"/>}
+        </summary>
+
+        {offishCats.map(category => <details>
+          <summary>
+            {<LabeledInput label={category.title} type="checkbox" className="packCheckBox category"/>}
+          </summary>
+          {category.card_packs.map(pack=><LabeledInput label={pack.title} type="checkbox" className="packCheckBox pack"/>)}
+        </details>)}
+      </details>
+
+      <details>
+        <summary>
+          {<LabeledInput label="UnOfficial" type="checkbox" className="packCheckBox section"/>}
+        </summary>
+
+        {unOffishCats.map(category => <details>
+          <summary>
+            {<LabeledInput label={category.title} type="checkbox" className="packCheckBox category"/>}
+          </summary>
+          {category.card_packs.map(pack=><LabeledInput label={pack.title} type="checkbox" className="packCheckBox pack"/>)}
+        </details>)}
+      </details>
     </form>
   </div>
 }
