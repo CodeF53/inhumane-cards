@@ -11,10 +11,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 5) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "black_cards", force: :cascade do |t|
     t.string "text"
     t.integer "pick", default: 1
-    t.integer "card_pack_id", null: false
+    t.bigint "card_pack_id", null: false
     t.index ["card_pack_id"], name: "index_black_cards_on_card_pack_id"
   end
 
@@ -25,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 5) do
 
   create_table "card_packs", force: :cascade do |t|
     t.string "title"
-    t.integer "card_category_id"
+    t.bigint "card_category_id"
     t.index ["card_category_id"], name: "index_card_packs_on_card_category_id"
   end
 
@@ -51,12 +54,12 @@ ActiveRecord::Schema[7.0].define(version: 5) do
     t.integer "game_score"
     t.integer "submitted_hand_index"
     t.integer "picked_card_index"
-    t.text "hand"
+    t.text "hand", array: true
   end
 
   create_table "white_cards", force: :cascade do |t|
     t.string "text"
-    t.integer "card_pack_id", null: false
+    t.bigint "card_pack_id", null: false
     t.index ["card_pack_id"], name: "index_white_cards_on_card_pack_id"
   end
 
