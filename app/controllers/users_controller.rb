@@ -95,7 +95,7 @@ class UsersController < ApplicationController
 
   # GET /hand
   def hand
-    Rails.logger.silence { render json: @current_user.hand_cards.map(&:text).to_json }
+    render json: @current_user.hand.map(&:text).to_json
   end
 
   private
