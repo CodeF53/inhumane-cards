@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
+ActiveRecord::Schema[7.0].define(version: 5) do
   create_table "black_cards", force: :cascade do |t|
     t.string "text"
+    t.integer "pick", default: 1
+    t.integer "card_pack_id", null: false
+    t.index ["card_pack_id"], name: "index_black_cards_on_card_pack_id"
+  end
+
+  create_table "card_categories", force: :cascade do |t|
+    t.string "title"
+    t.boolean "is_official"
+  end
+
+  create_table "card_packs", force: :cascade do |t|
+    t.string "title"
+    t.integer "card_category_id"
+    t.index ["card_category_id"], name: "index_card_packs_on_card_category_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -24,6 +38,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
     t.integer "card_czar_id"
     t.string "game_phase", default: "lobby"
     t.string "state_cache"
+    t.string "black_card_pool"
+    t.string "white_card_pool"
+    t.string "used_white_card_ids"
+    t.string "used_black_card_ids"
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,6 +56,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_000955) do
 
   create_table "white_cards", force: :cascade do |t|
     t.string "text"
+    t.integer "card_pack_id", null: false
+    t.index ["card_pack_id"], name: "index_white_cards_on_card_pack_id"
   end
 
+  add_foreign_key "black_cards", "card_packs"
+  add_foreign_key "card_packs", "card_categories"
+  add_foreign_key "white_cards", "card_packs"
 end

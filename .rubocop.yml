@@ -19,5 +19,13 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+Metrics/ClassLength:
+  Enabled: false
+
 AllCops:
   NewCops: enable
+
+require: rubocop-rails
+
+Rails/Output:
+  Enabled: false

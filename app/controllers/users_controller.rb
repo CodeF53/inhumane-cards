@@ -90,14 +90,12 @@ class UsersController < ApplicationController
   def game_state
     confirm_in_game
 
-    @game.current_user = @current_user
-
     render json: @game.state_cache
   end
 
   # GET /hand
   def hand
-    Rails.logger.silence { render json: @current_user.hand_cards.map(&:text).to_json }
+    render json: @current_user.hand.map(&:text).to_json
   end
 
   private

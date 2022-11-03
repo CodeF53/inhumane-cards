@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  skip_before_action :authorize, only: %i[index]
+
   # GET /games
   def index
     return render json: [] if Game.all.empty?
@@ -8,14 +10,20 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
-    authorize
+    render json: { errors: ['Must select at least one pack'] }, status: :unprocessable_entity if params[:enabled_pack_ids].empty?
+
     game = Game.create!(game_params)
     game.update(lobby_owner: @current_user)
 
-    # hacky, should probably run user#join_game
+    # parse array of pack ids into 2 arrays cards, white and black
+    card_packs = params[:enabled_pack_ids].map { |pack_id| CardPack.find(pack_id) }
+    game.update(
+      white_card_pool: card_packs.map(&:white_card_hash).flatten,
+      black_card_pool: card_packs.map(&:black_card_hash).flatten
+    )
+
     @current_user.update(game: game)
     @current_user.set_game_vars
-
     game.update_state_cache
 
     render json: game, status: :created

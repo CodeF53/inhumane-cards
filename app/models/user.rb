@@ -12,16 +12,12 @@ class User < ApplicationRecord
     u.hand = [] if u.hand.nil?
   end
 
-  def hand_cards
-    Rails.logger.silence { hand.map { |card_id| WhiteCard.find(card_id) } }
-  end
-
   def submitted_card?
     submitted_hand_index.nil?.!
   end
 
   def submitted_card
-    hand_cards[submitted_hand_index]
+    hand[submitted_hand_index]
   end
 
   def card_czar?
@@ -39,9 +35,10 @@ class User < ApplicationRecord
   def set_game_vars
     update(
       game_score: 0,
-      hand: WhiteCard.all.sample(10).map(&:id)
+      hand: game.sample_white_cards(10)
     )
 
+    # ? do these updates still need to be separate?
     update(
       submitted_hand_index: nil,
       picked_card_index: nil

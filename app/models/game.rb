@@ -4,8 +4,17 @@ class Game < ApplicationRecord
   belongs_to :card_czar, class_name: 'User', foreign_key: 'card_czar_id', optional: true
   belongs_to :black_card, optional: true
 
-  # ! cursed, no better way I could think of to get the user for the game_state_serializer
-  attr_accessor :current_user
+  # make card pools and discard piles into arrays
+  serialize :black_card_pool
+  serialize :white_card_pool
+  serialize :used_white_card_ids
+  serialize :used_black_card_ids
+  after_initialize do |u|
+    u.black_card_pool = [] if u.black_card_pool.nil?
+    u.white_card_pool = [] if u.white_card_pool.nil?
+    u.used_white_card_ids = [] if u.used_white_card_ids.nil?
+    u.used_black_card_ids = [] if u.used_black_card_ids.nil?
+  end
 
   def step_game
     puts "stepping game, phase: #{game_phase}"
@@ -54,7 +63,7 @@ class Game < ApplicationRecord
       # replace used cards
       non_card_czar_users.each do |user|
         hand = user.hand
-        hand[user.submitted_hand_index] = WhiteCard.all.sample.id
+        hand[user.submitted_hand_index] = sample_white_cards(1)
         user.update(hand: hand)
       end
 
@@ -109,10 +118,6 @@ class Game < ApplicationRecord
     update(card_czar: users[(users.index(card_czar) + 1) % users.length])
   end
 
-  def select_black_card
-    update(black_card: BlackCard.all.sample)
-  end
-
   def winning_card_id
     card_czar = User.find(card_czar_id) # ! hacky solution to it not being up to date
     submitted_round_cards[card_czar.picked_card_index].id
@@ -124,5 +129,19 @@ class Game < ApplicationRecord
 
   def reset_picked_submitted_cards
     users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil) }
+  end
+
+  def select_black_card
+    # TODO: add id to used_black_card_ids
+    # then don't use them again till we run out
+    update(black_card_id: black_card_pool.sample.id)
+  end
+
+  def sample_white_cards(amount = 1)
+    # TODO: add used ids to used_white_card_ids
+    # then don't use them again till we run out
+    return white_card_pool.sample if amount == 1
+
+    white_card_pool.sample(amount)
   end
 end

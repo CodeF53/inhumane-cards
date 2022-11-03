@@ -48,5 +48,8 @@ module InhumaneCards
 
     # global util libs to keep stuff dry
     config.autoload_paths += %W[#{Rails.root}/lib/]
+
+    # let hash info be accessed through dots
+    Hash.use_dot_syntax = true
   end
 end
