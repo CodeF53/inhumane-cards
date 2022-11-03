@@ -18,7 +18,7 @@ export function CreateLobby({user}) {
 
     fetch("/games",{
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formObject)
+      body: JSON.stringify({...formObject, enabled_pack_ids: enabled_pack_ids})
     }).then(r=>{ if (r.ok) { r.json().then(game=>{
       navigate("/game/") // send user to game lobby
     })} else {
@@ -48,6 +48,7 @@ export function CreateLobby({user}) {
     const ids = category.card_packs.map(pack=>pack.id)
     if (e.target.checked) { add_pack_ids(ids) }
     else { rem_pack_ids(ids) }
+    console.log(enabled_pack_ids);
   }
 
   const section_toggle_children = (e, section) => {
