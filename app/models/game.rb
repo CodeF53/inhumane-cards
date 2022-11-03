@@ -62,6 +62,8 @@ class Game < ApplicationRecord
 
       # replace used cards
       non_card_czar_users.each do |user|
+        next if user.submitted_hand_index.nil?
+
         hand = user.hand
         hand[user.submitted_hand_index] = sample_white_cards(1)
         user.update(hand: hand)
@@ -70,6 +72,9 @@ class Game < ApplicationRecord
       if winning_user.game_score >= winning_score
         puts "#{winning_user.username} wins"
         update(game_phase: 'over')
+
+        update_state_cache
+        return
       else
         puts 'result wait over'
         puts '\tswitching back to submit'
