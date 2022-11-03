@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react"
-import { fetchPatch } from "../util"
+import { fetchPatch, fetchPost } from "../util"
 
-export function ControlPanel({ gameState: { users, card_czar_id, game_phase, game_stuff }, is_lobby_owner }) {
+export function ControlPanel({ gameState: { users, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser }) {
   const [isHidden, setIsHidden] = useState(false)
   const [mode, setMode] = useState("")
 
@@ -9,6 +9,15 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, gam
   if (game_stuff) {
     // eslint-disable-next-line
     var { winning_user_id } = game_stuff
+  }
+
+  function onUserClick(clicked_user_id) {
+    if (mode === "") return
+
+    if (currentUser.id === clicked_user_id) return
+
+    fetchPost(`/${mode}/${clicked_user_id}`).then(r=>{
+      if(r.ok) { setMode("") }})
   }
 
   // TODO: hook up leave game button
@@ -19,7 +28,7 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, gam
 
     <div className="col" style={{width: "100%"}}>
       <div className={`users col ${mode}`}>
-        {users.map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} is_lobby_owner={is_lobby_owner}/>)}
+        {users.map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} is_lobby_owner={is_lobby_owner} onUserClick={onUserClick} />)}
       </div>
       <div className="row">
         <div className="spacer"/>
@@ -42,13 +51,13 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, gam
       </div>
       <div className="row">
         <div className="spacer"/>
-        {mode!=="" && <h3>click a user to {mode}</h3>}
+        {mode!=="" && <span>click a user to {mode}</span>}
       </div>
     </div>
   </div>
 }
 
-function User({ user, card_czar_id, winning_user_id, lobby_owner_id }) {
+function User({ user, card_czar_id, winning_user_id, lobby_owner_id, onUserClick }) {
   const is_card_czar = user.id === card_czar_id
   const is_winning_user = user.id === winning_user_id
   const is_lobby_owner = user.id === lobby_owner_id
@@ -62,7 +71,7 @@ function User({ user, card_czar_id, winning_user_id, lobby_owner_id }) {
       {is_card_czar && "C"}
       {is_lobby_owner && "L"}
     </div>
-    <span className="username">{user.username}</span>
+    <span className="username" onClick={e=>onUserClick(user.id)}>{user.username}</span>
 
     <div className="spacer"/>
 

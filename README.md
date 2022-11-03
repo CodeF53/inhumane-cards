@@ -52,7 +52,7 @@ General:
   - [ ] Disable everyone is waiting on you sfx
 - [ ] Automatically put user back in game if they are in one
 - [x] Leave Game
-- [ ] Kick/Promote
+- [x] Kick/Promote
 - [ ] Support for cards with `card.pick` > 1
 - [x] Allow picking card packs
   - [x] add pack to card seeding

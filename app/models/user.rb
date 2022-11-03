@@ -44,4 +44,19 @@ class User < ApplicationRecord
       picked_card_index: nil
     )
   end
+
+  def leave_game
+    old_game = game
+    update(game_id: nil)
+
+    # if the lobby is now empty, destroy it.
+    return old_game.destroy if old_game.users.empty?
+
+    # don't step game out of waiting lobby
+    return if %w[lobby over].include?(old_game.game_phase)
+
+    # TODO: when a card czar leaves a game it should pick a new black card and card czar
+    # TODO: when lobby owner leaves, assign new owner randomly
+    old_game.step_game # if game was waiting on user (to submit or pick), we should advance the game
+  end
 end

@@ -27,6 +27,6 @@ export function Game({user}) {
       <Pool gameState={gameState} userIsCardCzar={userIsCardCzar}/>
       <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} gameState={gameState} user={user}/>
     </Fragment>:null}
-    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner}/>
+    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user}/>
   </div>
 }

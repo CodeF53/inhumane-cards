@@ -28,17 +28,9 @@ class UsersController < ApplicationController
   def leave_game
     confirm_in_game
 
-    @current_user.update(game_id: nil)
+    @current_user.leave_game
 
     render json: {}, status: :accepted
-
-    if @game.users.empty?
-      @game.destroy
-    else
-      # TODO: fix this stepping game out of waiting lobby
-      # TODO: when a card czar leaves a game it should pick a new black card and card czar
-      @game.step_game # if game was waiting on user (to submit or pick), we should advance the game
-    end
   end
 
   def submit_card
@@ -96,6 +88,36 @@ class UsersController < ApplicationController
   # GET /hand
   def hand
     render json: @current_user.hand.map(&:text).to_json
+  end
+
+  # POST /kick/:user_id
+  def kick
+    confirm_in_game
+
+    return render json: { errors: ['Not the lobby owner!'] }, status: :forbidden unless @current_user.lobby_owner?
+
+    user_to_kick = @game.users.find(params[:user_id])
+
+    user_to_kick.leave_game
+
+    # TODO: add message for getting kicked
+
+    render json: {}, status: :accepted
+  end
+
+  # POST /promote/:user_id
+  def promote
+    confirm_in_game
+
+    return render json: { errors: ['Not the lobby owner!'] }, status: :forbidden unless @current_user.lobby_owner?
+
+    user_to_promote = @game.users.find(params[:user_id])
+
+    @game.update(lobby_owner_id: user_to_promote.id)
+
+    @game.update_state_cache
+
+    render json: {}, status: :accepted
   end
 
   private

@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   resources :games, only: %i[index create]
   # lobby owner commands:
   patch '/start_game', to: 'users#start'
-  # TODO: Kick player route
+  post '/kick/:user_id', to: 'users#kick'
+  post '/promote/:user_id', to: 'users#promote'
   get '/game_state', to: 'users#game_state'
 
   resources :card_categories, only: [:index]

@@ -7,3 +7,4 @@ export const cardRotation = card => `rotate(${pRandFromStr(card.slice(0,3))*10-5
 
 
 export const fetchPatch = url => fetch(url, { method:"PATCH" })
+export const fetchPost  = url => fetch(url, { method:"POST" })
