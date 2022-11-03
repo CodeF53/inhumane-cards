@@ -5,8 +5,9 @@ export function StatusThing({userIsCardCzar, user_id, is_lobby_owner, gameState}
 
   // TODO: fix this
   let winning_user_name = ""
-  if ((gameState==="over" || gameState==="result") && gameState.winning_user_id) {
-    winning_user_name = gameState.users.filter(user=>user.id === gameState.winning_user_id)
+  if ((game_phase==="over" || game_phase==="result") && gameState.game_stuff && gameState.game_stuff.winning_user_id) {
+    winning_user_name = gameState.users.filter(user=>user.id === gameState.game_stuff.winning_user_id)[0].username
+    console.log(winning_user_name);
   }
 
   let line1 = ""
@@ -16,7 +17,7 @@ export function StatusThing({userIsCardCzar, user_id, is_lobby_owner, gameState}
     switch (game_phase) {
       case "submit":
         if (userHasSubmitted) {
-          line2 = "Waiting for others to submit"
+          line2 = "Waiting on other players"
         } else {
           line1 = "Your Turn"
           line2 = "Submit a card"
@@ -24,34 +25,36 @@ export function StatusThing({userIsCardCzar, user_id, is_lobby_owner, gameState}
         break;
       case "pick":
         line1 = "Your Turn"
-        line2 = "Pick the best card combination"
+        line2 = "Pick the best answer"
         break;
       default: break;
     }
   } else {
     switch (game_phase) {
       case "submit":
-        line2 = "Waiting for others to submit"
+        line1 = "You are the Czar"
+        line2 = "Waiting on other players"
         break;
       case "pick":
-        line2 = "Waiting for the card czar to pick a card"
+        line2 = "Waiting on the Czar"
         break;
       case "result":
         line2 = `${winning_user_name} won the round`
         break;
       case "lobby":
-        if (is_lobby_owner) { line2 = "Start the game when everyone is ready" }
-        else { line2 = "Waiting for the lobby owner to start the game" }
+        if (is_lobby_owner) { line2 = "Start the game" }
+        else { line2 = "Waiting for the host" }
         break;
       case "over":
-        line1 = `${winning_user_name} wins the round`
-        if (is_lobby_owner) { line2 = "Start the game when everyone is ready" }
-        else { line2 = "Waiting for the lobby owner to start the game" }
+        line1 = `${winning_user_name} wins the game!`
+        if (is_lobby_owner) { line2 = "Start a new game" }
+        else { line2 = "Waiting for the host" }
         break;
       default: break;
     }
   }
 
+  // TODO: when lobby/over, line 2 should be a button
   return <div className="statusThing">
     <h1>{line1}</h1>
     <h2>{line2}</h2>
