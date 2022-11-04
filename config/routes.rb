@@ -22,5 +22,5 @@ Rails.application.routes.draw do
   resources :card_categories, only: [:index]
 
   get '*path', to: 'fallback#index', constraints: ->(req) { !req.xhr? && req.format.html? }
-  get '/', to: 'fallback#index', constraints: ->(req) { req.format.html? }
+  get '/', to: 'fallback#index'
 end
