@@ -8,10 +8,10 @@ def destroy_all_with_progressbar(thing, text)
 end
 
 puts '🗑️ Clearing database'
-# destroy_all_with_progressbar(BlackCard, 'Black Cards')
-# destroy_all_with_progressbar(WhiteCard, 'White Cards')
-# destroy_all_with_progressbar(CardPack, 'Card Packs')
-# destroy_all_with_progressbar(CardCategory, 'Card Categories')
+destroy_all_with_progressbar(BlackCard, 'Black Cards')
+destroy_all_with_progressbar(WhiteCard, 'White Cards')
+destroy_all_with_progressbar(CardPack, 'Card Packs')
+destroy_all_with_progressbar(CardCategory, 'Card Categories')
 
 begin
   puts "\n📁 Reading cards file"
@@ -27,24 +27,24 @@ else
   cards_json.each do |pack|
     # Thread.new do
     # create the card pack
-    card_pack = CardPack.create(title: pack.name)
+    card_pack = CardPack.create(title: pack['name'])
 
     # add cards to the pack
-    puts "\n⌛ Loading cards from #{pack.name}"
+    puts "\n⌛ Loading cards from #{pack['name']}"
 
-    if pack.white.present?
-      progressbar = ProgressBar.create(title: "  #{pack.white.length} White cards", total: pack.white.length)
+    if pack['white'].present?
+      progressbar = ProgressBar.create(title: "  #{pack['white'].length} White cards", total: pack['white'].length)
 
-      pack.white.each do |card|
-        WhiteCard.create(text: card.text, card_pack: card_pack)
+      pack['white'].each do |card|
+        WhiteCard.create(text: card['text'], card_pack: card_pack)
         # TODO: save card.pack for something
         progressbar.increment
       end
     end
 
-    next if pack.black.blank?
+    next if pack['black'].blank?
 
-    progressbar = ProgressBar.create(title: "  #{pack.black.length} Black cards", total: pack.black.length)
+    progressbar = ProgressBar.create(title: "  #{pack['black'].length} Black cards", total: pack['black'].length)
 
     pack.black.each do |card|
       BlackCard.create(text: card.text, card_pack: card_pack, pick: card['pick']) if card['pick'] == 1
@@ -63,11 +63,11 @@ else
   puts "\n🌳 Making categories"
   categories_json = JSON.parse(File.read('./categories.json'))
   categories_json.each do |cat|
-    category = CardCategory.create(title: cat.title, is_official: cat.title.include?('Official'))
+    category = CardCategory.create(title: cat['title'], is_official: cat['title'].include?('Official'))
 
-    puts cat.title
+    puts cat['title']
     # Add packs that match cat regex
-    cat.regex.each do |regex|
+    cat['regex'].each do |regex|
       CardPack.select { |pack| pack.title.downcase.match(regex.downcase) }.each do |pack|
         if pack.card_category_id.nil?
           puts "\t#{pack.title}"
