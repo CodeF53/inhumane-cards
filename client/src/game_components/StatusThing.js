@@ -66,7 +66,7 @@ export function StatusThing({userIsCardCzar, user_id, is_lobby_owner, gameState}
     <h1>{line1}</h1>
 
     {line2_is_start_button?
-      <button onClick={e=>fetchPatch("/start")}>{line2}</button>:
+      <button onClick={e=>fetchPatch("/start_game")}>{line2}</button>:
       <h2>{line2}</h2>
     }
   </div>
