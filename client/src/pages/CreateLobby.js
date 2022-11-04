@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LabeledInput } from "../components/LabeledInput";
 
 export function CreateLobby({user}) {
+  const [errorText, setErrorText] = useState("")
   const navigate = useNavigate()
   if (!user) navigate("/")
 
@@ -15,6 +16,7 @@ export function CreateLobby({user}) {
   function handleSubmit(e) {
     e.preventDefault()
     if (formObject.password === "") formObject.password = null
+    setErrorText("")
 
     fetch("/games",{
       method: "POST", headers: { "Content-Type": "application/json" },
@@ -23,7 +25,7 @@ export function CreateLobby({user}) {
       navigate("/game/") // send user to game lobby
     })} else {
       r.json().then(({errors})=>{
-        // setErrorText(errors[0])
+        setErrorText(errors[0])
       })
     }})
   }
@@ -66,9 +68,12 @@ export function CreateLobby({user}) {
       <LabeledInput label="Lobby Password (Optional)" name="password" type="password" value={formObject.password} onChange={updateFormObject}/>
 
       <div className="row">
-        <h2>Select Packs:</h2>
+        <div className="col">
+          <h2>Select Packs:</h2>
+          <span className="errors">{errorText}</span>
+        </div>
         <div className="spacer"/>
-        <button className="centered" type="submit">Submit</button>
+        <button type="submit">Submit</button>
       </div>
 
       <details>

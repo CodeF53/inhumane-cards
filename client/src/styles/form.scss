@@ -1,14 +1,28 @@
 // Game Creation / Lobby Finding
 .gameLobby {
   gap: 1rem;
-}
-.gameLobby button {
-  font-size: 1rem;
+
+  input {
+    min-width: 1rem;
+    width: 100%;
+  }
+  span, button {
+    width: fit-content;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .username {
+    width: 100%;
+    max-width: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .create_game {
   width: 100%;
-  max-width: 80vw;
+  max-width: min(80vw, 50rem);
 
   &>.labeled_input  {
     label { min-width: 13rem; margin-right: 0; }

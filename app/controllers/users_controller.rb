@@ -14,9 +14,9 @@ class UsersController < ApplicationController
   def join_game
     found_game = Game.find(params[:game_id])
 
-    return render json: { errors: ['Invalid game password'] }, status: :unauthorized unless found_game.password.nil? || found_game.password != params[:password]
+    return render json: { errors: ['Invalid Password'] }, status: :unauthorized unless found_game.password.nil? || found_game.password == params[:password]
 
-    return render json: { errors: ['Game full'] }, status: :gone if found_game.users.length == :player_limit
+    return render json: { errors: ['Game Full'] }, status: :gone if found_game.users.length == :player_limit
 
     @current_user.update(game: found_game)
     @current_user.set_game_vars

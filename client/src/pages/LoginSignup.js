@@ -26,11 +26,11 @@ export function LoginSignup({ isLogin, user, setUser }) {
     }})
   }
 
-  let errorNode = errorText.length===0? null: (<span className="centered" style={{color:"red", textAlign:"center"}}>{errorText}</span>)
+  let errorNode = errorText.length===0? null: (<span className="centered errors" style={{textAlign:"center"}}>{errorText}</span>)
 
   return (
     <div className="col">
-      <form onSubmit={handleSubmit} className="login centered col" id="log-form">
+      <form onSubmit={handleSubmit} className="login centered col panel" id="log-form">
         <h1>{isLogin? "Log In": "Sign Up"}</h1>
         <input onChange={(e)=>{setUsername(e.target.value)}} value={username} placeholder="username" type="text"/>
         <input onChange={(e)=>{setPassword(e.target.value)}} value={password} placeholder="password" type="password"/>

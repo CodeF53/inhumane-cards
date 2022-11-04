@@ -38,16 +38,15 @@ body { margin: 0; }
 // Custom component styling
 .panel {
   background-color: var(--background-elev1);
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 1rem;
   box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.237);
 
   min-width: 16rem;
   button { font-size: 1.5rem; }
 }
-.labeled_input > label {
-  margin-right: 1rem;
-}
+.labeled_input > label { margin-right: 1rem; }
+.invisible { opacity: 0; cursor: default; }
 
 // General component styling
 a {
@@ -60,6 +59,7 @@ h1, h2, h3, h4, h5, p, button, span, label, ::marker {
   margin: 0;
   color: white;
 }
+.errors { color: #F00; }
 button {
   font-weight: 700;
   background-color: transparent;
