@@ -10,7 +10,7 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
-    render json: { errors: ['Must select at least one pack'] }, status: :unprocessable_entity if params[:enabled_pack_ids].empty?
+    return render json: { errors: ['Must select at least one pack'] }, status: :unprocessable_entity if params[:enabled_pack_ids].empty?
 
     game = Game.create!(game_params)
     game.update(lobby_owner: @current_user)
