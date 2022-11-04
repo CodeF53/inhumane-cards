@@ -59,6 +59,7 @@ General:
 Future Stretch Goals":
 - [ ] Switch to ActionCable and turbo for GameState
 - [ ] Switch to Next.js
+- [ ] Omni Auth (sign in google and everything)
 
 ## Is this legal?
 Cards Against Humanity® is distributed under a [Creative Commons BY-NC-SA 4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).

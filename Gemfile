@@ -19,7 +19,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bcrypt'
 
 # loading card DB from https://crhallberg.com/cah/ cah-cards-full.json
-gem 'json'
+# gem 'json'
 
 # progress bar for loading card DB, because it takes long enough you want one
 gem 'ruby-progressbar'

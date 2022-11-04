@@ -92,8 +92,6 @@ GEM
     io-console (0.5.11-java)
     irb (1.4.2)
       reline (>= 0.3.0)
-    json (1.8.6)
-    json (1.8.6-java)
     jsonapi-renderer (0.2.2)
     loofah (2.19.0)
       crass (~> 1.0.2)
@@ -197,7 +195,6 @@ DEPENDENCIES
   bcrypt
   debug
   hash_dot
-  json
   puma (~> 5.0)
   rails (~> 7.0.4)
   ruby-progressbar
