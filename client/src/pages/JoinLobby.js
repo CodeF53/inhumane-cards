@@ -16,7 +16,6 @@ export function JoinLobby({user}) {
     fetch("games").then(r=>r.json()).then((data)=>{setLobbies(data)})
   }, [forceRefreshListener])
 
-  // TODO: add refresh button
   return <div className="col">
     <div className="centered panel lobbies">
       <div className="row centerChildren">

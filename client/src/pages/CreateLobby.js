@@ -37,7 +37,6 @@ export function CreateLobby({user}) {
   const offishCats = categories.filter(category=>category.is_official)
   const unOffishCats = categories.filter(category=>!category.is_official)
 
-  // TODO add enabled_pack_ids to fetch
   const [enabled_pack_ids, setEnabled_pack_ids] = useState([])
   const amChecked = id => enabled_pack_ids.includes(id)
   const add_pack_ids = ids => setEnabled_pack_ids([...enabled_pack_ids, ...ids])

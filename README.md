@@ -34,9 +34,10 @@ Frontend:
 - [ ] Make stuff look good
   - [x] Game Controls Menu
   - [ ] Front Page
-  - [ ] Lobby Select Screen
-  - [ ] Lobby Create Screen
-  - [ ] User Create Screen
+  - [x] Lobby Select Screen
+  - [x] Lobby Create Screen
+  - [x] User Create Screen
+  - [ ] `<input>` elements
 - [ ] Auto-Leave game after loss of connection
 - [ ] Waiting on user
 - [ ] Sound Effects

@@ -38,7 +38,6 @@ else
 
       pack['white'].each do |card|
         WhiteCard.create(text: card['text'], card_pack: card_pack)
-        # TODO: save card.pack for something
         progressbar.increment
       end
     end

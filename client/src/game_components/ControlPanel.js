@@ -20,7 +20,6 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, gam
       if(r.ok) { setMode("") }})
   }
 
-  // TODO: hook up leave game button
   return <div className={`controlPanel ${is_lobby_owner?"lobbyOwner":""} ${isHidden?"hidden":""} row`}>
     <button className="hide_show_button" onClick={()=>setIsHidden(!isHidden)}>
       {isHidden?"<":">"}
@@ -58,8 +57,6 @@ function User({ user, card_czar_id, winning_user_id, lobby_owner_id, onUserClick
   const is_winning_user = user.id === winning_user_id
   const is_lobby_owner = user.id === lobby_owner_id
 
-  // TODO: hook up kick button
-  // TODO: hook up promote button
   // TODO: nice svgs for icon
   return <div className="user row">
     <div className="icon">

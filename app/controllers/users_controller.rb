@@ -37,7 +37,6 @@ class UsersController < ApplicationController
     confirm_in_game
     verify_phase('submit')
 
-    # TODO: fix resetting submitted card, then uncomment this
     return render json: { errors: ['Card already submitted'] }, status: :conflict if @current_user.submitted_card?
 
     return render json: { errors: ['Currently the card czar!'] }, status: :forbidden if @current_user.card_czar?

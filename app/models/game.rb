@@ -87,7 +87,6 @@ class Game < ApplicationRecord
 
       reset_picked_submitted_cards
     else # 'lobby' 'over'
-      # TODO: add check to make sure this isn't triggered by player leaving the game
       select_card_czar
       select_black_card
       users.each(&:set_game_vars)
