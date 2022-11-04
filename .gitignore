@@ -21,5 +21,8 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# compiled react app
+/public
+
 # TODO: good comment
 cah-cards-full.json
