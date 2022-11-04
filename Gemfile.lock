@@ -125,9 +125,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
-    pg (1.4.4)
-    pg (1.4.4-x64-mingw32)
-    pg (1.4.4-x86-mingw32)
     puma (5.6.5)
       nio4r (~> 2.0)
     puma (5.6.5-java)
@@ -168,6 +165,7 @@ GEM
       io-console (~> 0.5)
     ruby-progressbar (1.11.0)
     silencer (2.0.0)
+    sqlite3 (1.5.3-x86_64-linux)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
@@ -195,11 +193,11 @@ DEPENDENCIES
   debug
   hash_dot
   json
-  pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4)
   ruby-progressbar
   silencer
+  sqlite3 (~> 1.4)
   tzinfo-data
 
 RUBY VERSION
