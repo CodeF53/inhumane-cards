@@ -2,8 +2,12 @@ import { useEffect, useState } from "react"
 import { GameLobby } from "../components/GameLobby"
 
 import { ReactComponent as RefreshSvg } from '../assets/refresh.svg';
+import { useNavigate } from "react-router-dom";
 
-export function Lobbies({user}) {
+export function JoinLobby({user}) {
+  const navigate = useNavigate()
+  if (!user) navigate("/")
+
   const [forceRefreshListener, setForceRefresh] = useState(0)
   const forceRefresh = () => setForceRefresh(Math.random())
 

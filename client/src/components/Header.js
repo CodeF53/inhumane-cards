@@ -14,7 +14,7 @@ export function Header({ user, setUser }) {
 
     <div className="row">
       {user? <Fragment>
-        <Link to="/lobbies"><button>Join Lobby</button></Link>
+        <Link to="/join_lobby"><button>Join Lobby</button></Link>
         <Link to="/create_lobby"><button>Host Lobby</button></Link>
 
         <div className="spacer"/>
