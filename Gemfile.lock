@@ -76,6 +76,7 @@ GEM
     builder (3.2.4)
     case_transform (0.2)
       activesupport
+    chronic (0.10.2)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     debug (1.6.3)
@@ -91,8 +92,6 @@ GEM
     io-console (0.5.11-java)
     irb (1.4.2)
       reline (>= 0.3.0)
-    json (2.6.2)
-    json (2.6.2-java)
     jsonapi-renderer (0.2.2)
     loofah (2.19.0)
       crass (~> 1.0.2)
@@ -165,6 +164,9 @@ GEM
       io-console (~> 0.5)
     ruby-progressbar (1.11.0)
     silencer (2.0.0)
+    sqlite3 (1.5.3)
+      mini_portile2 (~> 2.8.0)
+    sqlite3 (1.5.3-x64-mingw32)
     sqlite3 (1.5.3-x86_64-linux)
     thor (1.2.1)
     timeout (0.3.0)
@@ -177,11 +179,12 @@ GEM
     websocket-driver (0.7.5-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     zeitwerk (2.6.4)
 
 PLATFORMS
   java
-  ruby
   x64-mingw32
   x86-mingw32
   x86-mswin32
@@ -192,13 +195,13 @@ DEPENDENCIES
   bcrypt
   debug
   hash_dot
-  json
   puma (~> 5.0)
   rails (~> 7.0.4)
   ruby-progressbar
   silencer
   sqlite3 (~> 1.4)
   tzinfo-data
+  whenever
 
 RUBY VERSION
    ruby 2.7.4p191

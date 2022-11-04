@@ -1,17 +1,18 @@
-def destroy_all_with_progressbar(thing, text)
-  entries = thing.all
-  progressbar = ProgressBar.create(title: "  #{text}", total: entries.length)
-  entries.each do |entry|
-    entry.destroy
-    progressbar.increment
-  end
+puts '🗑️ Deleting old cards, packs, and categories'
+BlackCard.delete_all
+WhiteCard.delete_all
+CardPack.delete_all
+CardCategory.delete_all
+# we are remaking the cards, so we don't want to keep references to them in older games
+puts '🗑️ Deleting old games'
+Game.delete_all
+# we are deleting all the games, so don't want to keep references to them in users
+users = User.all
+progressbar = ProgressBar.create(title: '🗑️ Cleaning up old references in users', total: users.length)
+users.each do |user|
+  user.update(game_score: 0, hand: [], submitted_hand_index: nil, picked_card_index: nil, game_id: nil)
+  progressbar.increment
 end
-
-puts '🗑️ Clearing database'
-destroy_all_with_progressbar(BlackCard, 'Black Cards')
-destroy_all_with_progressbar(WhiteCard, 'White Cards')
-destroy_all_with_progressbar(CardPack, 'Card Packs')
-destroy_all_with_progressbar(CardCategory, 'Card Categories')
 
 begin
   puts "\n📁 Reading cards file"
