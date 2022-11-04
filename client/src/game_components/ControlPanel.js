@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react"
+import { useState } from "react"
 import { fetchPatch, fetchPost } from "../util"
 
 export function ControlPanel({ gameState: { users, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser }) {
@@ -33,18 +33,14 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, gam
       <div className="row">
         <div className="spacer"/>
 
-        {is_lobby_owner && <Fragment>
-          {mode===""? <Fragment>
+        {is_lobby_owner && <>
+          {mode===""? <>
             <button onClick={()=>setMode("kick")}>kick</button>
             <button onClick={()=>setMode("promote")}>promote</button>
-          </Fragment>:
+          </>:
             <button onClick={()=>setMode("")}>cancel</button>}
-
-          {is_lobby_owner && (game_phase==="lobby" || game_phase==="over")?
-            <button onClick={()=>{fetchPatch("/start_game")}}>start game</button>:null
-          }
-        </Fragment>}
-
+          </>
+        }
 
         <button onClick={e=>{fetchPatch("/leave")}}>leave game</button>
 

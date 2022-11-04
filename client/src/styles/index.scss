@@ -1,11 +1,10 @@
 // vars
 * {
   --background-color: #1c1c1c;
-  --background-elev1: #1d1d1d;
-  --background-elev2: #212121;
-  --background-elev3: #232323;
-  --background-elev4: #262626;
-  --background-elev5: #2c2c2c;
+  --background-elev1: rgba(255,255,255,.025);
+  --background-elev2: rgba(255,255,255,.050);
+  --background-elev3: rgba(255,255,255,.075);
+  --background-elev4: rgba(255,255,255,.100);
 }
 
 // Assign to parents for changing direction
