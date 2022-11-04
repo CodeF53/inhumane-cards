@@ -21,6 +21,9 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# Database
+*.sqlite3
+
 # compiled react app
 /public
 /public/robots.txt
