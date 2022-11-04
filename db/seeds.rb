@@ -47,7 +47,7 @@ else
     progressbar = ProgressBar.create(title: "  #{pack.black.length} Black cards", total: pack.black.length)
 
     pack.black.each do |card|
-      BlackCard.create(text: card.text, card_pack: card_pack, pick: card.pick) if card.pick == 1
+      BlackCard.create(text: card.text, card_pack: card_pack, pick: card['pick']) if card['pick'] == 1
       # TODO: implement support for cards with card.pick > 1
       progressbar.increment
     end
