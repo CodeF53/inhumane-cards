@@ -1,20 +1,8 @@
 class Game < ApplicationRecord
   has_many :users
-  belongs_to :lobby_owner, class_name: 'User', foreign_key: 'lobby_owner_id', optional: true
-  belongs_to :card_czar, class_name: 'User', foreign_key: 'card_czar_id', optional: true
+  belongs_to :lobby_owner, class_name: 'User', optional: true
+  belongs_to :card_czar, class_name: 'User', optional: true
   belongs_to :black_card, optional: true
-
-  # make card pools and discard piles into arrays
-  serialize :black_card_pool
-  serialize :white_card_pool
-  serialize :used_white_card_ids
-  serialize :used_black_card_ids
-  after_initialize do |u|
-    u.black_card_pool = [] if u.black_card_pool.nil?
-    u.white_card_pool = [] if u.white_card_pool.nil?
-    u.used_white_card_ids = [] if u.used_white_card_ids.nil?
-    u.used_black_card_ids = [] if u.used_black_card_ids.nil?
-  end
 
   def step_game
     puts "stepping game, phase: #{game_phase}"
