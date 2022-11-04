@@ -23,10 +23,16 @@ export function Game({user}) {
 
   return <div className="game">
     <StatusThing userIsCardCzar={userIsCardCzar} user_id={user.id} is_lobby_owner = {is_lobby_owner} gameState={gameState}/>
-    {["submit", "pick", "result"].includes(gameState.game_phase)? <Fragment>
+    {["pick", "result"].includes(gameState.game_phase) && <>
+      <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} gameState={gameState} user={user}/>
+      <Pool gameState={gameState} userIsCardCzar={userIsCardCzar}/>
+    </>}
+    {/* separate from above to ensure card controls are never under pool */}
+    {gameState.game_phase === "submit" && <>
       <Pool gameState={gameState} userIsCardCzar={userIsCardCzar}/>
       <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} gameState={gameState} user={user}/>
-    </Fragment>:null}
+    </>}
+
     <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user}/>
   </div>
 }
