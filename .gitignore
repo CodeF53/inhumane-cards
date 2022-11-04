@@ -23,6 +23,7 @@
 
 # compiled react app
 /public
+/public/robots.txt
 
 # TODO: good comment
 cah-cards-full.json
