@@ -66,11 +66,10 @@ export function CreateLobby({user}) {
       <LabeledInput label="Lobby Password (Optional)" name="password" type="password" value={formObject.password} onChange={updateFormObject}/>
 
       <div className="row">
+        <h2>Select Packs:</h2>
         <div className="spacer"/>
         <button className="centered" type="submit">Submit</button>
       </div>
-
-      <h2>Select Packs:</h2>
 
       <details>
         <summary>

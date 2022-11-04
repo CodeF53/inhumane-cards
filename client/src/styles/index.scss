@@ -33,6 +33,7 @@
 
 // layout
 body { margin: 0; }
+.app > .col { padding: 0 1rem; }
 
 // Custom component styling
 .panel {
@@ -40,6 +41,9 @@ body { margin: 0; }
   padding: 0.5rem;
   border-radius: 1rem;
   box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.237);
+
+  min-width: 16rem;
+  button { font-size: 1.5rem; }
 }
 .labeled_input > label {
   margin-right: 1rem;
@@ -59,11 +63,13 @@ h1, h2, h3, h4, h5, p, button, span, label, ::marker {
 button {
   font-weight: 700;
   background-color: transparent;
-  scale: 0.95;
   border: none;
   cursor: pointer;
   width: fit-content;
   height: fit-content;
 }
-button:hover { scale: 1 }
-button:active { scale: 0.95; }
+.desktop button {
+  scale: 0.95;
+  &:hover { scale: 1 }
+  &:active { scale: 0.95; }
+}
