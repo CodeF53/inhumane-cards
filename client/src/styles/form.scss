@@ -1,10 +1,28 @@
 // Game Creation / Lobby Finding
+.lobbies {
+  width: 100%;
+  max-width: min(80vw, 30rem);
+
+  button.refresh {
+    padding: 0;
+    margin: auto 0;
+
+    &, svg { width: 1.75rem; height: 1.75rem; }
+
+
+    transition: transform .5s;
+    transform: rotate(360deg);
+    &:active { transform: rotate(0); transition:  0s; }
+  }
+}
+
+
 .gameLobby {
-  gap: 1rem;
+  gap: .5rem;
 
   input {
     min-width: 1rem;
-    width: 100%;
+    width: 30%;
   }
   span, button {
     width: fit-content;
@@ -13,11 +31,14 @@
   }
 
   .username {
-    width: 100%;
+    width: 50%;
     max-width: 10rem;
+    min-width: none;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  svg { min-width: 1.5rem; min-height: 1.5rem; }
 }
 
 .create_game {

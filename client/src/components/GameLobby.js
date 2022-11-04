@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchPatchB } from "../util";
+import { ReactComponent as UsersSvg } from '../assets/users.svg';
 
 export function GameLobby({ lobby: {id, host, password_protected, num_players, player_limit}}) {
   const navigate = useNavigate()
@@ -22,7 +23,9 @@ export function GameLobby({ lobby: {id, host, password_protected, num_players, p
 
   return <form className="row centerChildren gameLobby" onSubmit={joinGame}>
     <span className="username">{host}'s game</span>
-    <span>{num_players}/{player_limit} players</span>
+
+    <span>{num_players}/{player_limit}</span>
+    <UsersSvg/>
 
     <div className="spacer"/>
 
