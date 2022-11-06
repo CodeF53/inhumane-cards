@@ -19,78 +19,85 @@ class Game < ApplicationRecord
   def step_game
     puts "stepping game, phase: #{game_phase}"
 
-    case game_phase
-    when 'submit'
-      update(game_phase: 'pick') if non_card_czar_users.all?(&:submitted_card?)
-      # TODO: randomize card order
-    when 'pick'
-      # return to submit phase if card czar left
-      if card_czar.nil?
-        puts 'card czar left'
-        puts '\t switching back to submit'
-        update(game_phase: 'submit')
+    begin
+      case game_phase
+      when 'submit'
+        update(game_phase: 'pick') if non_card_czar_users.all?(&:submitted_card?)
+        # TODO: randomize card order
+      when 'pick'
+        # return to submit phase if card czar left
+        if card_czar.nil?
+          puts 'card czar left'
+          puts '\t switching back to submit'
+          update(game_phase: 'submit')
 
-        puts '\tselecting new black card and czar'
-        select_card_czar
-        select_black_card
+          puts '\tselecting new black card and czar'
+          select_card_czar
+          select_black_card
 
-        puts '\tresetting submitted/picked cards'
-        reset_picked_submitted_cards
-        return
-      end
+          puts '\tresetting submitted/picked cards'
+          reset_picked_submitted_cards
+          return
+        end
 
-      # switch to result phase when winning card is picked
-      card_czar = User.find(card_czar_id) # ! hacky solution to it not being up to date
-      unless card_czar.picked_card_index.nil?
-        puts 'card czar has picked winner, switching to result phase and stepping again'
-        update(game_phase: 'result')
-        step_game
-        return
-      end
-    when 'result'
-      # increment score of round winning player
-      Util.set_timeout(
-        callback: lambda do
-          winning_user.increment_game_score
-          update_state_cache
-        end,
-        seconds: 0.2
-      )
+        # switch to result phase when winning card is picked
+        card_czar = User.find(card_czar_id) # ! hacky solution to it not being up to date
+        unless card_czar.picked_card_index.nil?
+          puts 'card czar has picked winner, switching to result phase and stepping again'
+          update(game_phase: 'result')
+          step_game
+          return
+        end
+      when 'result'
+        # increment score of round winning player
+        Util.set_timeout(
+          callback: lambda do
+            winning_user.increment_game_score
+            update_state_cache
+          end,
+          seconds: 0.2
+        )
 
-      # wait 15 seconds for users to admire winning combo
-      sleep(5)
+        # wait 15 seconds for users to admire winning combo
+        sleep(5)
 
-      # replace used cards
-      non_card_czar_users.each do |user|
-        next if user.submitted_hand_index.nil?
+        # replace used cards
+        non_card_czar_users.each do |user|
+          next if user.submitted_hand_index.nil?
 
-        hand = user.hand
-        hand[user.submitted_hand_index] = sample_white_cards(1)
-        user.update(hand: hand)
-      end
+          hand = user.hand
+          hand[user.submitted_hand_index] = sample_white_cards(1)
+          user.update(hand: hand)
+        end
 
-      if winning_user.game_score >= winning_score
-        puts "#{winning_user.username} wins"
-        update(game_phase: 'over')
-
-        update_state_cache
-        return
-      else
         puts 'result wait over'
-        puts '\tswitching back to submit'
-        update(game_phase: 'submit')
+        if winning_user.game_score >= winning_score
+          puts "#{winning_user.username} wins"
+          update(game_phase: 'over')
 
-        puts '\tselecting new black card and czar'
+          update_state_cache
+          return
+        else
+          puts '   switching back to submit'
+          update(game_phase: 'submit') # ! sometimes this just fails and ends the thread operation.
+
+          puts '   selecting new black card and czar'
+          select_card_czar
+          select_black_card
+        end
+
+        reset_picked_submitted_cards
+      else # 'lobby' 'over'
         select_card_czar
         select_black_card
+        users.each(&:set_game_vars)
+        update(game_phase: 'submit')
       end
-
-      reset_picked_submitted_cards
-    else # 'lobby' 'over'
+    rescue
+      puts 'some error happened, lets just ignore that and go back to the submit phase...'
+      update(game_phase: 'submit') # ! sometimes this just fails and ends the thread operation.
       select_card_czar
       select_black_card
-      users.each(&:set_game_vars)
-      update(game_phase: 'submit')
     end
 
     update_state_cache
