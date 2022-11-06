@@ -55,11 +55,19 @@
 // On Mobile
 .mobile {
   // you scroll between cards horizontally
-  .hand { overflow-x: scroll; }
+  .hand, .submitted { overflow-x: scroll; }
   // selected/hovered hand cards are given room to show all their text
   .hand.cardSelected.submitPhase > .handCard.selected {
     margin-left: 1rem;
     margin-right: 1rem;
+  }
+  .submitted {
+    height: 15rem;
+    margin-top: -2.5rem;
+    padding-top: 2.5rem;
+  }
+  .submitted.pick {
+    height: 25rem
   }
 }
 

@@ -57,7 +57,7 @@ export function Pool({gameState, userIsCardCzar}) {
 
   return <div className="pool col">
     <div style={{transform:cardRotation(blackCardText)}}  className="card blackCard">{blackCardText}</div>
-    <div className="submitted row">
+    <div className={`submitted row ${gameState.game_phase}`}>
       <div className="spacer"/>
       {submittedCards}
       <div className="spacer"/>
