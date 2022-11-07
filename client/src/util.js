@@ -13,3 +13,5 @@ export const fetchPatchB = (url, body) =>
   fetch(url, { method:"PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
 export const fetchPostB = (url, body) =>
   fetch(url, { method:"POST",  headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+
+export const rand = (a, b) => Math.random() * (b - a) + a

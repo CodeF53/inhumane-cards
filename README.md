@@ -38,10 +38,11 @@ Frontend:
   - [x] Lobby Create Screen
   - [x] User Create Screen
   - [ ] `<input>` elements
-- [ ] Extra pages
-  - [ ] About
-  - [ ] Dev contact
-  - [ ] Credits
+- [x] Extra pages
+  - [x] About
+  - [x] Dev contact
+  - [x] Legal
+  - [x] Credits
 - [ ] Auto-Leave game after loss of connection
 - [ ] Waiting on user
 - [ ] Sound Effects
@@ -62,6 +63,7 @@ General:
     - [x] categories.json (this took me 2 hours aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
 
 Future Stretch Goals":
+- [x] HTTPS
 - [ ] Switch to ActionCable and turbo for GameState
 - [ ] Switch to Next.js
 - [ ] Omni Auth (sign in google and everything)

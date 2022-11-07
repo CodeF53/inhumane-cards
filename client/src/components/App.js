@@ -1,10 +1,15 @@
 import { Fragment, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { About } from "../pages/About";
+import { Contact } from "../pages/Contact";
 import { CreateLobby } from "../pages/CreateLobby";
+import { Credits } from "../pages/Credits";
 import { Game } from "../pages/Game";
 import { Home } from "../pages/Home";
 import { JoinLobby } from "../pages/JoinLobby";
+import { Legal } from "../pages/Legal";
 import { LoginSignup } from "../pages/LoginSignup";
+import { Footer } from "./Footer";
 import { Header } from "./Header";
 
 export function App() {
@@ -34,6 +39,7 @@ export function App() {
 
       <Route path="*" element={<Fragment>
         <Header user={user} setUser={setUser} />
+
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/join_lobby"      element={<JoinLobby user={user} />} />
@@ -41,7 +47,14 @@ export function App() {
 
           <Route path="/login"  element={<LoginSignup isLogin={true}  user={user} setUser={setUser} />} />
           <Route path="/signup" element={<LoginSignup isLogin={false} user={user} setUser={setUser} />} />
+
+          <Route path="/contact" element={<Contact/>} />
+          <Route path="/about" element={<About/>} />
+          <Route path="/legal" element={<Legal/>} />
+          <Route path="/credits" element={<Credits/>} />
         </Routes>
+
+        <Footer/>
       </Fragment>}/>
     </Routes>
   </div>

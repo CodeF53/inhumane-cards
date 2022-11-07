@@ -8,6 +8,8 @@ import './styles/cards.scss';
 import './styles/game.scss';
 import './styles/header.scss';
 import './styles/form.scss';
+import './styles/footer.scss';
+import './styles/not_a_robot.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

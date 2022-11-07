@@ -1,0 +1,94 @@
+#notARobot {
+  width: 19rem;
+  height: 5rem;
+
+  background-color: #f9f9f9;
+  border: 1px solid #d3d3d3;
+
+  border-radius: 3px;
+
+  box-shadow: 0 0 4px 1px rgba(0,0,0,0.08);
+
+  * {
+    font-family: Roboto,helvetica,arial,sans-serif;
+    font-weight: 400;
+  }
+
+  .main {
+    .thingy {
+      width: 28px;
+      height: 28px;
+      margin: 0 12px;
+
+      .checkbox {
+        width: 24px;
+        height: 24px;
+        background-color: white;
+        border: solid #b2b2b2;
+        border-radius: 2px;
+      }
+      .check {
+        color: green;
+      }
+    }
+    span {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 17px;
+      color: black;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+  }
+
+  .tag {
+    margin-right: 0.5rem;
+    .logo {
+      background: url('https://www.gstatic.com/recaptcha/api2/logo_48.png');
+      width: 32px;
+      height: 32px;
+      background-size: 32px 32px;
+    }
+
+    * { color: #555; }
+    .name {
+      font-size: 10px;
+      line-height: 10px;
+      margin-top: 5px;
+      text-align: center;
+    }
+    .info {
+      margin-top: 2px;
+      gap: 2px;
+      span {
+        font-size: 8px;
+      }
+    }
+  }
+}
+
+// https://loading.io/css/
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 28px;
+  height: 28px;
+  div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: 4px solid #1a73e8;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #1a73e8 transparent transparent transparent;
+  }
+  div:nth-child(1) { animation-delay: -0.45s; }
+  div:nth-child(2) { animation-delay: -0.3s; }
+  div:nth-child(3) { animation-delay: -0.15s; }
+  @keyframes lds-ring {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
