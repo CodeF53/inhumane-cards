@@ -33,6 +33,9 @@ gem 'silencer'
 # easier syntax for accessing cached cards from pools
 gem 'hash_dot'
 
+# auto start server
+gem 'whenever'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem "rack-cors"
 
