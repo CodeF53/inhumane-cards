@@ -25,7 +25,7 @@ export function Legal() {
 
       <h2>You are doing something and I don't like it</h2>
       <p>
-        Feel free to get in <Link to="contact">contact</Link> with me!
+        Feel free to get in <Link to="/contact">contact</Link> with me!
       </p>
     </div>
   </div>

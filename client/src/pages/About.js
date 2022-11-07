@@ -7,7 +7,7 @@ export function About() {
         Who did this?
       </h2>
       <p>
-        Made by <Link to="contact">F53</Link> as a final project for my Software Development course.
+        Made by <Link to="/contact">F53</Link> as a final project for my Software Development course.
         <br/>
         Yes. This was all made by a single person.
       </p>
