@@ -4,10 +4,17 @@ import { ControlPanel } from "../game_components/ControlPanel";
 import { Hand } from "../game_components/Hand";
 import { Pool } from "../game_components/Pool";
 import { StatusThing } from "../game_components/StatusThing";
+import { fetchPatch } from "../util";
 
 export function Game({user}) {
   const [gameState, setGameState] = useState({game_phase:"", users:[], hand:[], black_card:{text:""}})
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const leaveGame = e => fetchPatch("/leave")
+    window.addEventListener("beforeunload", leaveGame);
+    return () => { window.removeEventListener("beforeunload", leaveGame); }
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => { fetch("/game_state").then(r=>{

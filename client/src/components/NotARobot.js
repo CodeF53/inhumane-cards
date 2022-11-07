@@ -3,7 +3,6 @@ import { rand } from "../util"
 
 import { ReactComponent as CheckSvg } from '../assets/check.svg';
 
-
 export function NotARobot({onConfirm}) {
   const [state, setState] = useState("")
 

@@ -10,6 +10,8 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
+    @current_user.leave_game unless @current_user.game_id.nil?
+
     return render json: { errors: ['Must select at least one pack'] }, status: :unprocessable_entity if params[:enabled_pack_ids].empty?
 
     game = Game.create!(game_params)
