@@ -60,9 +60,15 @@
       position: relative;
       left: 0;
 
-      &.pack { margin-left: 2rem; }
       &.section { font-size: 1.5rem; }
-      &.category { font-size: 1.25rem; }
+      &.category {
+        font-size: 1.25rem;
+        input[type="checkbox"] { top: 0.1rem; }
+      }
+      &.pack {
+        margin-left: 3.255rem;
+        input[type="checkbox"] { position: absolute; left: -1.25rem; }
+      }
 
       &.section, &.category {
         input {
