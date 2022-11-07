@@ -25,8 +25,9 @@
 *.sqlite3
 
 # compiled react app
-/public
+/public/*
 /public/robots.txt
+!/public/502.html
 
 # TODO: good comment
 cah-cards-full.json

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Cards Against Humanity Online"/>
+    <title>Inhumane Cards</title>
+    <style>
+      .row { display: flex; flex-direction: row; }
+      .col { display: flex; flex-direction: column; }
+      .row.centerChildren > *, .row > .centered { align-self: center; margin: auto 0px; }
+      .col.centerChildren > *, .col > .centered { align-self: center; margin: 0px auto; }
+      .spacer { flex:1; }
+
+      @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+      * {
+        font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: white;
+      }
+    </style>
+  </head>
+  <body style="background-color: #1c1c1c;">
+    <div id="page" class="col" style="margin: 0 auto; width: 60rem; height: 200rem;">
+      <div class="logo" style="font-size: 3rem;">
+        Inhumane <br/> Cards
+      </div>
+      <p>
+        The server is currently down.
+        <br>
+        Please try again later
+      </p>
+    </div>
+  </body>
+</html>
