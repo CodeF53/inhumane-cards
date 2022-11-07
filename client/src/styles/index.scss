@@ -32,8 +32,8 @@
 
 // layout
 body { margin: 0; }
-.app > .col { padding: 0 1rem; }
-.page { max-width: 60rem; }
+.app > .col { min-height: 100vh; min-width: 100vw;}
+.page { padding:1rem; max-width: 60rem; }
 .page h2 { margin-top: 1rem; }
 
 // Custom component styling

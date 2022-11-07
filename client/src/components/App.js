@@ -37,7 +37,7 @@ export function App() {
     <Routes>
       <Route path="/game/" element={<Game user={user}/>}/>
 
-      <Route path="*" element={<Fragment>
+      <Route path="*" element={<div className="col">
         <Header user={user} setUser={setUser} />
 
         <Routes>
@@ -54,8 +54,9 @@ export function App() {
           <Route path="/credits" element={<Credits/>} />
         </Routes>
 
+        <div className="spacer"/>
         <Footer/>
-      </Fragment>}/>
+      </div>}/>
     </Routes>
   </div>
 }

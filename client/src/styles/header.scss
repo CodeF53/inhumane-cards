@@ -1,15 +1,14 @@
 header {
+  min-width: 90%;
   max-width: 60rem;
   .logo { font-size: 3rem; }
   button { font-size: 1rem; }
 }
-.desktop header {
-  margin: 2rem auto;
-  padding: 0 2rem;
-  display: flex;
-  flex-direction: row;
-}
-.mobile header {
+header {
   margin: 1rem auto;
   padding: 0 1rem;
+}
+.desktop header {
+  display: flex;
+  flex-direction: row;
 }
