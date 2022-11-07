@@ -38,6 +38,10 @@ Frontend:
   - [x] Lobby Create Screen
   - [x] User Create Screen
   - [ ] `<input>` elements
+- [ ] Extra pages
+  - [ ] About
+  - [ ] Dev contact
+  - [ ] Credits
 - [ ] Auto-Leave game after loss of connection
 - [ ] Waiting on user
 - [ ] Sound Effects
