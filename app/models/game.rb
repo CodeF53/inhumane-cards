@@ -61,12 +61,13 @@ class Game < ApplicationRecord
         # wait 15 seconds for users to admire winning combo
         sleep(5)
 
-        # replace used cards
         non_card_czar_users.each do |user|
-          next if user.submitted_hand_index.nil?
-
           hand = user.hand
-          hand[user.submitted_hand_index] = sample_white_cards(1)
+          # replace used cards
+          hand[user.submitted_hand_index] = sample_white_cards(1) if user.submitted_card?
+          # replace discarded cards
+          hand[user.discarded_card_index] = sample_white_cards(1) if user.discarded_card?
+
           user.update(hand: hand)
         end
 
@@ -139,7 +140,7 @@ class Game < ApplicationRecord
   end
 
   def reset_picked_submitted_cards
-    users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil) }
+    users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil, discarded_card_index: nil) }
   end
 
   def select_black_card

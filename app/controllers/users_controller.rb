@@ -49,6 +49,17 @@ class UsersController < ApplicationController
     render json: {}, status: :accepted
   end
 
+  def discard_card
+    confirm_in_game
+    verify_phase('submit')
+
+    return render json: { errors: ['Card already discarded this round'] }, status: :conflict if @current_user.discarded_card?
+
+    @current_user.update(discarded_card_index: params[:card_index])
+
+    render json: {}, status: :accepted
+  end
+
   def pick_card
     confirm_in_game
     verify_phase('pick')
