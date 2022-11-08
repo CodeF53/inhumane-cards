@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :authorize, only: %i[create]
+  before_action :confirm_in_game
+  skip_before_action :confirm_in_game, only: %i[create me join_game]
 
   def create
     user = User.create!(user_params)
@@ -26,16 +28,13 @@ class UsersController < ApplicationController
   end
 
   def leave_game
-    confirm_in_game
-
     @current_user.leave_game
 
     render json: {}, status: :accepted
   end
 
   def submit_card
-    confirm_in_game
-    verify_phase('submit')
+    return unless verify_phase('submit').nil?
 
     return render json: { errors: ['Card already submitted'] }, status: :conflict if @current_user.submitted_card?
 
@@ -50,8 +49,9 @@ class UsersController < ApplicationController
   end
 
   def discard_card
-    confirm_in_game
-    verify_phase('submit')
+    return unless verify_phase('submit').nil?
+
+    return render json: { errors: ['Discarding disabled'] }, status: :conflict unless @game.enable_discards
 
     return render json: { errors: ['Card already discarded this round'] }, status: :conflict if @current_user.discarded_card?
 
@@ -61,8 +61,7 @@ class UsersController < ApplicationController
   end
 
   def pick_card
-    confirm_in_game
-    verify_phase('pick')
+    return unless verify_phase('pick').nil?
 
     return render json: { errors: ['Card already picked'] }, status: :conflict unless @current_user.picked_card_index.nil?
 
@@ -77,8 +76,6 @@ class UsersController < ApplicationController
 
   # PATCH /start_game
   def start
-    confirm_in_game
-
     return render json: { errors: ['Not the lobby owner!'] }, status: :forbidden unless @current_user.lobby_owner?
 
     return render json: { errors: ['Game is already running'] }, status: :conflict unless @game.game_phase == 'lobby' || @game.game_phase == 'over'
@@ -90,8 +87,6 @@ class UsersController < ApplicationController
 
   # GET /game_state
   def game_state
-    confirm_in_game
-
     render json: @game.state_cache
   end
 
@@ -102,8 +97,6 @@ class UsersController < ApplicationController
 
   # POST /kick/:user_id
   def kick
-    confirm_in_game
-
     return render json: { errors: ['Not the lobby owner!'] }, status: :forbidden unless @current_user.lobby_owner?
 
     user_to_kick = @game.users.find(params[:user_id])
@@ -117,8 +110,6 @@ class UsersController < ApplicationController
 
   # POST /promote/:user_id
   def promote
-    confirm_in_game
-
     return render json: { errors: ['Not the lobby owner!'] }, status: :forbidden unless @current_user.lobby_owner?
 
     user_to_promote = @game.users.find(params[:user_id])

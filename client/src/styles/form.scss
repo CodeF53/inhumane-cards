@@ -43,12 +43,17 @@
 
 .create_game {
   width: 100%;
-  max-width: min(80vw, 50rem);
+  max-width: min(80vw, 40rem);
 
-  &>.labeled_input  {
-    label { min-width: 13rem; margin-right: 0; }
-    input { min-width: 1rem; }
+  .normal_options {
+    max-width: 30rem;
+    width: 100%;
+    &>.labeled_input  {
+      label { min-width: 13rem; margin-right: 0; }
+      input { min-width: 1rem; }
+    }
   }
+
 
   // Pack selection
   details {

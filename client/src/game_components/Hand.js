@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { cardRotation, fetchPatch } from "../util"
 
-export function Hand({game_phase, userIsCardCzar, gameState, user}) {
+export function Hand({game_phase, userIsCardCzar, gameState, user, enable_discards}) {
   const [cards, setCards] = useState([])
   const [selectedCard, setSelectedCard_] = useState(-1)
   const [discardedCard, setDiscardedCard] = useState(-1)
@@ -33,8 +33,10 @@ export function Hand({game_phase, userIsCardCzar, gameState, user}) {
   }
 
   function discardCard() {
-    setDiscardedCard(selectedCard)
-    fetchPatch(`/discard_card/${selectedCard}`).then(r=>{setSelectedCard_(-1)})
+    if (enable_discards) {
+      setDiscardedCard(selectedCard)
+      fetchPatch(`/discard_card/${selectedCard}`).then(r=>{setSelectedCard_(-1)})
+    }
   }
 
   function setSelectedCard(i,e) {
@@ -47,8 +49,7 @@ export function Hand({game_phase, userIsCardCzar, gameState, user}) {
   const letUserPick = !cardSubmitted && selectedCard===-1 && !userIsCardCzar && game_phase === "submit"
 
   const cardControls = <div className="cardControls col centerChildren">
-
-    {discardedCard===-1? <button className="discard" onClick={discardCard}>Discard</button>:<button>&nbsp;</button>}
+    {enable_discards && discardedCard===-1? <button className="discard" onClick={discardCard}>Discard</button>:<button>&nbsp;</button>}
     <button className="confirm" onClick={submitCard}>Confirm</button>
     <button className="cancel"  onClick={e=>setSelectedCard(-1,e)}>Cancel</button>
   </div>

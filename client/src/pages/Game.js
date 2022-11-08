@@ -19,7 +19,7 @@ export function Game({user}) {
   useEffect(() => {
     const interval = setInterval(() => { fetch("/game_state").then(r=>{
       if(r.ok) { r.json().then(d=>setGameState(d)) }
-      else { navigate("/") }
+      else { r.json().then(e=>{ if(e.errors && e.errors[0] === "Not in a game") { navigate("/") } } )}
     })}, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -31,13 +31,13 @@ export function Game({user}) {
   return <div className="game">
     <StatusThing userIsCardCzar={userIsCardCzar} user_id={user.id} is_lobby_owner = {is_lobby_owner} gameState={gameState}/>
     {["pick", "result"].includes(gameState.game_phase) && <>
-      <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} gameState={gameState} user={user}/>
+      <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} gameState={gameState} enable_discards={gameState.enable_discards} user={user}/>
       <Pool gameState={gameState} userIsCardCzar={userIsCardCzar}/>
     </>}
     {/* separate from above to ensure card controls are never under pool */}
     {gameState.game_phase === "submit" && <>
       <Pool gameState={gameState} userIsCardCzar={userIsCardCzar}/>
-      <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} gameState={gameState} user={user}/>
+      <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} enable_discards={gameState.enable_discards} gameState={gameState} user={user}/>
     </>}
 
     <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user}/>

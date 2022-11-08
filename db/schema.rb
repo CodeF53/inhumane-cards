@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_08_165629) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_08_173832) do
   create_table "black_cards", force: :cascade do |t|
     t.string "text"
     t.integer "pick", default: 1
@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_165629) do
     t.string "white_card_pool"
     t.string "used_white_card_ids"
     t.string "used_black_card_ids"
+    t.boolean "enable_discards", default: false
   end
 
   create_table "users", force: :cascade do |t|
