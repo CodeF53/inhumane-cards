@@ -59,9 +59,9 @@ General:
   - [x] add pack to card seeding
   - [x] add category to card seeding
     - [x] categories.json (this took me 2 hours aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+- [x] Discard mode, let users discard one card per turn
 - [ ] Auto-Leave game after loss of connection
 - [ ] Support for cards with `card.pick` > 1
-- [ ] Discard mode, let users discard one card per turn
 
 Future Stretch Goals":
 - [x] HTTPS
