@@ -52,7 +52,7 @@
     margin-right: 2.5rem;
   }
   // Submitted card shrinks away
-  .hand.cardSubmitted > .card.handCard.selected {
+  .hand.cardSubmitted > .card.handCard.selected, .hand > .card.handCard.discarded {
     margin-left: -2.5rem;
     margin-right: -2.5rem;
   }
@@ -77,6 +77,7 @@
 }
 
 // Submitted card shrinks away
+.hand > .card.handCard.discarded,
 .hand.cardSubmitted > .card.handCard.selected {
   margin-bottom: -10rem;
   transform: scale(0) !important;
@@ -101,11 +102,12 @@
   right: -100%;
   width: 300%;
   button { font-size: 2rem; }
+  button.discard { background-color: darkcyan; }
   button.confirm { background-color: green; }
   button.cancel { background-color: red; }
 }
 // position hand card controls above
-.handCard > .cardControls { top: -6rem; }
+.handCard > .cardControls { top: -8rem; }
 // and pool card controls below
 .pool .cardControls { bottom: -6rem; }
 
