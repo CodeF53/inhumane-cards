@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ControlPanel } from "../game_components/ControlPanel";
 import { Hand } from "../game_components/Hand";
@@ -22,9 +22,9 @@ export function Game({user}) {
       else { r.json().then(e=>{ if(e.errors && e.errors[0] === "Not in a game") { navigate("/") } } )}
     })}, 1000);
     return () => clearInterval(interval);
+    // eslint-disable-next-line
   }, []);
 
-  // console.log(gameState)
   const userIsCardCzar = user.id === gameState.card_czar_id
   const is_lobby_owner = user.id === gameState.lobby_owner_id
 

@@ -16,7 +16,7 @@ export function About() {
         Why?
       </h2>
       <p>
-        The only other options for playing this Cards Against Humanity online are horrible.
+        The only other options for playing Cards Against Humanity online are horrible.
       </p>
 
       <ul>

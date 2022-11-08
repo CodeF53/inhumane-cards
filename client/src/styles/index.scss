@@ -32,7 +32,13 @@
 
 // layout
 body { margin: 0; }
-.app > .col { min-height: 100vh; min-width: 100vw;}
+.app > .col {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  bottom: 0;
+}
 .page { padding:1rem; max-width: 60rem; }
 .page h2 { margin-top: 1rem; }
 

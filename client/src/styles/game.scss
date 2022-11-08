@@ -1,10 +1,10 @@
 // layout
 .game {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  bottom: 0;
   background-color: var(--background-color);
   overflow: hidden;
 }
