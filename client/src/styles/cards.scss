@@ -53,8 +53,8 @@
   }
   // Submitted card shrinks away
   .hand.cardSubmitted > .card.handCard.selected, .hand > .card.handCard.discarded {
-    margin-left: -2.5rem;
-    margin-right: -2.5rem;
+    margin-left: 0rem;
+    margin-right: 0rem;
   }
 }
 // On Mobile
@@ -74,6 +74,10 @@
   .submitted.pick {
     height: 25rem
   }
+
+  .hand.cardSubmitted > .card.handCard.selected, .hand > .card.handCard.discarded {
+    margin-right: -1rem;
+  }
 }
 
 // Submitted card shrinks away
@@ -87,11 +91,6 @@
   .cardControls {
     display: none;
   }
-}
-
-// mobile need slightly different margins for shrinking away
-.mobile .hand.cardSubmitted > .card.handCard.selected {
-  margin-right: -2.5rem;
 }
 
 // confirm/cancel buttons
