@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 5) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_08_165629) do
   create_table "black_cards", force: :cascade do |t|
     t.string "text"
     t.integer "pick", default: 1
@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 5) do
     t.integer "submitted_hand_index"
     t.integer "picked_card_index"
     t.text "hand"
+    t.integer "discarded_card_index"
   end
 
   create_table "white_cards", force: :cascade do |t|
