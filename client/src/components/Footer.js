@@ -6,5 +6,6 @@ export function Footer() {
     <Link to="/contact">Contact</Link>
     <Link to="/legal">Legal</Link>
     <Link to="/credits">Credits</Link>
+    <a href="https://github.com/CodeF53/inhumane-cards/">Github</a>
   </footer>
 }
