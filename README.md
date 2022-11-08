@@ -31,19 +31,18 @@ Frontend:
   - [x] Submit
   - [x] Pick
   - [x] Result
-- [ ] Make stuff look good
+- [x] Make stuff look good
   - [x] Game Controls Menu
-  - [ ] Front Page
+  - [x] Front Page
   - [x] Lobby Select Screen
   - [x] Lobby Create Screen
   - [x] User Create Screen
-  - [ ] `<input>` elements
+  - [x] `<input>` elements
 - [x] Extra pages
   - [x] About
   - [x] Dev contact
   - [x] Legal
   - [x] Credits
-- [ ] Auto-Leave game after loss of connection
 - [ ] Waiting on user
 - [ ] Sound Effects
 - [ ] Settings
@@ -56,17 +55,20 @@ General:
     (3 people have asked for this so far)
 - [x] Leave Game
 - [x] Kick/Promote
-- [ ] Support for cards with `card.pick` > 1
 - [x] Allow picking card packs
   - [x] add pack to card seeding
   - [x] add category to card seeding
     - [x] categories.json (this took me 2 hours aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+- [ ] Auto-Leave game after loss of connection
+- [ ] Support for cards with `card.pick` > 1
+- [ ] Discard mode, let users discard one card per turn
 
 Future Stretch Goals":
 - [x] HTTPS
 - [ ] Switch to ActionCable and turbo for GameState
 - [ ] Switch to Next.js
 - [ ] Omni Auth (sign in google and everything)
+- [ ] Custom Card Packs (for inside jokes and the like)
 
 ## Is this legal?
 Cards Against Humanity® is distributed under a [Creative Commons BY-NC-SA 4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
