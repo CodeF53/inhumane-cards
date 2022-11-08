@@ -1,5 +1,5 @@
 class GameStateSerializer < ActiveModel::Serializer
-  attributes :id, :game_phase, :winning_score, :users, :card_czar_id, :black_card, :game_stuff, :lobby_owner_id
+  attributes :id, :game_phase, :winning_score, :users, :card_czar_id, :black_card, :game_stuff, :lobby_owner_id, :enable_discards
 
   def users
     object.users.map do |user|

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   patch '/join/:game_id', to: 'users#join_game'
   patch '/leave/', to: 'users#leave_game'
   patch '/submit_card/:card_index', to: 'users#submit_card'
+  patch '/discard_card/:card_index', to: 'users#discard_card'
   patch '/pick_card/:card_index', to: 'users#pick_card'
   get '/hand/', to: 'users#hand'
   # lobby search/creation:

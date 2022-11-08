@@ -38,7 +38,8 @@ class GamesController < ApplicationController
     params.require(:game).permit(
       :winning_score,
       :password,
-      :player_limit
+      :player_limit,
+      :enable_discards
     )
   end
 end

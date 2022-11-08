@@ -12,6 +12,10 @@ class User < ApplicationRecord
     u.hand = [] if u.hand.nil?
   end
 
+  def discarded_card?
+    discarded_card_index.nil?.!
+  end
+
   def submitted_card?
     submitted_hand_index.nil?.!
   end
@@ -41,7 +45,8 @@ class User < ApplicationRecord
     # ? do these updates still need to be separate?
     update(
       submitted_hand_index: nil,
-      picked_card_index: nil
+      picked_card_index: nil,
+      discarded_card_index: nil
     )
   end
 

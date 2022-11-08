@@ -51,6 +51,11 @@
     margin-left: 2.5rem;
     margin-right: 2.5rem;
   }
+  // Submitted card shrinks away
+  .hand.cardSubmitted > .card.handCard.selected, .hand > .card.handCard.discarded {
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
 }
 // On Mobile
 .mobile {
@@ -69,24 +74,23 @@
   .submitted.pick {
     height: 25rem
   }
+
+  .hand.cardSubmitted > .card.handCard.selected, .hand > .card.handCard.discarded {
+    margin-right: -1rem;
+  }
 }
 
 // Submitted card shrinks away
+.hand > .card.handCard.discarded,
 .hand.cardSubmitted > .card.handCard.selected {
   margin-bottom: -10rem;
   transform: scale(0) !important;
   width: 0;
   height: 0;
-  margin-left: -3rem;
-  margin-right: -3rem;
   // instantly hide controls after card is submitted
   .cardControls {
     display: none;
   }
-}
-// mobile need slightly different margins for shrinking away
-.mobile .hand.cardSubmitted > .card.handCard.selected {
-  margin-right: -2.5rem;
 }
 
 // confirm/cancel buttons
@@ -97,11 +101,12 @@
   right: -100%;
   width: 300%;
   button { font-size: 2rem; }
+  button.discard { background-color: darkcyan; }
   button.confirm { background-color: green; }
   button.cancel { background-color: red; }
 }
 // position hand card controls above
-.handCard > .cardControls { top: -6rem; }
+.handCard > .cardControls { top: -8rem; }
 // and pool card controls below
 .pool .cardControls { bottom: -6rem; }
 
