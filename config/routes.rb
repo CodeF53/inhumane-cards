@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # ActionCable Magic
   mount ActionCable.server => '/cable'
-  
+
   # User Account related stuff
   post '/signup', to: 'users#create'
   post '/login', to: 'sessions#create'

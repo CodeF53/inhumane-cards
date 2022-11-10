@@ -11,10 +11,11 @@ export function Game({ user, cable }) {
 
   const [gameState, setGameState] = useState({game_phase:"", users:[], hand:[], black_card:{text:""}})
   const navigate = useNavigate()
+  if (!user) navigate("/")
 
   useEffect(() => {
     // manually fetch to get the initial state
-    fetch(`/game/${game_id}`).then(r=>r.json().then(d=>{
+    fetch(`/games/${game_id}`).then(r=>r.json().then(d=>{
       if (r.ok) { setGameState(d) }
       else if (d.errors && d.errors[0] === "you aren't in this game") { navigate("/") }
     }))
@@ -23,7 +24,7 @@ export function Game({ user, cable }) {
     cable.subscriptions.create({ channel: "GamesChannel", game_id: game_id }, {
       connected:    ()=>console.log("connected"),
       disconnected: ()=>console.log("connected"),
-      received: newGameState=>setGameState(newGameState)
+      received: newGameState=>setGameState(JSON.parse(newGameState))
     })
 
     // leave game on closing tab
@@ -35,6 +36,8 @@ export function Game({ user, cable }) {
 
   const userIsCardCzar = user.id === gameState.card_czar_id
   const is_lobby_owner = user.id === gameState.lobby_owner_id
+
+  console.log(gameState);
 
   return <div className="game">
     <StatusThing userIsCardCzar={userIsCardCzar} user_id={user.id} is_lobby_owner = {is_lobby_owner} gameState={gameState}/>

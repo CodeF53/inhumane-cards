@@ -1,9 +1,12 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { fetchPatch, fetchPost } from "../util"
 
 export function ControlPanel({ gameState: { users, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser }) {
   const [isHidden, setIsHidden] = useState(false)
   const [mode, setMode] = useState("")
+  const navigate = useNavigate()
+
 
   var winning_user_id
   if (game_stuff) {
@@ -41,7 +44,7 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, gam
           </>
         }
 
-        <button onClick={e=>{fetchPatch("/leave")}}>leave game</button>
+        <button onClick={e=>{fetchPatch("/leave").then(r=>navigate("/"))}}>leave game</button>
 
       </div>
       <div className="row">

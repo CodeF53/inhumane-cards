@@ -23,7 +23,8 @@ class UsersController < ApplicationController
     @current_user.update(game: found_game)
     @current_user.set_game_vars
     # TODO: broadcast user join
-    @game.broadcast_state
+    found_game.broadcast_state
+    sleep(0.1)
 
     render json: {}, status: :accepted
   end

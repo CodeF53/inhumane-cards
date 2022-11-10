@@ -13,7 +13,7 @@ export function GameLobby({ lobby: {id, host, password_protected, num_players, p
     e.preventDefault()
 
     fetchPatch_data(`join/${id}`, {password:password}).then(r=>{r.json().then(d=>{
-      if (r.ok) { navigate(`/game/${d.id}`) }
+      if (r.ok) { navigate(`/game/${id}`) }
       else { setErrorText(d.errors[0]) }
     })})
   }
