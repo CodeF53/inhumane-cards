@@ -103,7 +103,7 @@ class Game < ApplicationRecord
   end
 
   def non_card_czar_users
-    users.reject(&:card_czar?)
+    Game.find(id).users.reject(&:card_czar?) # ! hacky solution to it not being up to date
   end
 
   def submitted_round_cards

@@ -65,7 +65,7 @@ General:
 
 Future Stretch Goals":
 - [x] HTTPS
-- [ ] Migrate to ActionCable for GameState
+- [x] Migrate to ActionCable for GameState
 - [ ] Switch to Next.js
 - [ ] Omni Auth (sign in google and everything)
 - [ ] Custom Card Packs (for inside jokes and the like)
