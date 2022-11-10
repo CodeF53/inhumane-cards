@@ -30,6 +30,7 @@ export function Game({ user, cable }) {
     const leaveGame = e => fetchPatch("/leave")
     window.addEventListener("beforeunload", leaveGame);
     return () => { window.removeEventListener("beforeunload", leaveGame); }
+    // eslint-disable-next-line
   }, [cable, game_id]);
 
   const userIsCardCzar = user.id === gameState.card_czar_id

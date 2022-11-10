@@ -41,10 +41,10 @@ ActiveRecord::Schema[7.0].define(version: 5) do
     t.integer "black_card_id"
     t.integer "card_czar_id"
     t.string "game_phase", default: "lobby"
-    t.string "black_card_pool"
-    t.string "white_card_pool"
-    t.string "used_white_card_ids"
-    t.string "used_black_card_ids"
+    t.text "black_card_pool", default: [], array: true
+    t.text "white_card_pool", default: [], array: true
+    t.text "used_white_card_ids", default: [], array: true
+    t.text "used_black_card_ids", default: [], array: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 5) do
     t.integer "submitted_hand_index"
     t.integer "picked_card_index"
     t.integer "discarded_card_index"
-    t.text "hand", array: true
+    t.text "hand", default: [], array: true
   end
 
   create_table "white_cards", force: :cascade do |t|

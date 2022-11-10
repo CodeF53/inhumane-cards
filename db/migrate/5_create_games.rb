@@ -12,10 +12,10 @@ class CreateGames < ActiveRecord::Migration[7.0]
 
       t.string :game_phase, default: 'lobby'
 
-      t.string :black_card_pool
-      t.string :white_card_pool
-      t.string :used_white_card_ids
-      t.string :used_black_card_ids
+      t.text :black_card_pool, array: true, default: []
+      t.text :white_card_pool, array: true, default: []
+      t.text :used_white_card_ids, array: true, default: []
+      t.text :used_black_card_ids, array: true, default: []
     end
   end
 end
