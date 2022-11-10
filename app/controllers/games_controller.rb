@@ -26,7 +26,6 @@ class GamesController < ApplicationController
 
     @current_user.update(game: game)
     @current_user.set_game_vars
-    game.update_state_cache
 
     render json: game, status: :created
   end

@@ -22,7 +22,8 @@ class UsersController < ApplicationController
 
     @current_user.update(game: found_game)
     @current_user.set_game_vars
-    Game.find(params[:game_id]).update_state_cache
+    # TODO: broadcast user join
+    @game.broadcast_state
 
     render json: {}, status: :accepted
   end
@@ -85,11 +86,6 @@ class UsersController < ApplicationController
     @game.step_game
   end
 
-  # GET /game_state
-  def game_state
-    render json: @game.state_cache
-  end
-
   # GET /hand
   def hand
     render json: @current_user.hand.map(&:text).to_json
@@ -116,7 +112,8 @@ class UsersController < ApplicationController
 
     @game.update(lobby_owner_id: user_to_promote.id)
 
-    @game.update_state_cache
+    # TODO: broadcast user promotion
+    @game.broadcast_state
 
     render json: {}, status: :accepted
   end

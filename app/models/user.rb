@@ -58,7 +58,7 @@ class User < ApplicationRecord
     return old_game.destroy if old_game.users.empty?
 
     # don't step game out of waiting lobby
-    return old_game.update_state_cache if %w[lobby over].include?(old_game.game_phase)
+    return old_game.broadcast_state if %w[lobby over].include?(old_game.game_phase)
 
     # TODO: when a card czar leaves a game it should pick a new black card and card czar
     # TODO: when lobby owner leaves, assign new owner randomly

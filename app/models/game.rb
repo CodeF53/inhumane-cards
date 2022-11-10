@@ -53,7 +53,7 @@ class Game < ApplicationRecord
         Util.set_timeout(
           callback: lambda do
             winning_user.increment_game_score
-            update_state_cache
+            broadcast_state
           end,
           seconds: 0.2
         )
@@ -76,7 +76,7 @@ class Game < ApplicationRecord
           puts "#{winning_user.username} wins"
           update(game_phase: 'over')
 
-          update_state_cache
+          broadcast_state
           return
         else
           puts '   switching back to submit'
@@ -101,17 +101,16 @@ class Game < ApplicationRecord
       select_black_card
     end
 
-    update_state_cache
+    broadcast_state
   end
 
-  def update_state_cache(delay: 0.2)
-    Util.set_timeout(
-      callback: lambda do
-        puts 'Updating game cache'
-        Rails.logger.silence { update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json) }
-      end,
-      seconds: delay
-    )
+  def state
+    ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json
+  end
+
+  def broadcast_state
+    puts 'broadcasting new state'
+    GamesChannel.broadcast_to(self, state)
   end
 
   def non_card_czar_users

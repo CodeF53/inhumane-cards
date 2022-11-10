@@ -29,5 +29,5 @@
 /public/robots.txt
 !/public/502.html
 
-# TODO: good comment
+# Ignore card json we read in
 cah-cards-full.json
