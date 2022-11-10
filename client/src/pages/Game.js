@@ -8,7 +8,7 @@ import { fetchPatch } from "../util";
 
 export function Game({ user, cable }) {
   const { game_id } = useParams()
-
+  const [room, setRoom] = useState()
   const [gameState, setGameState] = useState({game_phase:"", users:[], hand:[], black_card:{text:""}})
   const navigate = useNavigate()
   if (!user) navigate("/")
@@ -21,16 +21,20 @@ export function Game({ user, cable }) {
     }))
 
     // subscribe to updates to the game state
-    cable.subscriptions.create({ channel: "GamesChannel", game_id: game_id }, {
+    const room = cable.subscriptions.create({ channel: "GamesChannel", game_id: game_id }, {
       connected:    ()=>console.log("connected"),
       disconnected: ()=>console.log("connected"),
       received: newGameState=>setGameState(JSON.parse(newGameState))
     })
+    setRoom(room)
 
     // leave game on closing tab
     const leaveGame = e => fetchPatch("/leave")
     window.addEventListener("beforeunload", leaveGame);
-    return () => { window.removeEventListener("beforeunload", leaveGame); }
+    return () => {
+      window.removeEventListener("beforeunload", leaveGame);
+      cable.subscriptions.remove(room)
+    }
     // eslint-disable-next-line
   }, [cable, game_id]);
 
@@ -51,6 +55,6 @@ export function Game({ user, cable }) {
       <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} enable_discards={gameState.enable_discards} gameState={gameState} user={user}/>
     </>}
 
-    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user}/>
+    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user} leaveRoom={()=>cable.subscriptions.remove(room)}/>
   </div>
 }
