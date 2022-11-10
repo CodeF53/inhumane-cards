@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_08_173832) do
+ActiveRecord::Schema[7.0].define(version: 5) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,17 +35,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_173832) do
   create_table "games", force: :cascade do |t|
     t.integer "winning_score"
     t.integer "player_limit"
+    t.boolean "enable_discards", default: false
     t.string "password"
     t.integer "lobby_owner_id"
     t.integer "black_card_id"
     t.integer "card_czar_id"
     t.string "game_phase", default: "lobby"
-    t.string "state_cache"
     t.string "black_card_pool"
     t.string "white_card_pool"
     t.string "used_white_card_ids"
     t.string "used_black_card_ids"
-    t.boolean "enable_discards", default: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,8 +54,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_173832) do
     t.integer "game_score"
     t.integer "submitted_hand_index"
     t.integer "picked_card_index"
-    t.text "hand", array: true
     t.integer "discarded_card_index"
+    t.text "hand", array: true
   end
 
   create_table "white_cards", force: :cascade do |t|

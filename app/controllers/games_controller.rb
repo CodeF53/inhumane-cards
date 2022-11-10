@@ -8,6 +8,11 @@ class GamesController < ApplicationController
     render json: Game.all
   end
 
+  # GET /games/:game_id
+  def state
+    render json: Game.find(params[:game_id]).state
+  end
+
   # POST /games
   def create
     @current_user.leave_game unless @current_user.game_id.nil?
