@@ -44,6 +44,8 @@ class User < ApplicationRecord
   end
 
   def leave_game
+    return if game_id.nil?
+
     old_game = game
     update(game_id: nil)
 

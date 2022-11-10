@@ -10,7 +10,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.integer :picked_card_index
       t.integer :discarded_card_index
 
-      t.text :hand, array: true, default: []
+      t.json :hand, array: true, default: []
     end
   end
 end

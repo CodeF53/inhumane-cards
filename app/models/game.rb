@@ -93,7 +93,8 @@ class Game < ApplicationRecord
   end
 
   def state
-    ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json
+    # ! Game.find(id) hacky solution to it not being up to date
+    ActiveModelSerializers::SerializableResource.new(Game.find(id), { serializer: GameStateSerializer }).to_json
   end
 
   def broadcast_state
