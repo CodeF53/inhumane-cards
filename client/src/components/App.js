@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { About } from "../pages/About";
 import { Contact } from "../pages/Contact";
@@ -12,7 +12,7 @@ import { LoginSignup } from "../pages/LoginSignup";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
-export function App() {
+export function App({ cable }) {
   // persistent user through local storage
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
   useEffect(() => { localStorage.setItem("user", JSON.stringify(user));
@@ -35,7 +35,7 @@ export function App() {
 
   return <div className={`app ${isMobile?"mobile":"desktop"}`}>
     <Routes>
-      <Route path="/game/" element={<Game user={user}/>}/>
+      <Route path="/game/:game_id" element={<Game user={user} cable={cable}/>}/>
 
       <Route path="*" element={<div className="col">
         <Header user={user} setUser={setUser} />

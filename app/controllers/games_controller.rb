@@ -10,6 +10,8 @@ class GamesController < ApplicationController
 
   # GET /games/:game_id
   def state
+    return render json: { errors: ['you aren\'t in this game'] } unless @current_user.game_id == params[:game_id]
+
     render json: Game.find(params[:game_id]).state
   end
 

@@ -1,29 +1,36 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ControlPanel } from "../game_components/ControlPanel";
 import { Hand } from "../game_components/Hand";
 import { Pool } from "../game_components/Pool";
 import { StatusThing } from "../game_components/StatusThing";
 import { fetchPatch } from "../util";
 
-export function Game({user}) {
+export function Game({ user, cable }) {
+  const { game_id } = useParams()
+
   const [gameState, setGameState] = useState({game_phase:"", users:[], hand:[], black_card:{text:""}})
   const navigate = useNavigate()
 
   useEffect(() => {
+    // manually fetch to get the initial state
+    fetch(`/game/${game_id}`).then(r=>r.json().then(d=>{
+      if (r.ok) { setGameState(d) }
+      else if (d.errors && d.errors[0] === "you aren't in this game") { navigate("/") }
+    }))
+
+    // subscribe to updates to the game state
+    cable.subscriptions.create({ channel: "GamesChannel", game_id: game_id }, {
+      connected:    ()=>console.log("connected"),
+      disconnected: ()=>console.log("connected"),
+      received: newGameState=>setGameState(newGameState)
+    })
+
+    // leave game on closing tab
     const leaveGame = e => fetchPatch("/leave")
     window.addEventListener("beforeunload", leaveGame);
     return () => { window.removeEventListener("beforeunload", leaveGame); }
-  }, [])
-
-  useEffect(() => {
-    const interval = setInterval(() => { fetch("/game_state").then(r=>{
-      if(r.ok) { r.json().then(d=>setGameState(d)) }
-      else { r.json().then(e=>{ if(e.errors && e.errors[0] === "Not in a game") { navigate("/") } } )}
-    })}, 1000);
-    return () => clearInterval(interval);
-    // eslint-disable-next-line
-  }, []);
+  }, [cable, game_id]);
 
   const userIsCardCzar = user.id === gameState.card_czar_id
   const is_lobby_owner = user.id === gameState.lobby_owner_id

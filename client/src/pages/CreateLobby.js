@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LabeledInput } from "../components/LabeledInput";
+import { fetchPost_data } from "../util";
 
 export function CreateLobby({user}) {
   const [errorText, setErrorText] = useState("")
@@ -20,16 +21,11 @@ export function CreateLobby({user}) {
     if (formObject.password === "") formObject.password = null
     setErrorText("")
 
-    fetch("/games",{
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({...formObject, enabled_pack_ids: enabled_pack_ids})
-    }).then(r=>{ if (r.ok) { r.json().then(game=>{
-      navigate("/game/") // send user to game lobby
-    })} else {
-      r.json().then(({errors})=>{
-        setErrorText(errors[0])
-      })
-    }})
+    fetchPost_data("/games",{...formObject, enabled_pack_ids: enabled_pack_ids})
+      .then(r=>{r.json().then(d=>{
+        if (r.ok) { navigate(`/game/${d.id}`) }
+        else { setErrorText(d.errors[0]) }
+    })})
   }
 
   const [categories, setCategories] = useState([])
@@ -53,7 +49,7 @@ export function CreateLobby({user}) {
     else { rem_pack_ids(ids) }
     console.log(enabled_pack_ids);
   }
-  
+
   const section_toggle_children = (e, section) => {
     const ids = section.map(category=>category.card_packs.map(pack=>pack.id)).flat()
     if (e.target.checked) { add_pack_ids(ids) }
