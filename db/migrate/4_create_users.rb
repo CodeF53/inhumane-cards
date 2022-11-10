@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.integer :game_score
       t.integer :submitted_hand_index
       t.integer :picked_card_index
+      t.integer :discarded_card_index
 
       t.text :hand, array: true
     end

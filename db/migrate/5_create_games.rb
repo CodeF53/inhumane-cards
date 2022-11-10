@@ -3,6 +3,7 @@ class CreateGames < ActiveRecord::Migration[7.0]
     create_table :games do |t|
       t.integer :winning_score
       t.integer :player_limit
+      t.boolean :enable_discards, default: false
       t.string :password
 
       t.integer :lobby_owner_id
@@ -10,8 +11,6 @@ class CreateGames < ActiveRecord::Migration[7.0]
       t.integer :card_czar_id
 
       t.string :game_phase, default: 'lobby'
-
-      t.string :state_cache
 
       t.string :black_card_pool
       t.string :white_card_pool

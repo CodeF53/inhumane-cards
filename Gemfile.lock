@@ -124,6 +124,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
+    pg (1.4.4)
     puma (5.6.5)
       nio4r (~> 2.0)
     puma (5.6.5-java)
@@ -160,14 +161,11 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    redis (4.8.0)
     reline (0.3.1)
       io-console (~> 0.5)
     ruby-progressbar (1.11.0)
     silencer (2.0.0)
-    sqlite3 (1.5.3)
-      mini_portile2 (~> 2.8.0)
-    sqlite3 (1.5.3-x64-mingw32)
-    sqlite3 (1.5.3-x86_64-linux)
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
@@ -195,11 +193,12 @@ DEPENDENCIES
   bcrypt
   debug
   hash_dot
+  pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4)
+  redis (~> 4.0)
   ruby-progressbar
   silencer
-  sqlite3 (~> 1.4)
   tzinfo-data
   whenever
 
