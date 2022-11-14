@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { fetchPatch, fetchPost } from "../util"
 
-export function ControlPanel({ gameState: { users, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser }) {
+export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser }) {
   const [isHidden, setIsHidden] = useState(false)
   const [mode, setMode] = useState("")
 
@@ -27,7 +27,7 @@ export function ControlPanel({ gameState: { users, card_czar_id, game_phase, gam
 
     <div className="col" style={{width: "100%"}}>
       <div className={`users col ${mode}`}>
-        {users.map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} is_lobby_owner={is_lobby_owner} onUserClick={onUserClick} />)}
+        {users.map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} lobby_owner_id={lobby_owner_id} is_lobby_owner={is_lobby_owner} onUserClick={onUserClick} />)}
       </div>
       <div className="row">
         <div className="spacer"/>

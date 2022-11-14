@@ -51,9 +51,8 @@ export function CreateLobby({user}) {
     const ids = category.card_packs.map(pack=>pack.id)
     if (e.target.checked) { add_pack_ids(ids) }
     else { rem_pack_ids(ids) }
-    console.log(enabled_pack_ids);
   }
-  
+
   const section_toggle_children = (e, section) => {
     const ids = section.map(category=>category.card_packs.map(pack=>pack.id)).flat()
     if (e.target.checked) { add_pack_ids(ids) }
