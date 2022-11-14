@@ -24,9 +24,7 @@ rescue Errno::ENOENT
 else
   cards_json = JSON.parse(card_file)
 
-  # threads = cards_json.map do |pack|
   cards_json.each do |pack|
-    # Thread.new do
     # create the card pack
     card_pack = CardPack.create(title: pack['name'])
 
@@ -51,13 +49,7 @@ else
       # TODO: implement support for cards with card.pick > 1
       progressbar.increment
     end
-    # end
   end
-
-  # threads.each do |thread, i|
-  #   sleep 0.5 while thread.alive?
-  #   puts "finished thread #{i}"
-  # end
 
   # make the categories
   puts "\n🌳 Making categories"
