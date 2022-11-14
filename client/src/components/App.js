@@ -1,9 +1,10 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { About } from "../pages/About";
 import { Contact } from "../pages/Contact";
 import { CreateLobby } from "../pages/CreateLobby";
 import { Credits } from "../pages/Credits";
+import Disclaimer from "../pages/Disclaimer";
 import { Game } from "../pages/Game";
 import { Home } from "../pages/Home";
 import { JoinLobby } from "../pages/JoinLobby";
@@ -52,6 +53,7 @@ export function App() {
           <Route path="/about" element={<About/>} />
           <Route path="/legal" element={<Legal/>} />
           <Route path="/credits" element={<Credits/>} />
+          <Route path="/disclaimer" element={<Disclaimer/>} />
         </Routes>
 
         <div className="spacer"/>
