@@ -16,7 +16,6 @@ export default function Disclaimer() {
         <li> A happy President with a tiny, upsetting dong. </li>
         <li> Using a taser to make your child stop crying. </li>
         <li> A 5-gallon bucket of used condoms. </li>
-        <li> A cum guzzling thundercunt. </li>
       </ul>
     </p>
   </div>
