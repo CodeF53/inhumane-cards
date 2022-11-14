@@ -143,15 +143,37 @@
 }
 
 // animations
-.zoomIn { animation: zoom-in .5s; }
+.zoomIn { animation: zoom-in 1s; }
 @keyframes zoom-in {
-  0% { transform: scale(0); }
+  0%   { transform: scale(0); }
   100% { transform: scale(1); }
 }
 // TODO: after flipping in the cards snap to their random rotation instantly, make it smooth or something
-// TODO: the card shows the front text on the "back" when it should say "cards against humanity"
-.flipIn { animation: flip-in .5s; }
+.flipIn, .blackCard { animation: flip-in 1s; }
 @keyframes flip-in {
-  0% { transform: rotateY(180deg) }
-  100% { transform: rotateY(0deg) }
+  0%   { transform: rotateY(180deg); font-size: 0rem; }
+  28%  { font-size: 0rem; }
+  29%  { font-size: .85rem; }
+  100% { transform: rotateY(0deg); }
 }
+.flipIn::after, .blackCard::after {
+  content: "Cards Against Humanity";
+  display: inline-block;
+  transform: scaleX(-1);
+  font-size: 0rem;
+  animation: flip-in-text .5s;
+}
+@keyframes flip-in-text {
+  0%   { font-size: .85rem; }
+  28%  { font-size: .85rem; }
+  29%  { font-size: 0rem; }
+  100% { font-size: 0rem; }
+}
+
+// .blackCard {
+//   font-size: 0rem;
+// }
+// .blackCard::after {
+//   font-size: .85rem;
+//   content: "Cards Against Humanity";
+// }
