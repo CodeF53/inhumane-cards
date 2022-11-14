@@ -7,7 +7,6 @@ export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id,
   const [mode, setMode] = useState("")
   const navigate = useNavigate()
 
-
   var winning_user_id
   if (game_stuff) {
     // eslint-disable-next-line
