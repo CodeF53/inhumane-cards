@@ -8,7 +8,6 @@ export function StatusThing({userIsCardCzar, user_id, is_lobby_owner, gameState}
   let winning_user_name = ""
   if ((game_phase==="over" || game_phase==="result") && gameState.game_stuff && gameState.game_stuff.winning_user_id) {
     winning_user_name = gameState.users.filter(user=>user.id === gameState.game_stuff.winning_user_id)[0].username
-    console.log(winning_user_name);
   }
 
   let line1 = ""
