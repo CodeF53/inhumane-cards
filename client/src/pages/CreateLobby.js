@@ -67,7 +67,7 @@ export function CreateLobby({user}) {
         <LabeledInput label="Winning Score" name="winning_score" type="number" value={formObject.winning_score} onChange={updateFormObject} step="1" min="3" max="100"/>
         <LabeledInput label="Player Limit"  name="player_limit"  type="number" value={formObject.player_limit}  onChange={updateFormObject} step="1" min="3" max="10"/>
         <LabeledInput label="Lobby Password (Optional)" name="password" type="password" value={formObject.password} onChange={updateFormObject}/>
-        <LabeledInput label="Enable Discards" name="enable_discards" type="checkbox" value={formObject.password} onChange={updateFormObject_checkbox}/>
+        <LabeledInput label="Enable Discards" name="enable_discards" type="checkbox" value={formObject.enable_discards} onChange={updateFormObject_checkbox}/>
       </div>
 
       <div className="row">
