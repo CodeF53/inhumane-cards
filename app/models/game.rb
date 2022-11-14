@@ -30,7 +30,7 @@ class Game < ApplicationRecord
 
         # switch to result phase when winning card is picked
         card_czar = User.find(card_czar_id) # ! hacky solution to it not being up to date
-        unless card_czar.picked_card_index.nil?
+        unless card_czar.picked_card_id.nil?
           puts 'card czar has picked winner, switching to result phase and stepping again'
           update(game_phase: 'result')
           step_game
@@ -38,13 +38,8 @@ class Game < ApplicationRecord
         end
       when 'result'
         # increment score of round winning player
-        Util.set_timeout(
-          callback: lambda do
-            winning_user.increment_game_score
-            broadcast_state
-          end,
-          seconds: 0.2
-        )
+        winning_user.increment_game_score
+        broadcast_state
 
         # wait 15 seconds for users to admire winning combo
         sleep(5)
@@ -120,7 +115,7 @@ class Game < ApplicationRecord
 
   def winning_card_id
     card_czar = User.find(card_czar_id) # ! hacky solution to it not being up to date
-    submitted_round_cards[card_czar.picked_card_index].id
+    card_czar.picked_card_id
   end
 
   def winning_user
@@ -128,7 +123,9 @@ class Game < ApplicationRecord
   end
 
   def reset_picked_submitted_cards
-    users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil, discarded_card_index: nil) }
+    # TODO: fix
+    # ! sometimes doesn't work?
+    users.each { |user| user.update(submitted_hand_index: nil, picked_card_id: nil, discarded_card_index: nil) }
   end
 
   def select_black_card

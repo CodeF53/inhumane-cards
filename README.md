@@ -48,11 +48,11 @@ Frontend:
 - [ ] Settings
   - [ ] Force Desktop/Mobile rendering
   - [ ] Random card rotation intensity
+      (3 people have asked for this so far)
   - [ ] Enable/Disable SFX
 
 General:
 - [x] Fix submitted/picked_card_index not resetting
-    (3 people have asked for this so far)
 - [x] Leave Game
 - [x] Kick/Promote
 - [x] Allow picking card packs

@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 5) do
     t.integer "game_id"
     t.integer "game_score"
     t.integer "submitted_hand_index"
-    t.integer "picked_card_index"
+    t.integer "picked_card_id"
     t.integer "discarded_card_index"
     t.json "hand", default: [], array: true
   end

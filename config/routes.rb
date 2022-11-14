@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   patch '/leave/', to: 'users#leave_game'
   patch '/submit_card/:card_index', to: 'users#submit_card'
   patch '/discard_card/:card_index', to: 'users#discard_card'
-  patch '/pick_card/:card_index', to: 'users#pick_card'
+  patch '/pick_card/:card_id', to: 'users#pick_card'
 
   get '/hand/', to: 'users#hand'
   get '/games/:game_id', to: 'games#state'

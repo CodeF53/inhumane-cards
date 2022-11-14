@@ -38,7 +38,7 @@ class User < ApplicationRecord
     # ? do these updates still need to be separate?
     update(
       submitted_hand_index: nil,
-      picked_card_index: nil,
+      picked_card_id: nil,
       discarded_card_index: nil
     )
   end
@@ -46,6 +46,7 @@ class User < ApplicationRecord
   def leave_game
     # dont break if the user isn't even in a game
     return if game_id.nil?
+    return if game.nil?
 
     # when a card czar leaves a game it should pick a new black card and card czar
     if card_czar?
