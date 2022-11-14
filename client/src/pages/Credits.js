@@ -11,6 +11,10 @@ export function Credits() {
       <br/>
 
       Font is <a href="https://www.linotype.com/1264130/neue-helvetica-75-bold-product.html">Helvetica® Neue 75 Bold</a>, which I totally paid for.
+
+      <br/>
+
+      SVGs from <a href="https://feathericons.com/">feathericons</a>
     </p>
   </div>
 }
