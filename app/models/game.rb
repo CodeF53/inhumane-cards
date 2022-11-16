@@ -61,15 +61,6 @@ class Game < ApplicationRecord
         # wait 5 seconds for users to admire winning combo
         sleep(5)
 
-        non_card_czar_users.each do |user|
-          hand = user.hand
-          # replace used cards
-          hand[user.submitted_hand_index] = sample_white_cards(1) if user.submitted_card?
-          # replace discarded cards
-          hand[user.discarded_card_index] = sample_white_cards(1) if user.discarded_card?
-
-          user.update(hand: hand)
-        end
 
         puts 'result wait over'
         if winning_user.game_score >= winning_score
@@ -79,15 +70,25 @@ class Game < ApplicationRecord
           update_state_cache
           return
         else
-          puts '   switching back to submit'
+          puts 'replacing used cards'
+          non_card_czar_users.each do |user|
+            hand = user.hand
+            # replace used cards
+            hand[user.submitted_hand_index] = sample_white_cards(1) if user.submitted_card?
+            # replace discarded cards
+            hand[user.discarded_card_index] = sample_white_cards(1) if user.discarded_card?
+
+            user.update(hand: hand)
+          end
+
+          puts 'switching back to submit'
           update(game_phase: 'submit') # ! sometimes this just fails and ends the thread operation.
 
-          puts '   selecting new black card and czar'
+          puts 'selecting new black card and czar'
           select_card_czar
           select_black_card
+          reset_picked_submitted_cards
         end
-
-        reset_picked_submitted_cards
       else # 'lobby' 'over'
         select_card_czar
         select_black_card
@@ -99,6 +100,7 @@ class Game < ApplicationRecord
       update(game_phase: 'submit') # ! sometimes this just fails and ends the thread operation.
       select_card_czar
       select_black_card
+      reset_picked_submitted_cards
     end
 
     update_state_cache
