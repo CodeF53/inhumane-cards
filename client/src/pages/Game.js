@@ -13,6 +13,8 @@ export function Game({ user, cable }) {
   const navigate = useNavigate()
   if (!user) navigate("/")
 
+  const [connection, setConnection] = useState("disconnected")
+
   useEffect(() => {
     // manually fetch to get the initial state
     fetch(`/games/${game_id}`).then(r=>r.json().then(d=>{
@@ -22,8 +24,8 @@ export function Game({ user, cable }) {
 
     // subscribe to updates to the game state
     const room = cable.subscriptions.create({ channel: "GamesChannel", game_id: game_id }, {
-      connected:    ()=>console.log("connected"),
-      disconnected: ()=>console.log("connected"),
+      connected:    ()=>setConnection("connected"),
+      disconnected: ()=>setConnection("disconnected"),
       received: newGameState=>setGameState(JSON.parse(newGameState))
     })
     setRoom(room)
@@ -55,6 +57,6 @@ export function Game({ user, cable }) {
       <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} enable_discards={gameState.enable_discards} gameState={gameState} user={user}/>
     </>}
 
-    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user} leaveRoom={()=>cable.subscriptions.remove(room)}/>
+    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user} leaveRoom={()=>cable.subscriptions.remove(room)} connection={connection}/>
   </div>
 }

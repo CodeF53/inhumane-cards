@@ -66,6 +66,9 @@
     border-top-left-radius: 1rem;
     box-shadow: -0.25rem 0.25rem 0.25rem 0.01rem rgba(0, 0, 0, 0.237);
   }
+
+  .disconnected { color: red; }
+  .connected { color: green; }
 }
 
 .statusThing {

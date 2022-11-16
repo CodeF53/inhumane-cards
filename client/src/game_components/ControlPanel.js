@@ -6,7 +6,7 @@ import { ReactComponent as AwardSvg } from '../assets/award.svg';
 import { ReactComponent as HammerSvg } from '../assets/hammer.svg';
 import { ReactComponent as CrownSvg } from '../assets/crown.svg';
 
-export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser, leaveRoom }) {
+export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser, leaveRoom, connection }) {
   const [isHidden, setIsHidden] = useState(false)
   const [mode, setMode] = useState("")
   const navigate = useNavigate()
@@ -26,7 +26,7 @@ export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id,
       if(r.ok) { setMode("") }})
   }
 
-  return <div className={`controlPanel ${is_lobby_owner?"lobbyOwner":""} ${isHidden?"hidden":""} row`}>
+  return <div className={`controlPanel col ${is_lobby_owner?"lobbyOwner":""} ${isHidden?"hidden":""} row`}>
     <button className="hide_show_button" onClick={()=>setIsHidden(!isHidden)}>
       {isHidden?"<":">"}
     </button>
@@ -55,6 +55,7 @@ export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id,
         {mode!=="" && <span>click a user to {mode}</span>}
       </div>
     </div>
+    <span className={`centered ${connection}`}>{connection}</span>
   </div>
 }
 

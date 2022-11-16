@@ -68,6 +68,7 @@ class Game < ApplicationRecord
           puts '   selecting new black card and czar'
           select_card_czar
           select_black_card
+          reset_picked_submitted_cards
         end
 
         reset_picked_submitted_cards
@@ -80,6 +81,7 @@ class Game < ApplicationRecord
     rescue
       puts 'some error happened, lets just ignore that and go back to the submit phase...'
       update(game_phase: 'submit') # ! sometimes this just fails and ends the thread operation.
+      reset_picked_submitted_cards
       select_card_czar
       select_black_card
     end
@@ -102,7 +104,7 @@ class Game < ApplicationRecord
   end
 
   def submitted_round_cards
-    non_card_czar_users.map(&:submitted_card)
+    non_card_czar_users.map(&:submitted_card).sort_by(&:id)
   end
 
   def select_card_czar
@@ -125,7 +127,9 @@ class Game < ApplicationRecord
   def reset_picked_submitted_cards
     # TODO: fix
     # ! sometimes doesn't work?
+    puts 'trying to reset picked/submitted cards'
     users.each { |user| user.update(submitted_hand_index: nil, picked_card_id: nil, discarded_card_index: nil) }
+    puts 'done'
   end
 
   def select_black_card
