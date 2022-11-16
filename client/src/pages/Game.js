@@ -15,7 +15,7 @@ export function Game({ user, cable }) {
 
   const [connection, setConnection] = useState("disconnected")
 
-  useEffect(() => {
+  function connectToServer() {
     // manually fetch to get the initial state
     fetch(`/games/${game_id}`).then(r=>r.json().then(d=>{
       if (r.ok) { setGameState(d) }
@@ -23,27 +23,28 @@ export function Game({ user, cable }) {
     }))
 
     // subscribe to updates to the game state
-    const room = cable.subscriptions.create({ channel: "GamesChannel", game_id: game_id }, {
+    setRoom(cable.subscriptions.create({ channel: "GamesChannel", game_id: game_id }, {
       connected:    ()=>setConnection("connected"),
-      disconnected: ()=>setConnection("disconnected"),
+      disconnected: ()=>{setConnection("disconnected"); connectToServer()},
       received: newGameState=>setGameState(JSON.parse(newGameState))
-    })
-    setRoom(room)
+    }))
+  }
+
+  useEffect(() => {
+    connectToServer()
 
     // leave game on closing tab
     const leaveGame = e => fetchPatch("/leave")
     window.addEventListener("beforeunload", leaveGame);
     return () => {
       window.removeEventListener("beforeunload", leaveGame);
-      cable.subscriptions.remove(room)
+      // cable.subscriptions.remove(room)
     }
     // eslint-disable-next-line
   }, [cable, game_id]);
 
   const userIsCardCzar = user.id === gameState.card_czar_id
   const is_lobby_owner = user.id === gameState.lobby_owner_id
-
-  console.log(gameState);
 
   return <div className="game">
     <StatusThing userIsCardCzar={userIsCardCzar} user_id={user.id} is_lobby_owner = {is_lobby_owner} gameState={gameState}/>

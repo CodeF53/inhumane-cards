@@ -43,7 +43,9 @@ class Game < ApplicationRecord
 
         # wait 5 seconds for users to admire winning combo
         sleep(5)
+        puts 'result wait over'
 
+        puts 'replacing used/discarded cards'
         non_card_czar_users.each do |user|
           hand = user.hand
           # replace used cards
@@ -54,7 +56,6 @@ class Game < ApplicationRecord
           user.update(hand: hand)
         end
 
-        puts 'result wait over'
         if winning_user.game_score >= winning_score
           puts "#{winning_user.username} wins"
           update(game_phase: 'over')
@@ -71,14 +72,14 @@ class Game < ApplicationRecord
           reset_picked_submitted_cards
         end
 
-        reset_picked_submitted_cards
       else # 'lobby' 'over'
         select_card_czar
         select_black_card
         users.each(&:set_game_vars)
         update(game_phase: 'submit')
       end
-    rescue
+    rescue => error
+      error.backtrace
       puts 'some error happened, lets just ignore that and go back to the submit phase...'
       update(game_phase: 'submit') # ! sometimes this just fails and ends the thread operation.
       reset_picked_submitted_cards
@@ -91,12 +92,12 @@ class Game < ApplicationRecord
 
   def state
     # ! Game.find(id) hacky solution to it not being up to date
-    ActiveModelSerializers::SerializableResource.new(Game.find(id), { serializer: GameStateSerializer }).to_json
+    Rails.logger.silence { ActiveModelSerializers::SerializableResource.new(Game.find(id), { serializer: GameStateSerializer }).to_json }
   end
 
   def broadcast_state
     puts 'broadcasting new state'
-    GamesChannel.broadcast_to(self, state)
+    Rails.logger.silence { GamesChannel.broadcast_to(self, state) }
   end
 
   def non_card_czar_users
@@ -125,11 +126,7 @@ class Game < ApplicationRecord
   end
 
   def reset_picked_submitted_cards
-    # TODO: fix
-    # ! sometimes doesn't work?
-    puts 'trying to reset picked/submitted cards'
     users.each { |user| user.update(submitted_hand_index: nil, picked_card_id: nil, discarded_card_index: nil) }
-    puts 'done'
   end
 
   def select_black_card
