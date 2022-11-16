@@ -15,5 +15,5 @@ test:
 production:
   <<: *default
   database: inhumane_cards_production
-  username: inhumane_cards
+  username: f53
   password: <% ENV["INHUMANE_CARDS_DATABASE_PASSWORD"] %>
