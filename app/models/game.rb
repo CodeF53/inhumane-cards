@@ -6,7 +6,6 @@ class Game < ApplicationRecord
 
   def step_game
     puts "stepping game, phase: #{game_phase}"
-
     begin
       case game_phase
       when 'submit'
@@ -45,17 +44,7 @@ class Game < ApplicationRecord
         sleep(5)
         puts 'result wait over'
 
-        puts 'replacing used/discarded cards'
-        non_card_czar_users.each do |user|
-          hand = user.hand
-          # replace used cards
-          hand[user.submitted_hand_index] = sample_white_cards(1) if user.submitted_card?
-          # replace discarded cards
-          hand[user.discarded_card_index] = sample_white_cards(1) if user.discarded_card?
-
-          user.update(hand: hand)
-        end
-
+        puts 'checking if a user has won'
         if winning_user.game_score >= winning_score
           puts "#{winning_user.username} wins"
           update(game_phase: 'over')
@@ -63,23 +52,35 @@ class Game < ApplicationRecord
           broadcast_state
           return
         else
-          puts '   switching back to submit'
+          puts 'replacing used/discarded cards'
+          non_card_czar_users.each do |user|
+            hand = user.hand
+            # replace used cards
+            hand[user.submitted_hand_index] = sample_white_cards(1) if user.submitted_card?
+            # replace discarded cards
+            hand[user.discarded_card_index] = sample_white_cards(1) if user.discarded_card?
+
+            user.update(hand: hand)
+          end
+
+          puts 'switching back to submit'
           update(game_phase: 'submit') # ! sometimes this just fails and ends the thread operation.
 
-          puts '   selecting new black card and czar'
+          puts 'selecting new black card and czar'
           select_card_czar
           select_black_card
+
+          puts 'resetting picked/submitted cards'
           reset_picked_submitted_cards
         end
-
       else # 'lobby' 'over'
         select_card_czar
         select_black_card
         users.each(&:set_game_vars)
         update(game_phase: 'submit')
       end
-    rescue => error
-      error.backtrace
+    rescue => e
+      puts e.backtrace
       puts 'some error happened, lets just ignore that and go back to the submit phase...'
       update(game_phase: 'submit') # ! sometimes this just fails and ends the thread operation.
       reset_picked_submitted_cards
