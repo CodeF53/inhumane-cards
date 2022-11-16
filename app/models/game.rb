@@ -86,6 +86,7 @@ class Game < ApplicationRecord
       reset_picked_submitted_cards
       select_card_czar
       select_black_card
+      reset_picked_submitted_cards
     end
 
     broadcast_state
