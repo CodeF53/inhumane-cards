@@ -8,6 +8,7 @@ import Disclaimer from "../pages/Disclaimer";
 import { Game } from "../pages/Game";
 import { Home } from "../pages/Home";
 import { JoinLobby } from "../pages/JoinLobby";
+import Kicked from "../pages/Kicked";
 import { Legal } from "../pages/Legal";
 import { LoginSignup } from "../pages/LoginSignup";
 import { Footer } from "./Footer";
@@ -34,6 +35,9 @@ export function App({ cable }) {
     return () => { window.removeEventListener("resize", handleWindowResize) }
   }, [])
 
+  // clear phantom cable subscriptions
+  cable.subscriptions.subscriptions = []
+
   return <div className={`app ${isMobile?"mobile":"desktop"}`}>
     <Routes>
       <Route path="/game/:game_id" element={<Game user={user} cable={cable}/>}/>
@@ -54,6 +58,8 @@ export function App({ cable }) {
           <Route path="/legal" element={<Legal/>} />
           <Route path="/credits" element={<Credits/>} />
           <Route path="/disclaimer" element={<Disclaimer/>} />
+
+          <Route path="/kicked" element={<Kicked/>} />
         </Routes>
 
         <div className="spacer"/>

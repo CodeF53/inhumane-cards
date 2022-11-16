@@ -4,7 +4,6 @@ import { ControlPanel } from "../game_components/ControlPanel";
 import { Hand } from "../game_components/Hand";
 import { Pool } from "../game_components/Pool";
 import { StatusThing } from "../game_components/StatusThing";
-import { fetchPatch } from "../util";
 
 export function Game({ user, cable }) {
   const { game_id } = useParams()
@@ -15,33 +14,34 @@ export function Game({ user, cable }) {
 
   const [connection, setConnection] = useState("disconnected")
 
+  function handleDisconnect() {
+    setConnection("disconnected");
+    connectToServer()
+  }
+  function handleData(newGameState) {
+    if (!(newGameState.users.map(u=>u.id).includes(user.id))) {
+      navigate("/kicked")
+    } else {
+      setGameState(newGameState)
+    }
+  }
+
   function connectToServer() {
-    // manually fetch to get the initial state
-    fetch(`/games/${game_id}`).then(r=>r.json().then(d=>{
-      if (r.ok) { setGameState(d) }
-      else if (d.errors && d.errors[0] === "you aren't in this game") { navigate("/") }
-    }))
+    // clear old subscriptions
+    cable.subscriptions.subscriptions = []
 
     // subscribe to updates to the game state
     setRoom(cable.subscriptions.create({ channel: "GamesChannel", game_id: game_id }, {
       connected:    ()=>setConnection("connected"),
-      disconnected: ()=>{setConnection("disconnected"); connectToServer()},
-      received: newGameState=>setGameState(JSON.parse(newGameState))
+      disconnected: handleDisconnect,
+      received: data => handleData(JSON.parse(data))
     }))
+
+    // manually fetch to get the initial state
+    fetch(`/games/${game_id}`).then(r=>r.json().then(handleData))
   }
 
-  useEffect(() => {
-    connectToServer()
-    // ! very bad idea because breaks leaving on refresh
-    // // leave game on closing tab
-    // const leaveGame = e => fetchPatch("/leave")
-    // window.addEventListener("beforeunload", leaveGame);
-    // return () => {
-    //   window.removeEventListener("beforeunload", leaveGame);
-    //   cable.subscriptions.remove(room)
-    // }
-    // eslint-disable-next-line
-  }, [cable, game_id]);
+  useEffect(connectToServer, [])
 
   const userIsCardCzar = user.id === gameState.card_czar_id
   const is_lobby_owner = user.id === gameState.lobby_owner_id
