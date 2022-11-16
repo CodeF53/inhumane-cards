@@ -32,14 +32,14 @@ export function Game({ user, cable }) {
 
   useEffect(() => {
     connectToServer()
-
-    // leave game on closing tab
-    const leaveGame = e => fetchPatch("/leave")
-    window.addEventListener("beforeunload", leaveGame);
-    return () => {
-      window.removeEventListener("beforeunload", leaveGame);
-      // cable.subscriptions.remove(room)
-    }
+    // ! very bad idea because breaks leaving on refresh
+    // // leave game on closing tab
+    // const leaveGame = e => fetchPatch("/leave")
+    // window.addEventListener("beforeunload", leaveGame);
+    // return () => {
+    //   window.removeEventListener("beforeunload", leaveGame);
+    //   cable.subscriptions.remove(room)
+    // }
     // eslint-disable-next-line
   }, [cable, game_id]);
 
