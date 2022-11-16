@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { cardRotation } from "../util";
+import Card from "./Card";
 
 export function Pool({gameState, userIsCardCzar}) {
   const blackCardText = gameState.black_card.text
@@ -35,29 +35,23 @@ export function Pool({gameState, userIsCardCzar}) {
   switch (gameState.game_phase) {
     case "submit":
       submittedCards = [...Array(game_stuff.users_submitted.length)].map((a,i)=>
-        <div style={{transform:cardRotation(`${i*5}`)}} className="card zoomIn">Cards Against Humanity</div>)
+        <Card className="zoomIn" text="Cards Against Humanity" key={i} rotationSeed={i}/>)
       break
     case "pick":
       submittedCards = game_stuff.cards.map((card,i)=>
-        <div onClick={e=>setSelectedCard(i,e)} style={{transform:cardRotation(`${i*5}`)}} className="card flipIn">
-          {card.text}
-          {i===selectedCard?cardControls:null}
-        </div>)
+        <Card className="flipIn" text={card.text} onClick={e=>setSelectedCard(i,e)} isPool={true} controls={cardControls} selected={i===selectedCard} key={i} rotationSeed={i}/>)
       break
     case "result":
       submittedCards = game_stuff.cards.map((card,i)=>
-        <div style={{transform:cardRotation(`${i*5}`)}} className={`card ${card.id===game_stuff.winning_card_id?"winningCard":""}`}>
-          <div className="submitter">{gameState.users.find(e=>e.id===game_stuff.card_user_ids[i]).username}</div>
-          {card.text}
-        </div>)
+        <Card className={`${card.id===game_stuff.winning_card_id?"winningCard":""}`} text={card.text} submitter={gameState.users.find(e=>e.id===game_stuff.card_user_ids[i]).username} key={i} rotationSeed={i}/>)
       break
     default:
       break
   }
 
   return <div className="pool col">
-    <div style={{transform:cardRotation(blackCardText)}}  className="card blackCard">{blackCardText}</div>
-    <div className={`submitted row ${gameState.game_phase}`}>
+    <Card className="blackCard" text={blackCardText}/>
+    <div className={`submitted row ${gameState.game_phase} ${selectedCard!==-1?"cardSelected":"cardNotSelected"}`}>
       <div className="spacer"/>
       {submittedCards}
       <div className="spacer"/>
