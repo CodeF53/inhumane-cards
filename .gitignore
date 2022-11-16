@@ -31,3 +31,6 @@
 
 # Ignore card json we read in
 cah-cards-full.json
+
+# dump?
+dump.rdb

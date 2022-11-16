@@ -41,7 +41,7 @@ class Game < ApplicationRecord
         winning_user.increment_game_score
         broadcast_state
 
-        # wait 15 seconds for users to admire winning combo
+        # wait 5 seconds for users to admire winning combo
         sleep(5)
 
         non_card_czar_users.each do |user|

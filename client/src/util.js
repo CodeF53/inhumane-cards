@@ -3,7 +3,7 @@ const pRandFromStr = str => pRand([...str].map(c=>c.charCodeAt(0)).reduce((a,b)=
 
 // TODO: make random rotation optional
 // returns random rotation transform using the first 3 letters of a card
-export const cardRotation = card => `rotate(${pRandFromStr(card.slice(0,3))*10-5}deg)`
+export const cardRotation = card => `rotate(${pRandFromStr(card.slice(0,7))*10-5}deg)`
 
 export const fetchPatch  = url => fetch(url, { method:"PATCH" })
 export const fetchPost   = url => fetch(url, { method:"POST" })

@@ -2,6 +2,10 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { fetchPatch, fetchPost } from "../util"
 
+import { ReactComponent as AwardSvg } from '../assets/award.svg';
+import { ReactComponent as HammerSvg } from '../assets/hammer.svg';
+import { ReactComponent as CrownSvg } from '../assets/crown.svg';
+
 export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser, leaveRoom }) {
   const [isHidden, setIsHidden] = useState(false)
   const [mode, setMode] = useState("")
@@ -59,13 +63,12 @@ function User({ user, card_czar_id, winning_user_id, lobby_owner_id, onUserClick
   const is_winning_user = user.id === winning_user_id
   const is_lobby_owner = user.id === lobby_owner_id
 
-  // TODO: nice svgs for icon
   return <div className="user row">
-    <div className="icon">
-      {is_winning_user && "W"}
-      {is_card_czar && "C"}
-      {is_lobby_owner && "L"}
-    </div>
+    <div className="icon">{
+      is_winning_user? <AwardSvg/> :
+      is_card_czar?    <HammerSvg/>:
+      is_lobby_owner?  <CrownSvg/>: null
+    }</div>
     <span className="username" onClick={e=>onUserClick(user.id)}>{user.username}</span>
 
     <div className="spacer"/>
