@@ -58,7 +58,7 @@ class Game < ApplicationRecord
           seconds: 0.2
         )
 
-        # wait 15 seconds for users to admire winning combo
+        # wait 5 seconds for users to admire winning combo
         sleep(5)
 
         non_card_czar_users.each do |user|
