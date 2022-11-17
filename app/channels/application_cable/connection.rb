@@ -8,6 +8,8 @@ module ApplicationCable
 
     # auto kicks users who close tab/window, but dont reopen within 10 seconds
     def disconnect
+      return if current_user.nil?
+
       Util.set_timeout(callback: lambda do
         if ActionCable.server.connections.map(&:current_user).map(&:id).include?(current_user.id)
           puts "user #{current_user.username} disconnected from game #{current_user.game_id}, but reconnected within the timeout window"
