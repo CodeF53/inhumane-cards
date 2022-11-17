@@ -20,6 +20,7 @@ export function Game({ user, cable }) {
   }
   function handleData(newGameState) {
     if (!(newGameState.users.map(u=>u.id).includes(user.id))) {
+      cable.subscriptions.subscriptions = []
       navigate("/kicked")
     } else {
       setGameState(newGameState)

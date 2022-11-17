@@ -17,7 +17,7 @@ Backend:
 - [x] Fix wrong person getting points
 - [x] Automatically kick players that haven't had a `get /game_state` fetch in 30 seconds
 - [x] Automatically close empty games
-- [ ] Randomize Pick/Result phase card order
+- [x] Randomize Pick/Result phase card order
 
 <iframe width="400" height="275" src='https://dbdiagram.io/embed/63506e9047094101959cbd7f'> </iframe>
 
@@ -60,7 +60,9 @@ General:
   - [x] add category to card seeding
     - [x] categories.json (this took me 2 hours aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
 - [x] Discard mode, let users discard one card per turn
-- [ ] Auto-Leave game after loss of connection
+- [x] Auto-Leave game after loss of connection
+- [ ] Automatically rejoin active game
+- [ ] Auto-Kick users that aren't in the game anymore
 - [ ] Support for cards with `card.pick` > 1
 
 Future Stretch Goals":

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { About } from "../pages/About";
 import { Contact } from "../pages/Contact";
 import { CreateLobby } from "../pages/CreateLobby";
@@ -25,6 +25,19 @@ export function App({ cable }) {
     else { setUser(null) }
   });}, []);
 
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (user === null) { return }
+
+    // clear cable subscriptions if not in a game
+    if (user.game_id === null) { cable.subscriptions.subscriptions = []; return; }
+
+    if (window.location.href.split('/').slice(3)[0] !== "game") {
+      // auto rejoin lobby if left
+      navigate("/game/"+user.game_id)
+    }
+  }, [user])
+
   // calculate aspect ratio every resize
   // do Mobile Rendering when aspect ratio is less than 3:4 -> (3:4 -> 3/4 -> 0.75)
   const getIsMobile = () => (window.innerWidth / window.innerHeight) < 0.75
@@ -34,9 +47,6 @@ export function App({ cable }) {
     window.addEventListener("resize", handleWindowResize)
     return () => { window.removeEventListener("resize", handleWindowResize) }
   }, [])
-
-  // clear phantom cable subscriptions
-  cable.subscriptions.subscriptions = []
 
   return <div className={`app ${isMobile?"mobile":"desktop"}`}>
     <Routes>
