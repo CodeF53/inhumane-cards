@@ -59,6 +59,6 @@ export function Game({ user, cable }) {
       <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} enable_discards={gameState.enable_discards} gameState={gameState} user={user}/>
     </>}
 
-    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user} leaveRoom={()=>cable.subscriptions.remove(room)} connection={connection}/>
+    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user} connection={connection}/>
   </div>
 }

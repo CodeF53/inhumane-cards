@@ -61,8 +61,9 @@ General:
     - [x] categories.json (this took me 2 hours aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
 - [x] Discard mode, let users discard one card per turn
 - [x] Auto-Leave game after loss of connection
-- [ ] Automatically rejoin active game
-- [ ] Auto-Kick users that aren't in the game anymore
+- [x] Automatically rejoin active game
+- [x] Auto-Kick users that aren't in the game anymore
+  - [ ] Fix edge cases
 - [ ] Support for cards with `card.pick` > 1
 
 Future Stretch Goals":
