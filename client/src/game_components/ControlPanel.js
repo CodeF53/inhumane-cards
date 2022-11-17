@@ -47,7 +47,7 @@ export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id,
           </>
         }
 
-        <button onClick={e=>{fetchPatch("/leave").then(r=>{leaveRoom(); navigate("/")})}}>leave game</button>
+        <button onClick={e=>{fetchPatch("/leave").then(r=>{navigate("/")})}}>leave game</button>
 
       </div>
       <div className="row">
