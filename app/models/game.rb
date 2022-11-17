@@ -114,8 +114,10 @@ class Game < ApplicationRecord
     # when game is started, card czar is selected randomly
     return update(card_czar: users.sample) if card_czar.nil?
 
+    sorted_users = users.sort_by(&:id)
+
     # otherwise, get the next player in a loop
-    update(card_czar: users[(users.index(card_czar) + 1) % users.length])
+    update(card_czar: sorted_users[(sorted_users.index(card_czar) + 1) % sorted_users.length])
   end
 
   def winning_card_id
