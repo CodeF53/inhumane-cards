@@ -7,7 +7,7 @@ export function Hand({game_phase, userIsCardCzar, gameState, user, enable_discar
   const [selectedCard, setSelectedCard_] = useState(-1)
   const [discardedCard, setDiscardedCard] = useState(-1)
   const [cardSubmitted, setCardSubmitted] = useState(false)
-  
+
   // fetch to ensure the card is submitted when it should be
   useEffect(() => {
     if (game_phase==="submit" && gameState.game_stuff.users_submitted.includes(user.id)) {
@@ -58,7 +58,7 @@ export function Hand({game_phase, userIsCardCzar, gameState, user, enable_discar
   return <div className={`hand row ${letUserPick?"letUserPick":"dontLetUserPick"} ${selectedCard!==-1?"cardSelected":""} ${cardSubmitted?"cardSubmitted":""} ${game_phase}Phase`}>
     <div className="spacer"/>
     {cards.map((card, i)=>
-      <Card className="handCard" onClick={e=>setSelectedCard(i,e)} text={card} isPool={false} controls={cardControls} selected={i===selectedCard} key={i}/>
+      <Card className="handCard" onClick={e=>setSelectedCard(i,e)} text={card} isPool={false} controls={cardControls} selected={i===selectedCard} discarded={i===discardedCard} key={i}/>
     )}
     <div className="spacer"/>
   </div>

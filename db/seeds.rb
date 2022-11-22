@@ -10,7 +10,7 @@ Game.delete_all
 users = User.all
 progressbar = ProgressBar.create(title: '🗑️ Cleaning up old references in users', total: users.length)
 users.each do |user|
-  user.update(game_score: 0, hand: [], submitted_hand_index: nil, picked_card_index: nil, game_id: nil)
+  user.update(game_score: 0, hand: [], submitted_hand_index: nil, picked_card_id: nil, game_id: nil)
   progressbar.increment
 end
 

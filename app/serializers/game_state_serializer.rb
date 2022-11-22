@@ -2,7 +2,7 @@ class GameStateSerializer < ActiveModel::Serializer
   attributes :id, :game_phase, :winning_score, :users, :card_czar_id, :black_card, :game_stuff, :lobby_owner_id, :enable_discards
 
   def users
-    object.users.map do |user|
+    object.users.sort_by(&:game_score).map do |user|
       ActiveModelSerializers::SerializableResource.new(user).as_json
     end
   end
@@ -22,7 +22,7 @@ class GameStateSerializer < ActiveModel::Serializer
         # array of card texts
         cards: object.submitted_round_cards,
         # user ids for each card
-        card_user_ids: object.non_card_czar_users.map(&:id),
+        card_user_ids: object.non_card_czar_users.filter(&:submitted_card?).sort_by { |user| user.submitted_card.id }.map(&:id),
         # winning card id
         winning_card_id: object.winning_card_id,
         # winning user id

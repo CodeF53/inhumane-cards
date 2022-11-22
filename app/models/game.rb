@@ -4,21 +4,8 @@ class Game < ApplicationRecord
   belongs_to :card_czar, class_name: 'User', optional: true
   belongs_to :black_card, optional: true
 
-  # make card pools and discard piles into arrays
-  serialize :black_card_pool
-  serialize :white_card_pool
-  serialize :used_white_card_ids
-  serialize :used_black_card_ids
-  after_initialize do |u|
-    u.black_card_pool = [] if u.black_card_pool.nil?
-    u.white_card_pool = [] if u.white_card_pool.nil?
-    u.used_white_card_ids = [] if u.used_white_card_ids.nil?
-    u.used_black_card_ids = [] if u.used_black_card_ids.nil?
-  end
-
   def step_game
     puts "stepping game, phase: #{game_phase}"
-
     begin
       case game_phase
       when 'submit'
@@ -42,7 +29,7 @@ class Game < ApplicationRecord
 
         # switch to result phase when winning card is picked
         card_czar = User.find(card_czar_id) # ! hacky solution to it not being up to date
-        unless card_czar.picked_card_index.nil?
+        unless card_czar.picked_card_id.nil?
           puts 'card czar has picked winner, switching to result phase and stepping again'
           update(game_phase: 'result')
           step_game
@@ -50,97 +37,100 @@ class Game < ApplicationRecord
         end
       when 'result'
         # increment score of round winning player
-        Util.set_timeout(
-          callback: lambda do
-            winning_user.increment_game_score
-            update_state_cache
-          end,
-          seconds: 0.2
-        )
+        winning_user.increment_game_score
+        broadcast_state
 
         # wait 5 seconds for users to admire winning combo
         sleep(5)
-
-        non_card_czar_users.each do |user|
-          hand = user.hand
-          # replace used cards
-          hand[user.submitted_hand_index] = sample_white_cards(1) if user.submitted_card?
-          # replace discarded cards
-          hand[user.discarded_card_index] = sample_white_cards(1) if user.discarded_card?
-
-          user.update(hand: hand)
-        end
-
         puts 'result wait over'
-        if winning_user.game_score >= winning_score
+
+        puts 'checking if a user has won'
+        if (winning_user.game_score + 1) >= winning_score
           puts "#{winning_user.username} wins"
           update(game_phase: 'over')
 
-          update_state_cache
+          broadcast_state
           return
         else
-          puts '   switching back to submit'
+          puts 'replacing used/discarded cards'
+          non_card_czar_users.each do |user|
+            hand = user.hand
+            # replace used cards
+            hand[user.submitted_hand_index] = sample_white_cards(1) if user.submitted_card?
+            # replace discarded cards
+            hand[user.discarded_card_index] = sample_white_cards(1) if user.discarded_card?
+
+            user.update(hand: hand)
+          end
+
+          puts 'switching back to submit'
           update(game_phase: 'submit') # ! sometimes this just fails and ends the thread operation.
 
-          puts '   selecting new black card and czar'
+          puts 'selecting new black card and czar'
           select_card_czar
           select_black_card
-        end
 
-        reset_picked_submitted_cards
+          puts 'resetting picked/submitted cards'
+          reset_picked_submitted_cards
+        end
       else # 'lobby' 'over'
         select_card_czar
         select_black_card
         users.each(&:set_game_vars)
         update(game_phase: 'submit')
       end
-    rescue
+    rescue => e
+      puts e.backtrace
       puts 'some error happened, lets just ignore that and go back to the submit phase...'
       update(game_phase: 'submit') # ! sometimes this just fails and ends the thread operation.
+      reset_picked_submitted_cards
       select_card_czar
       select_black_card
+      reset_picked_submitted_cards
     end
 
-    update_state_cache
+    broadcast_state
   end
 
-  def update_state_cache(delay: 0.2)
-    Util.set_timeout(
-      callback: lambda do
-        puts 'Updating game cache'
-        Rails.logger.silence { update(state_cache: ActiveModelSerializers::SerializableResource.new(self, { serializer: GameStateSerializer }).to_json) }
-      end,
-      seconds: delay
-    )
+  def state
+    # ! Game.find(id) hacky solution to it not being up to date
+    Rails.logger.silence { ActiveModelSerializers::SerializableResource.new(Game.find(id), { serializer: GameStateSerializer }).to_json }
+  end
+
+  def broadcast_state
+    puts 'broadcasting new state'
+    Rails.logger.silence { GamesChannel.broadcast_to(self, state) }
   end
 
   def non_card_czar_users
-    users.reject(&:card_czar?)
+    Game.find(id).users.reject(&:card_czar?) # ! hacky solution to it not being up to date
   end
 
   def submitted_round_cards
-    non_card_czar_users.map(&:submitted_card)
+    non_card_czar_users.filter(&:submitted_card?).map(&:submitted_card).sort_by(&:id)
   end
 
   def select_card_czar
     # when game is started, card czar is selected randomly
     return update(card_czar: users.sample) if card_czar.nil?
 
+    sorted_users = users.sort_by(&:id)
+
     # otherwise, get the next player in a loop
-    update(card_czar: users[(users.index(card_czar) + 1) % users.length])
+    update(card_czar: sorted_users[(sorted_users.index(card_czar) + 1) % sorted_users.length])
   end
 
   def winning_card_id
     card_czar = User.find(card_czar_id) # ! hacky solution to it not being up to date
-    submitted_round_cards[card_czar.picked_card_index].id
+    card_czar.picked_card_id
   end
 
   def winning_user
-    non_card_czar_users.select { |user| user.submitted_card.id == winning_card_id }[0]
+    non_card_czar_users.filter(&:submitted_card?).select { |user| user.submitted_card.id == winning_card_id }[0]
   end
 
   def reset_picked_submitted_cards
-    users.each { |user| user.update(submitted_hand_index: nil, picked_card_index: nil, discarded_card_index: nil) }
+    users.each { |user| user.update(submitted_hand_index: nil, picked_card_id: nil, discarded_card_index: nil) }
   end
 
   def select_black_card

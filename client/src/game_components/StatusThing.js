@@ -61,7 +61,7 @@ export function StatusThing({userIsCardCzar, user_id, is_lobby_owner, gameState}
     }
   }
 
-  return <div className="statusThing">
+  return <div className={`statusThing ${game_phase}`}>
     <h1>{line1}</h1>
 
     {line2_is_start_button?
