@@ -1,13 +1,15 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { fetchPatch, fetchPost } from "../util"
 
 import { ReactComponent as AwardSvg } from '../assets/award.svg';
 import { ReactComponent as HammerSvg } from '../assets/hammer.svg';
 import { ReactComponent as CrownSvg } from '../assets/crown.svg';
 
-export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser }) {
+export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser, leaveRoom, connection }) {
   const [isHidden, setIsHidden] = useState(false)
   const [mode, setMode] = useState("")
+  const navigate = useNavigate()
 
   var winning_user_id
   if (game_stuff) {
@@ -24,14 +26,14 @@ export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id,
       if(r.ok) { setMode("") }})
   }
 
-  return <div className={`controlPanel ${is_lobby_owner?"lobbyOwner":""} ${isHidden?"hidden":""} row`}>
+  return <div className={`controlPanel col ${is_lobby_owner?"lobbyOwner":""} ${isHidden?"hidden":""} row`}>
     <button className="hide_show_button" onClick={()=>setIsHidden(!isHidden)}>
       {isHidden?"<":">"}
     </button>
 
     <div className="col" style={{width: "100%"}}>
       <div className={`users col ${mode}`}>
-        {users.map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} lobby_owner_id={lobby_owner_id} is_lobby_owner={is_lobby_owner} onUserClick={onUserClick} />)}
+        {users.sort((a,b)=>a.id>b.id).map(user=><User user={user} card_czar_id={card_czar_id} winning_user_id={winning_user_id} key={user.id} lobby_owner_id={lobby_owner_id} is_lobby_owner={is_lobby_owner} onUserClick={onUserClick} />)}
       </div>
       <div className="row">
         <div className="spacer"/>
@@ -45,7 +47,7 @@ export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id,
           </>
         }
 
-        <button onClick={e=>{fetchPatch("/leave")}}>leave game</button>
+        <button onClick={e=>{fetchPatch("/leave").then(r=>{navigate("/")})}}>leave game</button>
 
       </div>
       <div className="row">
@@ -53,6 +55,7 @@ export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id,
         {mode!=="" && <span>click a user to {mode}</span>}
       </div>
     </div>
+    <span className={`centered ${connection}`}>{connection}</span>
   </div>
 }
 

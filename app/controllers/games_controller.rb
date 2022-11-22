@@ -8,6 +8,13 @@ class GamesController < ApplicationController
     render json: Game.all
   end
 
+  # GET /games/:game_id
+  def state
+    # return render json: { errors: ['you aren\'t in this game'] }, status: :unauthorized unless @current_user.game_id == params[:game_id].to_i
+
+    render json: Game.find(params[:game_id]).state
+  end
+
   # POST /games
   def create
     @current_user.leave_game unless @current_user.game_id.nil?
@@ -26,7 +33,6 @@ class GamesController < ApplicationController
 
     @current_user.update(game: game)
     @current_user.set_game_vars
-    game.update_state_cache
 
     render json: game, status: :created
   end

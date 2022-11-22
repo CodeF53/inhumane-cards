@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchPatchB } from "../util";
+import { fetchPatch_data } from "../util";
 import { ReactComponent as UsersSvg } from '../assets/users.svg';
 
 export function GameLobby({ lobby: {id, host, password_protected, num_players, player_limit}}) {
@@ -12,10 +12,10 @@ export function GameLobby({ lobby: {id, host, password_protected, num_players, p
   function joinGame(e) {
     e.preventDefault()
 
-    fetchPatchB(`join/${id}`, {password:password}).then(r=>{
-      if (r.ok) { navigate("/game/")}
-      else { r.json().then(d=>setErrorText(d.errors[0]))}
-    })
+    fetchPatch_data(`join/${id}`, {password:password}).then(r=>{r.json().then(d=>{
+      if (r.ok) { navigate(`/game/${id}`) }
+      else { setErrorText(d.errors[0]) }
+    })})
   }
 
   // only show join button if lobby isn't full and password is inputted (if required)

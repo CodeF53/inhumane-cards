@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { About } from "../pages/About";
 import { Contact } from "../pages/Contact";
 import { CreateLobby } from "../pages/CreateLobby";
@@ -8,12 +8,13 @@ import Disclaimer from "../pages/Disclaimer";
 import { Game } from "../pages/Game";
 import { Home } from "../pages/Home";
 import { JoinLobby } from "../pages/JoinLobby";
+import Kicked from "../pages/Kicked";
 import { Legal } from "../pages/Legal";
 import { LoginSignup } from "../pages/LoginSignup";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
-export function App() {
+export function App({ cable }) {
   // persistent user through local storage
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
   useEffect(() => { localStorage.setItem("user", JSON.stringify(user));
@@ -23,6 +24,19 @@ export function App() {
     if (r.ok) { r.json().then((user) => setUser(user)); }
     else { setUser(null) }
   });}, []);
+
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (user === null) { return }
+
+    // clear cable subscriptions if not in a game
+    if (user.game_id === null) { cable.subscriptions.subscriptions = []; return; }
+
+    if (window.location.href.split('/').slice(3)[0] !== "game") {
+      // auto rejoin lobby if left
+      navigate("/game/"+user.game_id)
+    }
+  }, [user])
 
   // calculate aspect ratio every resize
   // do Mobile Rendering when aspect ratio is less than 3:4 -> (3:4 -> 3/4 -> 0.75)
@@ -36,7 +50,7 @@ export function App() {
 
   return <div className={`app ${isMobile?"mobile":"desktop"}`}>
     <Routes>
-      <Route path="/game/" element={<Game user={user}/>}/>
+      <Route path="/game/:game_id" element={<Game user={user} cable={cable}/>}/>
 
       <Route path="*" element={<div className="col">
         <Header user={user} setUser={setUser} />
@@ -54,6 +68,8 @@ export function App() {
           <Route path="/legal" element={<Legal/>} />
           <Route path="/credits" element={<Credits/>} />
           <Route path="/disclaimer" element={<Disclaimer/>} />
+
+          <Route path="/kicked" element={<Kicked/>} />
         </Routes>
 
         <div className="spacer"/>

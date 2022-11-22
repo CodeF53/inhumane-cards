@@ -5,13 +5,6 @@ class User < ApplicationRecord
 
   belongs_to :game, optional: true
 
-  # makes hand an array somehow
-  # https://joecastronovo.medium.com/how-to-add-an-array-column-to-sqlite3-table-662037d49b64
-  serialize :hand
-  after_initialize do |u|
-    u.hand = [] if u.hand.nil?
-  end
-
   def discarded_card?
     discarded_card_index.nil?.!
   end
@@ -45,12 +38,16 @@ class User < ApplicationRecord
     # ? do these updates still need to be separate?
     update(
       submitted_hand_index: nil,
-      picked_card_index: nil,
+      picked_card_id: nil,
       discarded_card_index: nil
     )
   end
 
   def leave_game
+    # dont break if the user isn't even in a game
+    return if game_id.nil?
+    return if game.nil?
+
     # when a card czar leaves a game it should pick a new black card and card czar
     if card_czar?
       game.select_black_card
@@ -68,7 +65,7 @@ class User < ApplicationRecord
     old_game.update(lobby_owner: old_game.users.sample) if old_game.lobby_owner == self
 
     # don't step game out of waiting lobby
-    return old_game.update_state_cache if %w[lobby over].include?(old_game.game_phase)
+    return old_game.broadcast_state if %w[lobby over].include?(old_game.game_phase)
 
     old_game.step_game # if game was waiting on user (to submit or pick), we should advance the game
   end

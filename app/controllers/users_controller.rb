@@ -22,7 +22,8 @@ class UsersController < ApplicationController
 
     @current_user.update(game: found_game)
     @current_user.set_game_vars
-    Game.find(params[:game_id]).update_state_cache
+    # TODO: broadcast user join
+    found_game.broadcast_state
 
     render json: {}, status: :accepted
   end
@@ -63,11 +64,13 @@ class UsersController < ApplicationController
   def pick_card
     return unless verify_phase('pick').nil?
 
-    return render json: { errors: ['Card already picked'] }, status: :conflict unless @current_user.picked_card_index.nil?
+    return render json: { errors: ['Card already picked'] }, status: :conflict unless @current_user.picked_card_id.nil?
 
     return render json: { errors: ['Not the card czar!'] }, status: :forbidden unless @current_user.card_czar?
 
-    @current_user.update(picked_card_index: params[:card_index])
+    return render json: { errors: ['That isn\'t an option'] }, status: :conflict unless @game.submitted_round_cards.map(&:id).include?(params[:card_id].to_i)
+
+    @current_user.update(picked_card_id: params[:card_id])
 
     @game.step_game
 
@@ -83,11 +86,6 @@ class UsersController < ApplicationController
     return render json: { errors: ['Not enough players'] }, status: :conflict unless @game.users.length >= 3
 
     @game.step_game
-  end
-
-  # GET /game_state
-  def game_state
-    render json: @game.state_cache
   end
 
   # GET /hand
@@ -116,7 +114,8 @@ class UsersController < ApplicationController
 
     @game.update(lobby_owner_id: user_to_promote.id)
 
-    @game.update_state_cache
+    # TODO: broadcast user promotion
+    @game.broadcast_state
 
     render json: {}, status: :accepted
   end

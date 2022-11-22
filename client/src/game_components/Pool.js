@@ -8,7 +8,7 @@ export function Pool({gameState, userIsCardCzar}) {
   const [selectedCard, setSelectedCard_] = useState(-1)
 
   function submitCard() {
-    fetch(`/pick_card/${selectedCard}`, { method: "PATCH" })
+    fetch(`/pick_card/${game_stuff.cards[selectedCard].id}`, { method: "PATCH" })
   }
 
   function setSelectedCard(i,e) {
