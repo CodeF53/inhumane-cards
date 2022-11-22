@@ -1,8 +1,17 @@
 .footer {
-  gap: 1rem;
-  padding-bottom: 1rem;
   a { color: white; }
-
+  padding-bottom: 1rem;
   width: 100%;
   overflow-x: scroll;
+
+  gap: 1rem;
+  & > .links { gap: 1rem; }
+
+  & > .donate > .panel {
+    padding: 0.25rem 0.5rem;
+
+    & > .progress {
+      gap: 1rem;
+    }
+  }
 }
