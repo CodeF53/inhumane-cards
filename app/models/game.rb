@@ -107,7 +107,7 @@ class Game < ApplicationRecord
   end
 
   def submitted_round_cards
-    non_card_czar_users.map(&:submitted_card).sort_by(&:id)
+    non_card_czar_users.filter(&:submitted_card?).map(&:submitted_card).sort_by(&:id)
   end
 
   def select_card_czar
@@ -126,7 +126,7 @@ class Game < ApplicationRecord
   end
 
   def winning_user
-    non_card_czar_users.select { |user| user.submitted_card.id == winning_card_id }[0]
+    non_card_czar_users.filter(&:submitted_card?).select { |user| user.submitted_card.id == winning_card_id }[0]
   end
 
   def reset_picked_submitted_cards

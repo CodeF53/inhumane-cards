@@ -25,6 +25,8 @@ module ApplicationCable
     private
 
     def find_verified_user
+      return if cookies.encrypted.nil?
+
       user = User.find(cookies.encrypted['_session_id']['user_id'])
 
       return user unless user.nil?
