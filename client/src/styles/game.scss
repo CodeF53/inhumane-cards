@@ -75,10 +75,9 @@
   font-size: 2rem;
   position: fixed;
   text-align: center;
-  bottom: 10rem;
+  bottom: 1rem;
   width: 100%;
 
-  button {
-    font-size: 2rem;
-  }
+  &.submit { bottom: 10rem; }
+  button { font-size: 2rem; }
 }
