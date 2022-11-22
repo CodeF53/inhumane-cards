@@ -77,7 +77,43 @@
   text-align: center;
   bottom: 1rem;
   width: 100%;
-
   &.submit { bottom: 10rem; }
   button { font-size: 2rem; }
+}
+
+.settings-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.5rem;
+  border-bottom-right-radius: 1rem;
+
+  background-color: var(--background-elev1);
+  &:hover, &:active { background-color: var(--background-elev2); }
+
+  svg.settings {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.237);
+  backdrop-filter: blur(1rem);
+
+  display: flex;
+  .panel {
+    margin: auto;
+    button.close {
+      padding: 0;
+      height: 2rem;
+      svg { width: 2rem; height: 2rem; }
+    }
+  }
 }

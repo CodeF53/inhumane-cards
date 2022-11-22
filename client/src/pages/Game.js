@@ -4,6 +4,8 @@ import { ControlPanel } from "../game_components/ControlPanel";
 import { Hand } from "../game_components/Hand";
 import { Pool } from "../game_components/Pool";
 import { StatusThing } from "../game_components/StatusThing";
+import { fetchPatch } from "../util";
+import Settings from "../game_components/Settings";
 
 export function Game({ user, cable }) {
   const { game_id } = useParams()
@@ -60,5 +62,7 @@ export function Game({ user, cable }) {
     </>}
 
     <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user} connection={connection}/>
+
+    <Settings/>
   </div>
 }

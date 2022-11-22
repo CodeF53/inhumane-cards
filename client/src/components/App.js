@@ -38,6 +38,9 @@ export function App({ cable }) {
     }
   }, [user])
 
+  //
+  const inverse_layout = JSON.parse(localStorage.getItem("inv_layout"))
+
   // calculate aspect ratio every resize
   // do Mobile Rendering when aspect ratio is less than 3:4 -> (3:4 -> 3/4 -> 0.75)
   const getIsMobile = () => (window.innerWidth / window.innerHeight) < 0.75
@@ -48,7 +51,7 @@ export function App({ cable }) {
     return () => { window.removeEventListener("resize", handleWindowResize) }
   }, [])
 
-  return <div className={`app ${isMobile?"mobile":"desktop"}`}>
+  return <div className={`app ${(inverse_layout?isMobile:!isMobile)?"desktop":"mobile"}`}>
     <Routes>
       <Route path="/game/:game_id" element={<Game user={user} cable={cable}/>}/>
 
