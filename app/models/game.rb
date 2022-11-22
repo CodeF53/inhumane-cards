@@ -45,7 +45,7 @@ class Game < ApplicationRecord
         puts 'result wait over'
 
         puts 'checking if a user has won'
-        if winning_user.game_score >= winning_score
+        if (winning_user.game_score + 1) >= winning_score
           puts "#{winning_user.username} wins"
           update(game_phase: 'over')
 
