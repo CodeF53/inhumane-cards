@@ -69,4 +69,16 @@ class User < ApplicationRecord
 
     old_game.step_game # if game was waiting on user (to submit or pick), we should advance the game
   end
+
+  def update_ping_time
+    update(last_ping: DateTime.now.to_i)
+  end
+
+  def update_input_time
+    update(last_input: DateTime.now.to_i)
+  end
+
+  def update_ping_input_times
+    update(last_ping: DateTime.now.to_i, last_input: DateTime.now.to_i)
+  end
 end

@@ -4,46 +4,53 @@ import { ControlPanel } from "../game_components/ControlPanel";
 import { Hand } from "../game_components/Hand";
 import { Pool } from "../game_components/Pool";
 import { StatusThing } from "../game_components/StatusThing";
-import { fetchPatch } from "../util";
 import Settings from "../game_components/Settings";
 
 export function Game({ user, cable }) {
   const { game_id } = useParams()
-  const [room, setRoom] = useState()
   const [gameState, setGameState] = useState({game_phase:"", users:[], hand:[], black_card:{text:""}})
   const navigate = useNavigate()
   if (!user) navigate("/")
 
   const [connection, setConnection] = useState("disconnected")
 
-  function handleDisconnect() {
-    setConnection("disconnected");
-    connectToServer()
-  }
-  function handleData(newGameState) {
-    if (!(newGameState.users.map(u=>u.id).includes(user.id))) {
-      cable.subscriptions.subscriptions = []
-      navigate("/kicked")
-    } else {
-      setGameState(newGameState)
-    }
-  }
-
   function connectToServer() {
+    function handleConnect() {
+      setConnection("connected")
+      // ping server to let it know not to kick us
+      setInterval(()=>{
+        cable.subscriptions.subscriptions[0].perform("ping", {})
+      }, 5000)
+    }
+    function handleDisconnect() {
+      // attempt to reconnect cable
+      setConnection("disconnected");
+      connectToServer()
+    }
+    function handleData(newGameState) {
+      // check to make sure the user is still actually in the server they are subscribed to
+      if (!(newGameState.users.map(u=>u.id).includes(user.id))) {
+        cable.subscriptions.subscriptions = []
+        navigate("/kicked")
+      } else {
+        setGameState(newGameState)
+      }
+    }
+
     // clear old subscriptions
     cable.subscriptions.subscriptions = []
 
     // subscribe to updates to the game state
-    setRoom(cable.subscriptions.create({ channel: "GamesChannel", game_id: game_id }, {
-      connected:    ()=>setConnection("connected"),
+    cable.subscriptions.create({ channel: "GamesChannel", game_id: game_id }, {
+      connected:    handleConnect,
       disconnected: handleDisconnect,
       received: data => handleData(JSON.parse(data))
-    }))
+    })
 
     // manually fetch to get the initial state
     fetch(`/games/${game_id}`).then(r=>r.json().then(handleData))
   }
-
+  // connect to the server when we first join it
   useEffect(connectToServer, [])
 
   const userIsCardCzar = user.id === gameState.card_czar_id
