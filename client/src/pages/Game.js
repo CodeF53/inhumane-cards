@@ -12,6 +12,13 @@ export function Game({ user, cable }) {
   const navigate = useNavigate()
   if (!user) navigate("/")
 
+  useEffect(() => {
+    const interval = setInterval(()=>{ try {
+      cable.subscriptions.subscriptions[0].perform("ping", {})
+    } catch {}}, 5000)
+    return () => { clearInterval(interval) }
+  }, [])
+
   const [connection, setConnection] = useState("disconnected")
 
   function connectToServer() {
