@@ -30,7 +30,7 @@ class GameStateSerializer < ActiveModel::Serializer
       }
     when 'over'
       {
-        winning_user_id: object.winning_user.id
+        winning_user_id: object.users.max_by(&:game_score).id
       }
     end
   end

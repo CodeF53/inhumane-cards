@@ -39,9 +39,13 @@ class User < ApplicationRecord
     # set ping so not kicked instant they join by cable
     update_ping_input_times
     # join the game
-    update(game: game)
-    # start with 0 points, like everyone else
-    update(game_score: 0)
+    update(
+      game: game,
+      game_score: 0,
+      submitted_hand_index: nil,
+      picked_card_id: nil,
+      discarded_card_index: nil
+    )
 
     # let everyone else know that we are here
     game.broadcast_state
