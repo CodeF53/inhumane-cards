@@ -25,8 +25,8 @@ class GamesController < ApplicationController
     # parse array of pack ids into 2 arrays cards, white and black
     card_packs = params[:enabled_pack_ids].map { |pack_id| CardPack.find(pack_id) }
     game.update(
-      white_card_pool: card_packs.map(&:white_card_hash).flatten,
-      black_card_pool: card_packs.map(&:black_card_hash).flatten
+      white_card_pool: card_packs.map(&:white_card_hash).flatten.uniq(&:text),
+      black_card_pool: card_packs.map(&:black_card_hash).flatten.uniq(&:text)
     )
 
     @current_user.join_game(game)
