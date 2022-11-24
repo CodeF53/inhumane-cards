@@ -11,14 +11,14 @@ class User < ApplicationRecord
     return if game_id.nil?
     return update(game_id: nil) if game.nil?
 
+    # if the lobby is now empty, destroy it.
+    return game.destroy if game.users.length <= 1
+
     # return to submit phase when lobby card czar leaves
     game.switch_to_submit if card_czar?
 
     old_game = game
     update(game_id: nil)
-
-    # if the lobby is now empty, destroy it.
-    return old_game.destroy if old_game.users.empty?
 
     # when lobby owner leaves, assign new owner randomly
     old_game.update(lobby_owner: old_game.users.sample) if old_game.lobby_owner == self
