@@ -9,6 +9,7 @@ export function Home() {
       <li>Fixed an issue where users sometimes failed to leave a game</li>
       <li>Add used card pools to prevent repeats until 'reshuffling'</li>
       <li>Fix game state related crash caused by the current Round/Lobby winner leaving the game</li>
+      <li>Fix card czar leaving during Lobby/Over phase starting a new game</li>
     </ul>
 
     <h2>

@@ -14,8 +14,8 @@ class User < ApplicationRecord
     # if the lobby is now empty, destroy it.
     return game.destroy if game.users.length <= 1
 
-    # return to submit phase when lobby card czar leaves
-    game.switch_to_submit if card_czar?
+    # return to submit phase when lobby card czar leaves && game state is in a play mode
+    game.switch_to_submit if card_czar? && %w[lobby over].exclude?(game.game_phase)
 
     old_game = game
     update(game_id: nil)

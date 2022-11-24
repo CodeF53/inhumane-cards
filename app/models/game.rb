@@ -4,6 +4,7 @@ class Game < ApplicationRecord
   belongs_to :card_czar, class_name: 'User', optional: true
   belongs_to :black_card, optional: true
 
+  # core game logic loop
   def step_game
     puts "stepping game, phase: #{game_phase}"
     begin
@@ -26,7 +27,6 @@ class Game < ApplicationRecord
 
         # wait 5 seconds for users to admire winning combo
         sleep(5)
-        puts 'result wait over'
 
         puts 'checking if a user has won'
         if winning_user.game_score >= winning_score
@@ -59,8 +59,19 @@ class Game < ApplicationRecord
     broadcast_state
   end
 
+  def switch_to_submit
+    puts 'switching to submit'
+    update(game_phase: 'submit')
+
+    puts '\tselecting new black card and czar'
+    select_card_czar
+    select_black_card
+
+    puts '\tresetting submitted/picked cards'
+    reset_picked_submitted_cards
+  end
+
   def state
-    # ! Game.find(id) hacky solution to it not being up to date
     Rails.logger.silence { ActiveModelSerializers::SerializableResource.new(Game.find(id), { serializer: GameStateSerializer }).to_json }
   end
 
@@ -70,7 +81,7 @@ class Game < ApplicationRecord
   end
 
   def non_card_czar_users
-    Game.find(id).users.reject(&:card_czar?) # ! hacky solution to it not being up to date
+    Game.find(id).users.reject(&:card_czar?)
   end
 
   def submitted_round_cards
@@ -88,7 +99,7 @@ class Game < ApplicationRecord
   end
 
   def winning_card_id
-    card_czar = User.find(card_czar_id) # ! hacky solution to it not being up to date
+    card_czar = User.find(card_czar_id)
     card_czar.picked_card_id
   end
 
@@ -121,17 +132,5 @@ class Game < ApplicationRecord
     update(used_white_card_ids: (used_white_card_ids << out.map(&:id)).flatten)
 
     out
-  end
-
-  def switch_to_submit
-    puts 'switching to submit'
-    update(game_phase: 'submit')
-
-    puts '\tselecting new black card and czar'
-    select_card_czar
-    select_black_card
-
-    puts '\tresetting submitted/picked cards'
-    reset_picked_submitted_cards
   end
 end
