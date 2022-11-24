@@ -57,4 +57,7 @@ Rails.application.configure do
   # Allow requests from inhumanecards.com
   config.hosts << 'inhumanecards.com'
   config.action_cable.allowed_request_origins = ['https://inhumanecards.com', 'http://localhost:4000', 'http://localhost:3000']
+
+  # Stop the ping log spam
+  ActionCable.server.config.logger = Logger.new(nil)
 end
