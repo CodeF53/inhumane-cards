@@ -13,3 +13,7 @@ export const fetchPatch_data = (url, data) => fetch(url, { method:"PATCH", heade
 export const fetchPost_data  = (url, data) => fetch(url, { method:"POST",  headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })
 
 export const rand = (a, b) => Math.random() * (b - a) + a
+
+// avoid using this directly, put it in state
+// do Mobile Rendering when aspect ratio is less than 3:4 -> (3:4 -> 3/4 -> 0.75)
+export const getIsMobile = () => (window.innerWidth / window.innerHeight) < 0.75

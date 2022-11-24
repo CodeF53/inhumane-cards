@@ -11,6 +11,7 @@ import { JoinLobby } from "../pages/JoinLobby";
 import Kicked from "../pages/Kicked";
 import { Legal } from "../pages/Legal";
 import { LoginSignup } from "../pages/LoginSignup";
+import { getIsMobile } from "../util";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
@@ -42,8 +43,6 @@ export function App({ cable }) {
   const inverse_layout = JSON.parse(localStorage.getItem("inv_layout"))
 
   // calculate aspect ratio every resize
-  // do Mobile Rendering when aspect ratio is less than 3:4 -> (3:4 -> 3/4 -> 0.75)
-  const getIsMobile = () => (window.innerWidth / window.innerHeight) < 0.75
   const [isMobile, setIsMobile] = useState(getIsMobile())
   useEffect(() => {
     const handleWindowResize = () => setIsMobile(getIsMobile())

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ReactComponent as SettingsSvg } from '../assets/settings.svg';
 import { ReactComponent as XSvg } from '../assets/x.svg';
 import { LabeledInput } from '../components/LabeledInput';
+import { getIsMobile } from '../util';
 
 // ! This entire file is almost vomit inducing
 // TODO: Refactor
@@ -17,6 +18,8 @@ export default function Settings() {
   // const [enable_tilt, setEnable_tilt] = useState(JSON.parse(localStorage.getItem("enable_tilt")))
   // useEffect(() => { localStorage.setItem("enable_tilt", JSON.stringify(enable_tilt)) }, [enable_tilt])
   // useEffect(() => { if (enable_tilt === null || enable_tilt === undefined) setEnable_tilt(true) }, [])
+
+  const [isMobile, setIsMobile] = useState(getIsMobile())
 
   const [displayingModal, setDisplayingModal] = useState(false)
 
@@ -34,7 +37,7 @@ export default function Settings() {
         </div>
 
         <LabeledInput type="checkbox" onChange={()=>{setInv_layout(!inv_layout); window.location.reload();}} amChecked={inv_layout}
-          label="Force Inverse Layout" name="inv_layout"/>
+          label={`Force ${isMobile?"Desktop":"Mobile"} Layout`} name="inv_layout"/>
 
         {/* <LabeledInput type="checkbox" onChange={()=>setEnable_sfx(!enable_sfx)} amChecked={enable_sfx}
           label="Sound Effects" name="enable_sfx"/>
