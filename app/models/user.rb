@@ -46,7 +46,7 @@ class User < ApplicationRecord
   def leave_game
     # dont break if the user isn't even in a game
     return if game_id.nil?
-    return if game.nil?
+    return update(game_id: nil) if game.nil?
 
     # when a card czar leaves a game it should pick a new black card and card czar
     if card_czar?
