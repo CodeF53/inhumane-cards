@@ -12,7 +12,6 @@ export function NotARobot({onConfirm}) {
     if (e.isTrusted) {
       setTimeout(()=>{
         setState("done")
-        // TODO: 1/5 chance of just failing
         setTimeout(onConfirm, 3000)
       }, rand(2000, 30000))
     }

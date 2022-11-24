@@ -46,7 +46,7 @@ Frontend:
 - [ ] Waiting on user
 - [ ] Sound Effects
 - [ ] Settings
-  - [ ] Force Desktop/Mobile rendering
+  - [x] Force Desktop/Mobile rendering
   - [ ] Random card rotation intensity
       (3 people have asked for this so far)
   - [ ] Enable/Disable SFX
@@ -63,14 +63,13 @@ General:
 - [x] Auto-Leave game after loss of connection
 - [x] Automatically rejoin active game
 - [x] Auto-Kick users that aren't in the game anymore
-  - [ ] Fix edge cases
+  - [x] Fix edge cases
 - [ ] Support for cards with `card.pick` > 1
 
 Future Stretch Goals":
 - [x] HTTPS
 - [x] Migrate to ActionCable for GameState
 - [ ] Switch to Next.js
-- [ ] Omni Auth (sign in google and everything)
 - [ ] Custom Card Packs (for inside jokes and the like)
 
 ## Is this legal?

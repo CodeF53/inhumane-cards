@@ -125,8 +125,6 @@
   }
 
   .submitted {
-    // TODO: clean up so its a tad nicer
-    // TODO: make static after a card is clicked like in hand
     &.cardNotSelected.pick .card:hover, .card.winningCard, &.cardSelected .card.selected {
       transform: scale(1.25) !important;
       margin-left: 1.25rem;
