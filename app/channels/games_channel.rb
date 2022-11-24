@@ -16,7 +16,7 @@ class GamesChannel < ApplicationCable::Channel
       Game.all.each do |game|
         game.users.each do |user|
           ping_time_diff = DateTime.now.to_i - user.last_ping
-          user.leave_game if ping_time_diff > 10 # auto kick if not pinged in last 10 seconds
+          user.leave_game if ping_time_diff > 30 # auto kick if not pinged in last 30 seconds
 
           # TODO: add auto kick for last input here
         end

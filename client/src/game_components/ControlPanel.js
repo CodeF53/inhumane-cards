@@ -6,7 +6,7 @@ import { ReactComponent as AwardSvg } from '../assets/award.svg';
 import { ReactComponent as HammerSvg } from '../assets/hammer.svg';
 import { ReactComponent as CrownSvg } from '../assets/crown.svg';
 
-export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser, leaveRoom, connection }) {
+export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id, game_phase, game_stuff }, is_lobby_owner, currentUser, leaveRoom, connection, cable }) {
   const [isHidden, setIsHidden] = useState(false)
   const [mode, setMode] = useState("")
   const navigate = useNavigate()
@@ -24,6 +24,12 @@ export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id,
 
     fetchPost(`/${mode}/${clicked_user_id}`).then(r=>{
       if(r.ok) { setMode("") }})
+  }
+
+  function leaveGame() {
+    cable.subscriptions.subscriptions.map(sub => sub.unsubscribe())
+    fetchPatch("/leave");
+    navigate("/");
   }
 
   return <div className={`controlPanel col ${is_lobby_owner?"lobbyOwner":""} ${isHidden?"hidden":""} row`}>
@@ -47,8 +53,7 @@ export function ControlPanel({ gameState: { users, lobby_owner_id, card_czar_id,
           </>
         }
 
-        <button onClick={e=>{fetchPatch("/leave").then(r=>{navigate("/")})}}>leave game</button>
-
+        <button onClick={leaveGame}>leave game</button>
       </div>
       <div className="row">
         <div className="spacer"/>

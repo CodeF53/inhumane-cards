@@ -16,7 +16,10 @@ export function Game({ user, cable }) {
     const interval = setInterval(()=>{ try {
       cable.subscriptions.subscriptions[0].perform("ping", {})
     } catch {}}, 5000)
-    return () => { clearInterval(interval) }
+    return () => {
+      clearInterval(interval)
+      cable.subscriptions.subscriptions.map(sub => sub.unsubscribe())
+    }
   }, [])
 
   const [connection, setConnection] = useState("disconnected")
@@ -75,7 +78,7 @@ export function Game({ user, cable }) {
       <Hand game_phase={gameState.game_phase} userIsCardCzar={userIsCardCzar} enable_discards={gameState.enable_discards} gameState={gameState} user={user}/>
     </>}
 
-    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user} connection={connection}/>
+    <ControlPanel gameState={gameState} user={user} is_lobby_owner={is_lobby_owner} currentUser={user} connection={connection} cable={cable}/>
 
     <Settings/>
   </div>
