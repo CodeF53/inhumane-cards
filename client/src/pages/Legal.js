@@ -14,7 +14,7 @@ export function Legal() {
     <p>
       Honestly I have no idea if I am legally in the right here.
       <br/>
-      I have shot an email to all of the creators of the unofficial expansions I use, and I will update the site as they respond.
+      I have messaged all of the creators of the unofficial expansions I use, and I will update the site as they respond.
     </p>
 
     <h2>What about the font you are using?</h2>

@@ -36,19 +36,19 @@ export function About() {
           <li>lacking most official and all unofficial expansions</li>
         </ul>
       </li>
+
+      <li>
+        <span>Everything Else</span>
+
+        <ul>
+          <li>I didn't know existed when I started the project</li>
+        </ul>
+      </li>
     </ul>
 
     <h2> How was this made? </h2>
     <p>
       The backend for this project is made with a Ruby on Rails backend and the frontend is made in React.js.
-
-      <br/><br/>
-
-      I am planning on moving to Next.js soon™ because the React.js devs literally say to not use Create-React-App and also it should help with frontend performance.
-
-      <br/><br/>
-
-      The backend being made with Rails is the main reason for all of the remaining bugs, as it was clearly not designed for a live updating card game.
     </p>
   </div>
 }

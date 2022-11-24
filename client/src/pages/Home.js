@@ -3,7 +3,16 @@ export function Home() {
     <h1>Change Log:</h1>
 
     <h2>
-      v0.5.2
+      v0.5.3 - 11/25/2022 - 11/26/2022
+    </h2>
+    <ul>
+      <li>Remove duplicate cards after game creation
+        <br/> - Some sets in the create a lobby screen share cards, this made those cards appear too often, which was lame and sad.
+      </li>
+    </ul>
+
+    <h2>
+      v0.5.2 - 11/24/2022
     </h2>
     <ul>
       <li>Fixed an issue where users sometimes failed to leave a game</li>
@@ -13,7 +22,7 @@ export function Home() {
     </ul>
 
     <h2>
-      v0.5.1
+      v0.5.1 - 11/23/2022
     </h2>
     <ul>
       <li>
