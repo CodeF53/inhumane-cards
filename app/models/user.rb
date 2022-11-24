@@ -64,9 +64,24 @@ class User < ApplicationRecord
     # when lobby owner leaves, assign new owner randomly
     old_game.update(lobby_owner: old_game.users.sample) if old_game.lobby_owner == self
 
+    # broadcast new state
+    old_game.broadcast_state
+
     # don't step game out of waiting lobby
-    return old_game.broadcast_state if %w[lobby over].include?(old_game.game_phase)
+    return if %w[lobby over].include?(old_game.game_phase)
 
     old_game.step_game # if game was waiting on user (to submit or pick), we should advance the game
+  end
+
+  def update_ping_time
+    update(last_ping: DateTime.now.to_i)
+  end
+
+  def update_input_time
+    update(last_input: DateTime.now.to_i)
+  end
+
+  def update_ping_input_times
+    update(last_ping: DateTime.now.to_i, last_input: DateTime.now.to_i)
   end
 end

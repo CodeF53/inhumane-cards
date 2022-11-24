@@ -24,6 +24,7 @@ class UsersController < ApplicationController
     @current_user.set_game_vars
     # TODO: broadcast user join
     found_game.broadcast_state
+    @current_user.update_ping_input_times
 
     render json: {}, status: :accepted
   end
@@ -45,6 +46,7 @@ class UsersController < ApplicationController
 
     sleep(0.1)
     @game.step_game
+    @current_user.update_input_time
 
     render json: {}, status: :accepted
   end
@@ -57,6 +59,7 @@ class UsersController < ApplicationController
     return render json: { errors: ['Card already discarded this round'] }, status: :conflict if @current_user.discarded_card?
 
     @current_user.update(discarded_card_index: params[:card_index])
+    @current_user.update_input_time
 
     render json: {}, status: :accepted
   end
@@ -73,6 +76,7 @@ class UsersController < ApplicationController
     @current_user.update(picked_card_id: params[:card_id])
 
     @game.step_game
+    @current_user.update_input_time
 
     render json: {}, status: :accepted
   end

@@ -30,7 +30,7 @@ export function App({ cable }) {
     if (user === null) { return }
 
     // clear cable subscriptions if not in a game
-    if (user.game_id === null) { cable.subscriptions.subscriptions = []; return; }
+    if (user.game_id === null) { cable.subscriptions.subscriptions.map(sub => sub.unsubscribe()); return; }
 
     if (window.location.href.split('/').slice(3)[0] !== "game") {
       // auto rejoin lobby if left

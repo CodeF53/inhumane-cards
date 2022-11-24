@@ -31,6 +31,7 @@ class GamesController < ApplicationController
       black_card_pool: card_packs.map(&:black_card_hash).flatten
     )
 
+    @current_user.update_ping_input_times
     @current_user.update(game: game)
     @current_user.set_game_vars
 
