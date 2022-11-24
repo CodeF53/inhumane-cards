@@ -29,7 +29,7 @@ export function GameLobby({ lobby: {id, host, password_protected, num_players, p
 
     <div className="spacer"/>
 
-    <input className={password_protected?"":"invisible"} type="password" placeholder="password" ariaLabel={`password to join ${host}'s game`}
+    <input className={password_protected?"":"invisible"} type="password" placeholder="password" aria-label={`password to join ${host}'s game`}
       value={password} onChange={(e)=>{setPassword(e.target.value); setErrorText("")}}/>
 
     {gameFull?
