@@ -37,6 +37,7 @@ export function App({ cable }) {
       // auto rejoin lobby if left
       navigate("/game/"+user.game_id)
     }
+    // eslint-disable-next-line
   }, [user])
 
   //
