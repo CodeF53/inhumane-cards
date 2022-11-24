@@ -17,8 +17,6 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
-    @current_user.leave_game unless @current_user.game_id.nil?
-
     return render json: { errors: ['Must select at least one pack'] }, status: :unprocessable_entity if params[:enabled_pack_ids].empty?
 
     game = Game.create!(game_params)
@@ -31,9 +29,7 @@ class GamesController < ApplicationController
       black_card_pool: card_packs.map(&:black_card_hash).flatten
     )
 
-    @current_user.update_ping_input_times
-    @current_user.update(game: game)
-    @current_user.set_game_vars
+    @current_user.join_game(game)
 
     render json: game, status: :created
   end

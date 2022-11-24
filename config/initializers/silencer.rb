@@ -5,6 +5,6 @@ Rails.application.configure do
     Rails::Rack::Logger,
     Silencer::Logger,
     config.log_tags,
-    get: [%r{^/game_state}]
+    get: [%r{^/game_state}, %r{^/card_categories}]
   )
 end

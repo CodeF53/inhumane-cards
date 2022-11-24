@@ -3,12 +3,14 @@ class UsersController < ApplicationController
   before_action :confirm_in_game
   skip_before_action :confirm_in_game, only: %i[create me join_game]
 
+  # signup
   def create
     user = User.create!(user_params)
     session[:user_id] = user.id
     render json: user, status: :created
   end
 
+  # persistent login
   def me
     render json: @current_user
   end
@@ -20,11 +22,7 @@ class UsersController < ApplicationController
 
     return render json: { errors: ['Game Full'] }, status: :gone if found_game.users.length == :player_limit
 
-    @current_user.update(game: found_game)
-    @current_user.set_game_vars
-    # TODO: broadcast user join
-    found_game.broadcast_state
-    @current_user.update_ping_input_times
+    @current_user.join_game(found_game)
 
     render json: {}, status: :accepted
   end
@@ -118,7 +116,6 @@ class UsersController < ApplicationController
 
     @game.update(lobby_owner_id: user_to_promote.id)
 
-    # TODO: broadcast user promotion
     @game.broadcast_state
 
     render json: {}, status: :accepted
