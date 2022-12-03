@@ -3,12 +3,13 @@ export function Home() {
     <h1>Change Log:</h1>
 
     <h2>
-      v0.5.3 - 11/25/2022 - 11/26/2022
+      v0.5.3 - 12/3/2022
     </h2>
     <ul>
       <li>Remove duplicate cards after game creation
         <br/> - Some sets in the create a lobby screen share cards, this made those cards appear too often, which was lame and sad.
       </li>
+      <li>Update About/Legal/Credits pages</li>
     </ul>
 
     <h2>
@@ -29,6 +30,13 @@ export function Home() {
         Try to fix "ghost lobbies" where people who close their browsers are still counted as in-game
         <br/>
         - I dropped the user table again for this, sorry
+      </li>
+    </ul>
+
+    <h1>Known Bugs:</h1>
+    <ul>
+      <li>
+        "Ghost Lobbies" still sometimes can occur
       </li>
     </ul>
   </div>
