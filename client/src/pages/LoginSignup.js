@@ -10,12 +10,13 @@ export function LoginSignup({ isLogin, user, setUser }) {
   const [errorText, setErrorText] = useState("")
 
   function handleSubmit(event) {
+    setUsername(username.trim())
     event.preventDefault()
     setErrorText("")
 
     fetch(isLogin?"/login":"/signup",{
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: username, password: password })
+      body: JSON.stringify({ username: username.trim(), password: password })
     }).then(r=>{ if (r.ok) { r.json().then(user=>{
       setUser(user) // save user details
       navigate("/") // send user back to home

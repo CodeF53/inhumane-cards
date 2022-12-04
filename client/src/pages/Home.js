@@ -3,6 +3,20 @@ export function Home() {
     <h1>Change Log:</h1>
 
     <h2>
+      v0.5.4 - 12/4/2022
+    </h2>
+    <ul>
+      <li>New user validations
+        <br/> - Username must be at least three characters
+        <br/> - Username can only contain A-Z, a-z, 0-9, -, and _
+        <br/> - User table has been 
+      </li>
+
+      <li>Auto kick timer more forgiving</li>
+      <li>Fix game ending one before winning score</li>
+    </ul>
+
+    <h2>
       v0.5.3 - 12/3/2022
     </h2>
     <ul>
@@ -35,9 +49,8 @@ export function Home() {
 
     <h1>Known Bugs:</h1>
     <ul>
-      <li>
-        "Ghost Lobbies" still sometimes can occur
-      </li>
+      <li>"Ghost Lobbies" still sometimes can occur</li>
+      <li>Duplicate cards still happen erdoirfsnjkg;lzmjesao-eprh</li>
     </ul>
   </div>
 }

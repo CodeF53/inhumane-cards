@@ -1,7 +1,11 @@
 class User < ApplicationRecord
   has_secure_password
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 16 }
+  validates :username,
+    presence: true,
+    uniqueness: { case_sensitive: false },
+    length: { minimum: 3, maximum: 16 },
+    format: { with: /^(\w|-)*$/ }
 
   belongs_to :game, optional: true
 
