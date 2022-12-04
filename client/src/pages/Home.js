@@ -9,7 +9,7 @@ export function Home() {
       <li>New user validations
         <br/> - Username must be at least three characters
         <br/> - Username can only contain A-Z, a-z, 0-9, -, and _
-        <br/> - User table has been 
+        <br/> - User table has been dropped again
       </li>
 
       <li>Auto kick timer more forgiving</li>
