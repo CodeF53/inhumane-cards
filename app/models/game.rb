@@ -29,7 +29,8 @@ class Game < ApplicationRecord
         sleep(5)
 
         puts 'checking if a user has won'
-        if winning_user.game_score >= winning_score + 1
+        puts users.map(&:game_score)
+        if winning_user.game_score >= winning_score
           puts "#{winning_user.username} wins"
           update(game_phase: 'over')
         else
