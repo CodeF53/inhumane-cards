@@ -3,7 +3,7 @@ export function Home() {
     <h1>Change Log:</h1>
 
     <h2>
-      v0.5.4 - 12/4/2022
+      v0.5.4 - 12/3/2022
     </h2>
     <ul>
       <li>New user validations
