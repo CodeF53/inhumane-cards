@@ -14,6 +14,7 @@ export function Home() {
 
       <li>Auto kick timer more forgiving</li>
       <li>Fix game ending one before winning score</li>
+      <li>Fix card drawing duplicates</li>
     </ul>
 
     <h2>
@@ -50,7 +51,6 @@ export function Home() {
     <h1>Known Bugs:</h1>
     <ul>
       <li>"Ghost Lobbies" still sometimes can occur</li>
-      <li>Duplicate cards still happen erdoirfsnjkg;lzmjesao-eprh</li>
     </ul>
   </div>
 }
