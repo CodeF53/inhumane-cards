@@ -13,7 +13,7 @@ export function Home() {
       </li>
 
       <li>Auto kick timer more forgiving</li>
-      <li>Fix game ending one before winning score</li>
+      <li>Fix game ending one before winning score, I think, I cant recreate the bug in my dev environment</li>
       <li>Fix card drawing duplicates</li>
     </ul>
 
