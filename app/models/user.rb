@@ -5,7 +5,7 @@ class User < ApplicationRecord
     presence: true,
     uniqueness: { case_sensitive: false },
     length: { minimum: 3, maximum: 16 },
-    format: { with: /^(\w|-)*$/ }
+    format: { with: /\A(\w|-)*\Z/ }
 
   belongs_to :game, optional: true
 
