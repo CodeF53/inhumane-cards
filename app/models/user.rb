@@ -2,10 +2,10 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :username,
-    presence: true,
-    uniqueness: { case_sensitive: false },
-    length: { minimum: 3, maximum: 16 },
-    format: { with: /\A(\w|-)*\Z/ }
+            presence: true,
+            uniqueness: { case_sensitive: false },
+            length: { minimum: 3, maximum: 16 },
+            format: { with: /\A(\w|-)*\Z/ }
 
   belongs_to :game, optional: true
 

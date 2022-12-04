@@ -114,6 +114,9 @@ class Game < ApplicationRecord
   def select_black_card
     update(used_black_card_ids: []) if (used_black_card_ids.length + 1) >= black_card_pool.length
 
+    # ! hacky fix
+    used_black_card_ids = Game.find(id).used_black_card_ids
+
     filtered_pool = black_card_pool.filter { |card| used_black_card_ids.exclude?(card.id) }
 
     card_id = filtered_pool.sample.id
@@ -123,6 +126,9 @@ class Game < ApplicationRecord
 
   def sample_white_cards(amount = 1)
     update(used_white_card_ids: []) if (used_white_card_ids.length + amount) >= white_card_pool.length
+
+    # ! hacky fix
+    used_white_card_ids = Game.find(id).used_white_card_ids
 
     filtered_pool = white_card_pool.filter { |card| used_white_card_ids.exclude?(card.id) }
 
